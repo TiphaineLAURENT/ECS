@@ -1,0 +1,4 @@
+/snap/clion/54/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/tiphaine/Github/ECS
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/tiphaine/Github/ECS/build
