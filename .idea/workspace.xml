@@ -43,19 +43,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6e4c9dc-35a6-4c28-85ee-25e6a9f28c78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/IComponent.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/IComponentContainer.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/ECS.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/ECS.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Entity/Entity.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Entity/Entity.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Platform.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -68,6 +56,15 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp">
           <provider selected="true" editor-type-id="text-editor">
@@ -77,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="512">
@@ -200,6 +197,7 @@
         <option value="$PROJECT_DIR$/ECS/src/Component/IComponentContainer.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/IComponent.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -314,12 +312,12 @@
       <updated>1542206245907</updated>
       <workItem from="1542206247324" duration="2597000" />
       <workItem from="1542215373611" duration="18032000" />
-      <workItem from="1543450142523" duration="10658000" />
+      <workItem from="1543450142523" duration="10719000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31287000" />
+    <option name="totallyTimeSpent" value="31348000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -347,9 +345,9 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TeamCity" order="9" weight="0.32972974" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32972974" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="CMake" order="12" visible="true" weight="0.32937366" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.32937366" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -362,9 +360,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -495,6 +490,13 @@
             <element signature="e#5939#5948#0" expanded="true" />
             <element signature="e#6057#6066#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
         </state>
       </provider>
     </entry>
