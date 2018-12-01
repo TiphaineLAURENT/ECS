@@ -130,22 +130,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/Component.cpp">
+			<Option target="ECS"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/Component.hpp">
+			<Option target="ECS"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.cpp">
+			<Option target="ECS"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.hpp">
+			<Option target="ECS"/>
+		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.cpp">
 			<Option target="ECS"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.hpp">
 			<Option target="ECS"/>
 		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponent.cpp">
+			<Option target="ECS"/>
+		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponent.hpp">
-			<Option target="ECS"/>
-		</Unit>
-		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponentContainer.hpp">
-			<Option target="ECS"/>
-		</Unit>
-		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/ECS.cpp">
-			<Option target="ECS"/>
-		</Unit>
-		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/ECS.hpp">
 			<Option target="ECS"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp">
@@ -154,10 +160,13 @@
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.hpp">
 			<Option target="ECS"/>
 		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp">
+			<Option target="ECS"/>
+		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.hpp">
 			<Option target="ECS"/>
 		</Unit>
-		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Platform.hpp">
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/util/util.hpp">
 			<Option target="ECS"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/test/src/main.cpp">

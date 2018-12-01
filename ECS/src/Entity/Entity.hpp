@@ -9,25 +9,23 @@
 # define ECS_ENTITY_HPP
 
 # include <ostream>
-# include <memory>
+# include "IEntity.hpp"
 
 namespace ecs
 {
 
-  class Entity
+  template <class E>
+  class Entity : public IEntity
   {
 // ATTRIBUTES
     private:
-	  static size_t _maxId;
-	  size_t _id;
-	  std::unique_ptr<ComponentManager> _componentManager;
-
     public:
+	  static const EntityTypeID _entityTypeID;
 
 // METHODS
     public:// CONSTRUCTORS
-	  Entity();
-	  ~Entity() = default;
+	  Entity() = default;
+	  virtual ~Entity() = default;
 	  Entity(const Entity &copy) = default;
 	  Entity(Entity &&) noexcept = default;
 
@@ -36,10 +34,17 @@ namespace ecs
 	  Entity &operator=(Entity &&) = default;
 
     public:
+	  const EntityTypeID getEntityTypeID() const override;
+
     private:
   };
 
-  std::ostream &operator<<(std::ostream &out, const Entity &);
+  template <class E>
+  std::ostream &operator<<(std::ostream &out, const Entity<E> &);
+
+  template <class E>
+  const EntityTypeID Entity<E>::_entityTypeID =
+	                     util::FamilyTypeID<IEntity>::getTypeID<E>();
 
 }
 

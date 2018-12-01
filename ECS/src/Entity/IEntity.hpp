@@ -8,99 +8,62 @@
 #ifndef ECS_IENTITY_HPP
 # define ECS_IENTITY_HPP
 
-#include <utility>
-#include "../Platform.hpp"
-#include "../Component/ComponentManager.hpp"
+# include <ostream>
+# include <vector>
+# include "../util/util.hpp"
+# include "../Component/ComponentManager.hpp"
 
 namespace ecs
 {
 
-  using EntityTypeId = TypeId;
-  using EntityId = Handle64;
+  using EntityID = util::ID;
+  static const EntityID        INVALID_ENTITY_ID = util::INVALID_ID;
 
-  static const EntityId INVALID_ENTITY_ID = Handle64::INVALID_HANDLE;
+  using EntityTypeID = util::ID;
 
   class IEntity
   {
+// ATTRIBUTES
     private:
-	  ComponentManager *_componentManagerInstance;
+	  EntityID                     _entityID;
+	  static std::vector<EntityID> _freeID;
+	  static EntityID              _entityCount;
 
-    protected:
-	  EntityId _entityId;
-	  bool     _active;
-
-    public:
-	  IEntity() = default;
-	  virtual ~IEntity() = default;
+	  bool _active;
 
     public:
-	  inline bool operator==(const IEntity &rhs) const
-	  {
-		  return _entityId == rhs._entityId;
-	  }
 
-	  inline bool operator!=(const IEntity &rhs) const
-	  {
-		  return _entityId != rhs._entityId;
-	  }
+// METHODS
+    public:// CONSTRUCTORS
+	  IEntity();
+	  virtual ~IEntity();
+	  IEntity(const IEntity &copy) = default;
+	  IEntity(IEntity &&) noexcept = default;
 
-	  inline bool operator==(const IEntity *rhs) const
-	  {
-		  return _entityId == rhs->_entityId;
-	  }
-
-	  inline bool operator!=(const IEntity *rhs) const
-	  {
-		  return _entityId != rhs->_entityId;
-	  }
+    public: //OPERATORS
+	  IEntity &operator=(const IEntity &other) = default;
+	  IEntity &operator=(IEntity &&) noexcept = default;
 
     public:
-	  template<class T>
-	  T *getComponent() const
-	  {
-		  return _componentManagerInstance->getComponent<T>(_entityId);
-	  }
+	  static const EntityID getEntityCount();
 
-	  template<class T, class ...P>
-	  T *addCommponent(P &&... param)
-	  {
-		  return _componentManagerInstance->addComponent<T>(_entityId,
-		                                                    std::forward<P>(
-			                                                    param
-		                                                    )...
-		  );
-	  }
+	  const EntityID getEntityID() const;
+	  virtual const EntityTypeID getEntityTypeID() const = 0;
 
-	  template<class T>
-	  void removeComponent()
-	  {
-		  _componentManagerInstance->removeComponent<T>(_entityId);
-	  }
+	  IEntity &setActive(bool state);
+	  const bool isActive() const;
 
-	  virtual const EntityTypeId getStaticEntityTypeId() const = 0;
+	  template <class C, class ...ARGS>
+	  C &addComponent(ARGS&&... args);
+	  template <class C>
+	  C &getComponent();
+	  template <class C>
+	  IEntity &removeComponent();
 
-	  inline const EntityId getEntityId() const
-	  {
-	  	return _entityId;
-	  }
-
-	  void setActive(bool active)
-	  {
-	  	_active = active;
-	  }
-
-	  inline bool isActive() const
-	  {
-	  	return _active;
-	  }
-
-	  virtual void onEnable()
-	  {}
-
-	  virtual void onDisable()
-	  {}
+    private:
   };
 
+  std::ostream &operator<<(std::ostream &out, const IEntity &);
 }
 
-#endif //ECS_IENTITY_HPP
+#endif /* !ECS_IENTITY_HPP */

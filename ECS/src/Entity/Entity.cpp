@@ -10,11 +10,10 @@
 namespace ecs
 {
 
-  size_t Entity::_maxId = 0;
-
-  Entity::Entity()
-	  : _id(_maxId++)
+  template<class E>
+  const EntityTypeID Entity<E>::getEntityTypeID() const
   {
+	  return _entityTypeID;
   }
 
 }

@@ -8,81 +8,58 @@
 #ifndef ECS_ICOMPONENT_HPP
 # define ECS_ICOMPONENT_HPP
 
-#include "../Platform.hpp"
-#include "../Entity/IEntity.hpp"
+# include <ostream>
+# include <vector>
+# include "../util/util.hpp"
+# include "../Entity/IEntity.hpp"
 
 namespace ecs
 {
 
-  using ComponentId = ObjectId;
-  using ComponentTypeId = TypeId;
-
-  static const ComponentId INVALID_COMPONENT_ID = INVALID_OBJECT_ID;
-
-  template<class T>
-  class Component;
+  using ComponentID = util::ID;
+  using ComponentTypeID = util::ID;
 
   class IComponent
   {
-    protected:
-	  ComponentId _hashValue;
-	  ComponentId _componentId;
-	  EntityId    _owner;
-	  bool        _enabled;
+// ATTRIBUTES
+    private:
+	  ComponentID                  _componentID;
+	  static const ComponentID     INVALID_COMPONENT_ID = util::INVALID_ID;
+	  static std::vector<ComponentID> _freeID;
+	  static ComponentID            _componentCount;
+
+	  EntityID _owner;
+
+	  bool _active;
 
     public:
-	  IComponent() = default;
-	  virtual ~IComponent() = default;
+
+// METHODS
+    public:// CONSTRUCTORS
+	  IComponent();
+	  virtual ~IComponent();
+	  IComponent(const IComponent &copy) = default;
+	  IComponent(IComponent &&) noexcept = default;
+
+    public: //OPERATORS
+	  IComponent &operator=(const IComponent &other) = default;
+	  IComponent &operator=(IComponent &&) = default;
 
     public:
-	  inline const bool operator==(const IComponent &other) const
-	  {
-	  	return _hashValue == other._hashValue;
-	  }
+	  static const ComponentID getEntityCount();
 
-	  inline const bool operator!=(const IComponent &other) const
-	  {
-		  return _hashValue != other._hashValue;
-	  }
+	  const ComponentID getComponentID() const;
 
-    public:
-	  inline void setComponentId(ComponentId componentId)
-	  {
-		  _componentId = componentId;
-	  }
+	  const EntityID getOwner() const;
 
-	  inline const ComponentId getComponentId() const
-	  {
-		  return _componentId;
-	  }
+	  IComponent &setActive(bool state);
+	  const bool isActive() const;
 
-	  inline void setHashValue(ComponentId hashValue)
-	  {
-		  _hashValue = hashValue;
-	  }
-
-	  inline void setOwner(EntityId owner)
-	  {
-		  _owner = owner;
-	  }
-
-	  inline const EntityId getOwner() const
-	  {
-	  	return _owner;
-	  }
-
-	  inline void setActive(bool state)
-	  {
-	  	_enabled = state;
-	  }
-
-	  inline bool isActive() const
-	  {
-	  	return _enabled;
-	  }
-
+    private:
   };
+
+  std::ostream &operator<<(std::ostream &out, const IComponent &);
 
 }
 
-#endif //ECS_ICOMPONENT_HPP
+#endif /* !ECS_ICOMPONENT_HPP */

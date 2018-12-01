@@ -57,35 +57,22 @@ include CMakeFiles/ECS.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ECS.dir/flags.make
 
-CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o: CMakeFiles/ECS.dir/flags.make
-CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o: ../ECS/src/ECS.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/ECS.cpp
+CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o: CMakeFiles/ECS.dir/flags.make
+CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o: ../ECS/src/Entity/IEntity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp
 
-CMakeFiles/ECS.dir/ECS/src/ECS.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/ECS.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/ECS.cpp > CMakeFiles/ECS.dir/ECS/src/ECS.cpp.i
+CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp > CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.i
 
-CMakeFiles/ECS.dir/ECS/src/ECS.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/ECS.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/ECS.cpp -o CMakeFiles/ECS.dir/ECS/src/ECS.cpp.s
-
-CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o: CMakeFiles/ECS.dir/flags.make
-CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o: ../ECS/src/Entity/Entity.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp
-
-CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp > CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i
-
-CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp -o CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s
+CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp -o CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.s
 
 CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o: CMakeFiles/ECS.dir/flags.make
 CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o: ../ECS/src/Component/ComponentManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.cpp
 
 CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.i: cmake_force
@@ -96,21 +83,79 @@ CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.cpp -o CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.s
 
+CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o: CMakeFiles/ECS.dir/flags.make
+CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o: ../ECS/src/Component/ComponentContainer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.cpp
+
+CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.cpp > CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.i
+
+CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.cpp -o CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.s
+
+CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o: CMakeFiles/ECS.dir/flags.make
+CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o: ../ECS/src/Component/IComponent.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Component/IComponent.cpp
+
+CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Component/IComponent.cpp > CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.i
+
+CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Component/IComponent.cpp -o CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.s
+
+CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o: CMakeFiles/ECS.dir/flags.make
+CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o: ../ECS/src/Entity/Entity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp
+
+CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp > CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i
+
+CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp -o CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s
+
+CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o: CMakeFiles/ECS.dir/flags.make
+CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o: ../ECS/src/Component/Component.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o -c /home/tiphaine/Github/ECS/ECS/src/Component/Component.cpp
+
+CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tiphaine/Github/ECS/ECS/src/Component/Component.cpp > CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.i
+
+CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tiphaine/Github/ECS/ECS/src/Component/Component.cpp -o CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.s
+
 # Object files for target ECS
 ECS_OBJECTS = \
-"CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o" \
+"CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o" \
+"CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o" \
+"CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o" \
+"CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o" \
 "CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o" \
-"CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o"
+"CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o"
 
 # External object files for target ECS
 ECS_EXTERNAL_OBJECTS =
 
-lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/ECS.cpp.o
-lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o
+lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o
 lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o
+lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o
+lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o
+lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o
+lib/libECS.so: CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o
 lib/libECS.so: CMakeFiles/ECS.dir/build.make
 lib/libECS.so: CMakeFiles/ECS.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library lib/libECS.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library lib/libECS.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ECS.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
