@@ -10,32 +10,47 @@
 
 # include <ostream>
 # include <memory>
-# include "IComponent.hpp"
+# include <map>
+# include "IComponentContainer.hpp"
 
 namespace ecs
 {
 
   template <class C>
-  class ComponentContainer
+  using CComponentIterator =
+  typename std::map<EntityID, std::unique_ptr<IComponent>>::iterator;
+
+  template <class C>
+  class ComponentContainer : public IComponentContainer
   {
 // ATTRIBUTES
     private:
-	  std::vector<std::unique_ptr<IComponent>> _components;
+	  std::map<EntityID, std::unique_ptr<IComponent>> _components;
 
     public:
 
 // METHODS
     public:// CONSTRUCTORS
 	  ComponentContainer();
-	  ~ComponentContainer() = default;
+	  ~ComponentContainer() override = default;
 	  ComponentContainer(const ComponentContainer &copy) = default;
 	  ComponentContainer(ComponentContainer &&) noexcept = default;
 
     public: //OPERATORS
 	  ComponentContainer &operator=(const ComponentContainer &other) = default;
-	  ComponentContainer &operator=(ComponentContainer &&) = default;
+	  ComponentContainer &operator=(ComponentContainer &&) noexcept = default;
 
     public:
+	  const char *getComponentContainerTypeName() const override;
+
+	  template <class ...ARGS>
+	  C &addComponent(const EntityID entityID, ARGS&&... args);
+	  C &getComponent(const EntityID entityID);
+	  void removeComponent(const EntityID entityID) override;
+
+	  CComponentIterator<C> begin();
+	  CComponentIterator<C> end();
+
     private:
   };
 

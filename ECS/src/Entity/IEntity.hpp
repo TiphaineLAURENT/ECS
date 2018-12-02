@@ -11,7 +11,6 @@
 # include <ostream>
 # include <vector>
 # include "../util/util.hpp"
-# include "../Component/ComponentManager.hpp"
 
 namespace ecs
 {
@@ -28,6 +27,7 @@ namespace ecs
 	  EntityID                     _entityID;
 	  static std::vector<EntityID> _freeID;
 	  static EntityID              _entityCount;
+	  EntityTypeID _entityTypeID;
 
 	  bool _active;
 

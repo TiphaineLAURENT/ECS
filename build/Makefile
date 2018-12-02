@@ -244,6 +244,33 @@ ECS/src/Component/IComponent.cpp.s:
 	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.s
 .PHONY : ECS/src/Component/IComponent.cpp.s
 
+ECS/src/Component/IComponentContainer.o: ECS/src/Component/IComponentContainer.cpp.o
+
+.PHONY : ECS/src/Component/IComponentContainer.o
+
+# target to build an object file
+ECS/src/Component/IComponentContainer.cpp.o:
+	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.o
+.PHONY : ECS/src/Component/IComponentContainer.cpp.o
+
+ECS/src/Component/IComponentContainer.i: ECS/src/Component/IComponentContainer.cpp.i
+
+.PHONY : ECS/src/Component/IComponentContainer.i
+
+# target to preprocess a source file
+ECS/src/Component/IComponentContainer.cpp.i:
+	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.i
+.PHONY : ECS/src/Component/IComponentContainer.cpp.i
+
+ECS/src/Component/IComponentContainer.s: ECS/src/Component/IComponentContainer.cpp.s
+
+.PHONY : ECS/src/Component/IComponentContainer.s
+
+# target to generate assembly for a file
+ECS/src/Component/IComponentContainer.cpp.s:
+	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.s
+.PHONY : ECS/src/Component/IComponentContainer.cpp.s
+
 ECS/src/Entity/Entity.o: ECS/src/Entity/Entity.cpp.o
 
 .PHONY : ECS/src/Entity/Entity.o
@@ -347,6 +374,9 @@ help:
 	@echo "... ECS/src/Component/IComponent.o"
 	@echo "... ECS/src/Component/IComponent.i"
 	@echo "... ECS/src/Component/IComponent.s"
+	@echo "... ECS/src/Component/IComponentContainer.o"
+	@echo "... ECS/src/Component/IComponentContainer.i"
+	@echo "... ECS/src/Component/IComponentContainer.s"
 	@echo "... ECS/src/Entity/Entity.o"
 	@echo "... ECS/src/Entity/Entity.i"
 	@echo "... ECS/src/Entity/Entity.s"

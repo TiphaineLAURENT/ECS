@@ -6,6 +6,7 @@
 */
 
 #include "IEntity.hpp"
+#include "../Component/ComponentManager.hpp"
 
 namespace ecs
 {
@@ -60,7 +61,7 @@ namespace ecs
   C &IEntity::addComponent(ARGS&&... args)
   {
 	  return ComponentManager::addComponent<C>(_entityID,
-	                                        std::forward<ARGS>(args)...);
+	                                           std::forward<ARGS>(args)...);
   }
 
   template<class C>

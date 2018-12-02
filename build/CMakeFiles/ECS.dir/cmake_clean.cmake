@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o"
   "CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o"
   "CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o"
+  "CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.o"
   "lib/libECS.pdb"
   "lib/libECS.so"
 )

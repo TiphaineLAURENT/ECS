@@ -9,7 +9,12 @@ set(ECS_SOURCE_DIRECTORY ECS/src)
 set(ECS_SOURCES
         ECS/src/Entity/IEntity.cpp ECS/src/Entity/IEntity.hpp
         ECS/src/util/util.hpp
-        ECS/src/Component/ComponentManager.cpp ECS/src/Component/ComponentManager.hpp ECS/src/Component/ComponentContainer.cpp ECS/src/Component/ComponentContainer.hpp ECS/src/Component/IComponent.cpp ECS/src/Component/IComponent.hpp ECS/src/Entity/Entity.cpp ECS/src/Entity/Entity.hpp ECS/src/Component/Component.cpp ECS/src/Component/Component.hpp)
+        ECS/src/Component/ComponentManager.cpp ECS/src/Component/ComponentManager.hpp
+        ECS/src/Component/ComponentContainer.cpp ECS/src/Component/ComponentContainer.hpp
+        ECS/src/Component/IComponent.cpp ECS/src/Component/IComponent.hpp
+        ECS/src/Entity/Entity.cpp ECS/src/Entity/Entity.hpp
+        ECS/src/Component/Component.cpp ECS/src/Component/Component.hpp
+        ECS/src/Component/IComponentContainer.cpp ECS/src/Component/IComponentContainer.hpp)
 add_library(ECS SHARED ${ECS_SOURCES})
 
 add_executable(test test/src/main.cpp)

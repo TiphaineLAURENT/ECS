@@ -154,6 +154,12 @@
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponent.hpp">
 			<Option target="ECS"/>
 		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponentContainer.cpp">
+			<Option target="ECS"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponentContainer.hpp">
+			<Option target="ECS"/>
+		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp">
 			<Option target="ECS"/>
 		</Unit>

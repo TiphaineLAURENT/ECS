@@ -23,7 +23,7 @@ namespace ecs
 	  static ComponentManager *_instance;
 
 	  std::unordered_map<ComponentTypeID,
-		  std::unique_ptr<ComponentContainer>> _containers;
+		  std::unique_ptr<IComponentContainer>> _containers;
 
     public:
 
@@ -40,6 +40,8 @@ namespace ecs
 
     public:
 	  static ComponentManager &getInstance();
+	  template <class C>
+	  static ComponentContainer<C> &getComponentContainer();
 
 	  template <class C, class ...ARGS>
 	  static C &addComponent(const EntityID entityID, ARGS&&... args);

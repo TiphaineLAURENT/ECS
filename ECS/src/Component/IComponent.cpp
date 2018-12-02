@@ -52,4 +52,11 @@ namespace ecs
 	  return _active;
   }
 
+  IComponent &IComponent::setOwner(const EntityID entityID)
+  {
+	  _owner = entityID;
+
+	  return *this;
+  }
+
 }

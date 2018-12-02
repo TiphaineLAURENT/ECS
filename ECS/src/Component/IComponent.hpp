@@ -50,6 +50,7 @@ namespace ecs
 
 	  const ComponentID getComponentID() const;
 
+	  IComponent &setOwner(const EntityID entityID);
 	  const EntityID getOwner() const;
 
 	  IComponent &setActive(bool state);
