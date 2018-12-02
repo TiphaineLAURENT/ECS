@@ -43,29 +43,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6e4c9dc-35a6-4c28-85ee-25e6a9f28c78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/IComponentContainer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ECS/src/Component/IComponentContainer.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/IComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/IComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Component/IComponent.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Component/IComponent.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Entity/IEntity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Entity/IEntity.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/ECS.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/test.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/test.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/ECS.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/build/ECS.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Makefile" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -78,49 +57,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ECS/src/Component/Component.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="664">
-              <caret line="47" column="79" selection-start-line="47" selection-start-column="79" selection-end-line="47" selection-end-column="79" />
-              <folding>
-                <element signature="e#127#146#0" expanded="true" />
-                <element signature="e#203#212#0" expanded="true" />
-                <element signature="e#860#869#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentContainer.cpp">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="61" column="11" lean-forward="true" selection-start-line="61" selection-start-column="11" selection-end-line="61" selection-end-column="11" />
-              <folding>
-                <element signature="e#144#153#0" expanded="true" />
-                <element signature="e#144#153#0" expanded="true" />
-                <element signature="e#488#497#0" expanded="true" />
-                <element signature="e#508#523#0" expanded="true" />
-                <element signature="e#1153#1162#0" expanded="true" />
-                <element signature="e#1116#1125#0" expanded="true" />
-                <element signature="e#1247#1256#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentContainer.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="51" column="38" lean-forward="true" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
-              <folding>
-                <element signature="e#154#173#0" expanded="true" />
-                <element signature="e#276#285#0" expanded="true" />
-                <element signature="e#358#367#0" expanded="true" />
-                <element signature="e#940#955#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="437">
+              <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -166,34 +107,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ECS/src/Component/IComponent.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="56" column="28" lean-forward="true" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ECS/src/Component/IComponent.hpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="52" column="56" lean-forward="true" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
+              <caret line="52" column="56" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
               <folding>
                 <element signature="e#130#149#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ECS/src/Entity/IEntity.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="62" column="38" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
-              <folding>
-                <element signature="e#71#93#0" expanded="true" />
-                <element signature="e#904#928#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -203,7 +122,7 @@
         <entry file="file://$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="304">
-              <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
               <folding>
                 <element signature="e#121#140#0" expanded="true" />
               </folding>
@@ -233,7 +152,6 @@
         <option value="$PROJECT_DIR$/ECS/src/util/util.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Entity/Entity.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Entity/Entity.cpp" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Entity/IEntity.cpp" />
@@ -241,9 +159,10 @@
         <option value="$PROJECT_DIR$/ECS/src/Component/IComponent.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/IComponent.cpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/ComponentManager.hpp" />
-        <option value="$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.hpp" />
         <option value="$PROJECT_DIR$/ECS/src/Component/ComponentContainer.cpp" />
+        <option value="$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -292,13 +211,6 @@
               <item name="ECS" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ECS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ECS" type="462c0819:PsiDirectoryNode" />
-              <item name="ECS" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -364,12 +276,12 @@
       <workItem from="1542215373611" duration="18032000" />
       <workItem from="1543450142523" duration="11364000" />
       <workItem from="1543616094751" duration="17334000" />
-      <workItem from="1543766704947" duration="6670000" />
+      <workItem from="1543766704947" duration="6735000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55997000" />
+    <option name="totallyTimeSpent" value="56062000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -384,7 +296,7 @@
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26040554" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26040554" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Inspection Results" weight="0.32937366" />
@@ -398,10 +310,10 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TeamCity" order="9" weight="0.32972974" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32937366" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.32937366" />
-      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.32937366" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -425,13 +337,6 @@
     <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentPool.hpp" />
     <entry file="file://$PROJECT_DIR$/ECS/src/ECS.hpp" />
     <entry file="file://$PROJECT_DIR$/ECS/src/Platform.hpp" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ECS/src/Component/Component.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -493,7 +398,7 @@
     <entry file="file://$PROJECT_DIR$/ECS/src/Entity/IEntity.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
-          <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
             <element signature="e#121#140#0" expanded="true" />
           </folding>
@@ -503,7 +408,7 @@
     <entry file="file://$PROJECT_DIR$/ECS/src/Component/IComponent.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="52" column="56" lean-forward="true" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
+          <caret line="52" column="56" selection-start-line="52" selection-start-column="56" selection-end-line="52" selection-end-column="56" />
           <folding>
             <element signature="e#130#149#0" expanded="true" />
           </folding>
@@ -550,18 +455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-          <folding>
-            <element signature="e#280#304#0" expanded="true" />
-            <element signature="e#731#740#0" expanded="true" />
-            <element signature="e#1006#1015#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ECS/src/Component/Component.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="664">
@@ -600,6 +493,25 @@
             <element signature="e#1116#1125#0" expanded="true" />
             <element signature="e#1247#1256#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ECS/src/Component/ComponentManager.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+          <folding>
+            <element signature="e#280#304#0" expanded="true" />
+            <element signature="e#731#740#0" expanded="true" />
+            <element signature="e#1006#1015#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
         </state>
       </provider>
     </entry>
