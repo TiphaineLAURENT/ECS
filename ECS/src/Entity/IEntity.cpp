@@ -57,13 +57,6 @@ namespace ecs
 	  _freeID.push_back(_entityID);
   }
 
-  template<class C, class... ARGS>
-  C &IEntity::addComponent(ARGS&&... args)
-  {
-	  return ComponentManager::addComponent<C>(_entityID,
-	                                           std::forward<ARGS>(args)...);
-  }
-
   template<class C>
   C &IEntity::getComponent()
   {

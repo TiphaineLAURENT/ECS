@@ -10,6 +10,8 @@
 namespace ecs
 {
 
+  ComponentManager *ComponentManager::_instance = nullptr;
+
   ComponentManager &ComponentManager::getInstance()
   {
 	  if (!_instance)
@@ -49,6 +51,25 @@ namespace ecs
 	                "Component must be derived from IComponent");
 
 	  const ComponentTypeID componentTypeID = C::_componentTypeID;
-	  return getInstance()._containers[componentTypeID];
+	  ComponentManager &instance = getInstance();
+
+	  if (instance._containers.find(componentTypeID)
+	      == instance._containers.end()) {
+		  instance._containers.try_emplace(componentTypeID);
+	  }
+
+	  return instance._containers[componentTypeID];
+  }
+
+  template<class C>
+  CComponentIterator<C> ComponentManager::begin()
+  {
+	  return getComponentContainer<C>().begin();
+  }
+
+  template<class C>
+  CComponentIterator<C> ComponentManager::end()
+  {
+	  return getComponentContainer<C>().end();
   }
 }

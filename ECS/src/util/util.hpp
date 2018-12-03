@@ -8,7 +8,8 @@
 #ifndef ECS_UTIL_HPP
 # define ECS_UTIL_HPP
 
-#include <cstddef>
+# include <cstddef>
+# include <limits>
 
 namespace ecs
 {
@@ -39,6 +40,9 @@ namespace ecs
     };
 
   }
+
+  using EntityID = util::ID;
+
 }
 
 #endif //ECS_UTIL_HPP

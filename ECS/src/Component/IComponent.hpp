@@ -11,7 +11,6 @@
 # include <ostream>
 # include <vector>
 # include "../util/util.hpp"
-# include "../Entity/IEntity.hpp"
 
 namespace ecs
 {
@@ -50,7 +49,7 @@ namespace ecs
 
 	  const ComponentID getComponentID() const;
 
-	  IComponent &setOwner(const EntityID entityID);
+	  IComponent &setOwner(EntityID entityID);
 	  const EntityID getOwner() const;
 
 	  IComponent &setActive(bool state);

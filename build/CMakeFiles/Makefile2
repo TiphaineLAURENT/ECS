@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/tiphaine/Github/ECS/build
 # Target rules for target CMakeFiles/test.dir
 
 # All Build rule for target.
-CMakeFiles/test.dir/all: CMakeFiles/ECS.dir/all
+CMakeFiles/test.dir/all: CMakeFiles/ecs.dir/all
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/depend
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=9,10 "Built target test"
@@ -102,39 +102,39 @@ clean: CMakeFiles/test.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/ECS.dir
+# Target rules for target CMakeFiles/ecs.dir
 
 # All Build rule for target.
-CMakeFiles/ECS.dir/all:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/depend
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target ECS"
-.PHONY : CMakeFiles/ECS.dir/all
+CMakeFiles/ecs.dir/all:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/depend
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tiphaine/Github/ECS/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target ecs"
+.PHONY : CMakeFiles/ecs.dir/all
 
 # Include target in all.
-all: CMakeFiles/ECS.dir/all
+all: CMakeFiles/ecs.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ECS.dir/rule: cmake_check_build_system
+CMakeFiles/ecs.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiphaine/Github/ECS/build/CMakeFiles 8
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ECS.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ecs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tiphaine/Github/ECS/build/CMakeFiles 0
-.PHONY : CMakeFiles/ECS.dir/rule
+.PHONY : CMakeFiles/ecs.dir/rule
 
 # Convenience name for target.
-ECS: CMakeFiles/ECS.dir/rule
+ecs: CMakeFiles/ecs.dir/rule
 
-.PHONY : ECS
-
-# clean rule for target.
-CMakeFiles/ECS.dir/clean:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/clean
-.PHONY : CMakeFiles/ECS.dir/clean
+.PHONY : ecs
 
 # clean rule for target.
-clean: CMakeFiles/ECS.dir/clean
+CMakeFiles/ecs.dir/clean:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/clean
+.PHONY : CMakeFiles/ecs.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/ecs.dir/clean
 
 .PHONY : clean
 

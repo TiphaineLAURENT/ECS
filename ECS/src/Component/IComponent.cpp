@@ -10,6 +10,9 @@
 namespace ecs
 {
 
+  std::vector<ComponentID> IComponent::_freeID;
+  ComponentID IComponent::_componentCount = 0;
+
   IComponent::IComponent()
 	  : _componentID(INVALID_COMPONENT_ID)
   {

@@ -11,7 +11,6 @@
 # include <ostream>
 # include <unordered_map>
 # include "ComponentContainer.hpp"
-# include "../Entity/IEntity.hpp"
 
 namespace ecs
 {
@@ -44,11 +43,16 @@ namespace ecs
 	  static ComponentContainer<C> &getComponentContainer();
 
 	  template <class C, class ...ARGS>
-	  static C &addComponent(const EntityID entityID, ARGS&&... args);
+	  static C &addComponent(EntityID entityID, ARGS&&... args);
 	  template <class C>
-	  static C &getComponent(const EntityID entityID);
+	  static C &getComponent(EntityID entityID);
 	  template <class C>
-	  static void removeComponent(const EntityID entityID);
+	  static void removeComponent(EntityID entityID);
+
+	  template <class C>
+	  static CComponentIterator<C> begin();
+	  template <class C>
+	  static CComponentIterator<C> end();
 
     private:
   };

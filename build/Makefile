@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/tiphaine/Github/ECS/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/54/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/snap/clion/54/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -124,17 +124,17 @@ test/fast:
 .PHONY : test/fast
 
 #=============================================================================
-# Target rules for targets named ECS
+# Target rules for targets named ecs
 
 # Build rule for target.
-ECS: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ECS
-.PHONY : ECS
+ecs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ecs
+.PHONY : ecs
 
 # fast build rule for target.
-ECS/fast:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/build
-.PHONY : ECS/fast
+ecs/fast:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/build
+.PHONY : ecs/fast
 
 ECS/src/Component/Component.o: ECS/src/Component/Component.cpp.o
 
@@ -142,7 +142,7 @@ ECS/src/Component/Component.o: ECS/src/Component/Component.cpp.o
 
 # target to build an object file
 ECS/src/Component/Component.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/Component.cpp.o
 .PHONY : ECS/src/Component/Component.cpp.o
 
 ECS/src/Component/Component.i: ECS/src/Component/Component.cpp.i
@@ -151,7 +151,7 @@ ECS/src/Component/Component.i: ECS/src/Component/Component.cpp.i
 
 # target to preprocess a source file
 ECS/src/Component/Component.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/Component.cpp.i
 .PHONY : ECS/src/Component/Component.cpp.i
 
 ECS/src/Component/Component.s: ECS/src/Component/Component.cpp.s
@@ -160,7 +160,7 @@ ECS/src/Component/Component.s: ECS/src/Component/Component.cpp.s
 
 # target to generate assembly for a file
 ECS/src/Component/Component.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/Component.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/Component.cpp.s
 .PHONY : ECS/src/Component/Component.cpp.s
 
 ECS/src/Component/ComponentContainer.o: ECS/src/Component/ComponentContainer.cpp.o
@@ -169,7 +169,7 @@ ECS/src/Component/ComponentContainer.o: ECS/src/Component/ComponentContainer.cpp
 
 # target to build an object file
 ECS/src/Component/ComponentContainer.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentContainer.cpp.o
 .PHONY : ECS/src/Component/ComponentContainer.cpp.o
 
 ECS/src/Component/ComponentContainer.i: ECS/src/Component/ComponentContainer.cpp.i
@@ -178,7 +178,7 @@ ECS/src/Component/ComponentContainer.i: ECS/src/Component/ComponentContainer.cpp
 
 # target to preprocess a source file
 ECS/src/Component/ComponentContainer.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentContainer.cpp.i
 .PHONY : ECS/src/Component/ComponentContainer.cpp.i
 
 ECS/src/Component/ComponentContainer.s: ECS/src/Component/ComponentContainer.cpp.s
@@ -187,7 +187,7 @@ ECS/src/Component/ComponentContainer.s: ECS/src/Component/ComponentContainer.cpp
 
 # target to generate assembly for a file
 ECS/src/Component/ComponentContainer.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentContainer.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentContainer.cpp.s
 .PHONY : ECS/src/Component/ComponentContainer.cpp.s
 
 ECS/src/Component/ComponentManager.o: ECS/src/Component/ComponentManager.cpp.o
@@ -196,7 +196,7 @@ ECS/src/Component/ComponentManager.o: ECS/src/Component/ComponentManager.cpp.o
 
 # target to build an object file
 ECS/src/Component/ComponentManager.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentManager.cpp.o
 .PHONY : ECS/src/Component/ComponentManager.cpp.o
 
 ECS/src/Component/ComponentManager.i: ECS/src/Component/ComponentManager.cpp.i
@@ -205,7 +205,7 @@ ECS/src/Component/ComponentManager.i: ECS/src/Component/ComponentManager.cpp.i
 
 # target to preprocess a source file
 ECS/src/Component/ComponentManager.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentManager.cpp.i
 .PHONY : ECS/src/Component/ComponentManager.cpp.i
 
 ECS/src/Component/ComponentManager.s: ECS/src/Component/ComponentManager.cpp.s
@@ -214,7 +214,7 @@ ECS/src/Component/ComponentManager.s: ECS/src/Component/ComponentManager.cpp.s
 
 # target to generate assembly for a file
 ECS/src/Component/ComponentManager.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/ComponentManager.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/ComponentManager.cpp.s
 .PHONY : ECS/src/Component/ComponentManager.cpp.s
 
 ECS/src/Component/IComponent.o: ECS/src/Component/IComponent.cpp.o
@@ -223,7 +223,7 @@ ECS/src/Component/IComponent.o: ECS/src/Component/IComponent.cpp.o
 
 # target to build an object file
 ECS/src/Component/IComponent.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponent.cpp.o
 .PHONY : ECS/src/Component/IComponent.cpp.o
 
 ECS/src/Component/IComponent.i: ECS/src/Component/IComponent.cpp.i
@@ -232,7 +232,7 @@ ECS/src/Component/IComponent.i: ECS/src/Component/IComponent.cpp.i
 
 # target to preprocess a source file
 ECS/src/Component/IComponent.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponent.cpp.i
 .PHONY : ECS/src/Component/IComponent.cpp.i
 
 ECS/src/Component/IComponent.s: ECS/src/Component/IComponent.cpp.s
@@ -241,7 +241,7 @@ ECS/src/Component/IComponent.s: ECS/src/Component/IComponent.cpp.s
 
 # target to generate assembly for a file
 ECS/src/Component/IComponent.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponent.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponent.cpp.s
 .PHONY : ECS/src/Component/IComponent.cpp.s
 
 ECS/src/Component/IComponentContainer.o: ECS/src/Component/IComponentContainer.cpp.o
@@ -250,7 +250,7 @@ ECS/src/Component/IComponentContainer.o: ECS/src/Component/IComponentContainer.c
 
 # target to build an object file
 ECS/src/Component/IComponentContainer.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponentContainer.cpp.o
 .PHONY : ECS/src/Component/IComponentContainer.cpp.o
 
 ECS/src/Component/IComponentContainer.i: ECS/src/Component/IComponentContainer.cpp.i
@@ -259,7 +259,7 @@ ECS/src/Component/IComponentContainer.i: ECS/src/Component/IComponentContainer.c
 
 # target to preprocess a source file
 ECS/src/Component/IComponentContainer.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponentContainer.cpp.i
 .PHONY : ECS/src/Component/IComponentContainer.cpp.i
 
 ECS/src/Component/IComponentContainer.s: ECS/src/Component/IComponentContainer.cpp.s
@@ -268,7 +268,7 @@ ECS/src/Component/IComponentContainer.s: ECS/src/Component/IComponentContainer.c
 
 # target to generate assembly for a file
 ECS/src/Component/IComponentContainer.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Component/IComponentContainer.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Component/IComponentContainer.cpp.s
 .PHONY : ECS/src/Component/IComponentContainer.cpp.s
 
 ECS/src/Entity/Entity.o: ECS/src/Entity/Entity.cpp.o
@@ -277,7 +277,7 @@ ECS/src/Entity/Entity.o: ECS/src/Entity/Entity.cpp.o
 
 # target to build an object file
 ECS/src/Entity/Entity.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/Entity.cpp.o
 .PHONY : ECS/src/Entity/Entity.cpp.o
 
 ECS/src/Entity/Entity.i: ECS/src/Entity/Entity.cpp.i
@@ -286,7 +286,7 @@ ECS/src/Entity/Entity.i: ECS/src/Entity/Entity.cpp.i
 
 # target to preprocess a source file
 ECS/src/Entity/Entity.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/Entity.cpp.i
 .PHONY : ECS/src/Entity/Entity.cpp.i
 
 ECS/src/Entity/Entity.s: ECS/src/Entity/Entity.cpp.s
@@ -295,7 +295,7 @@ ECS/src/Entity/Entity.s: ECS/src/Entity/Entity.cpp.s
 
 # target to generate assembly for a file
 ECS/src/Entity/Entity.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/Entity.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/Entity.cpp.s
 .PHONY : ECS/src/Entity/Entity.cpp.s
 
 ECS/src/Entity/IEntity.o: ECS/src/Entity/IEntity.cpp.o
@@ -304,7 +304,7 @@ ECS/src/Entity/IEntity.o: ECS/src/Entity/IEntity.cpp.o
 
 # target to build an object file
 ECS/src/Entity/IEntity.cpp.o:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.o
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntity.cpp.o
 .PHONY : ECS/src/Entity/IEntity.cpp.o
 
 ECS/src/Entity/IEntity.i: ECS/src/Entity/IEntity.cpp.i
@@ -313,7 +313,7 @@ ECS/src/Entity/IEntity.i: ECS/src/Entity/IEntity.cpp.i
 
 # target to preprocess a source file
 ECS/src/Entity/IEntity.cpp.i:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.i
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntity.cpp.i
 .PHONY : ECS/src/Entity/IEntity.cpp.i
 
 ECS/src/Entity/IEntity.s: ECS/src/Entity/IEntity.cpp.s
@@ -322,7 +322,7 @@ ECS/src/Entity/IEntity.s: ECS/src/Entity/IEntity.cpp.s
 
 # target to generate assembly for a file
 ECS/src/Entity/IEntity.cpp.s:
-	$(MAKE) -f CMakeFiles/ECS.dir/build.make CMakeFiles/ECS.dir/ECS/src/Entity/IEntity.cpp.s
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntity.cpp.s
 .PHONY : ECS/src/Entity/IEntity.cpp.s
 
 test/src/main.o: test/src/main.cpp.o
@@ -358,10 +358,10 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
-	@echo "... rebuild_cache"
-	@echo "... ECS"
+	@echo "... ecs"
 	@echo "... ECS/src/Component/Component.o"
 	@echo "... ECS/src/Component/Component.i"
 	@echo "... ECS/src/Component/Component.s"

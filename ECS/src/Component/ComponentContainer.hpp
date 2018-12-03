@@ -44,9 +44,9 @@ namespace ecs
 	  const char *getComponentContainerTypeName() const override;
 
 	  template <class ...ARGS>
-	  C &addComponent(const EntityID entityID, ARGS&&... args);
-	  C &getComponent(const EntityID entityID);
-	  void removeComponent(const EntityID entityID) override;
+	  C &addComponent(EntityID entityID, ARGS&&... args);
+	  C &getComponent(EntityID entityID);
+	  void removeComponent(EntityID entityID) override;
 
 	  CComponentIterator<C> begin();
 	  CComponentIterator<C> end();

@@ -15,9 +15,9 @@ set(ECS_SOURCES
         ECS/src/Entity/Entity.cpp ECS/src/Entity/Entity.hpp
         ECS/src/Component/Component.cpp ECS/src/Component/Component.hpp
         ECS/src/Component/IComponentContainer.cpp ECS/src/Component/IComponentContainer.hpp)
-add_library(ECS SHARED ${ECS_SOURCES})
+add_library(ecs STATIC ${ECS_SOURCES})
 
 add_executable(test test/src/main.cpp)
 
-set_target_properties(ECS PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(test ECS)
+set_target_properties(ecs PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(test ecs)

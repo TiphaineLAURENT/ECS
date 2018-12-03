@@ -11,6 +11,7 @@
 # include <ostream>
 # include <vector>
 # include "../util/util.hpp"
+# include "../Component/ComponentManager.hpp"
 
 namespace ecs
 {
@@ -54,7 +55,11 @@ namespace ecs
 	  const bool isActive() const;
 
 	  template <class C, class ...ARGS>
-	  C &addComponent(ARGS&&... args);
+	  C &addComponent(ARGS&&... args)
+	  {
+		  return ComponentManager::addComponent<C>(_entityID,
+		                                           std::forward<ARGS>(args)...);
+	  }
 	  template <class C>
 	  C &getComponent();
 	  template <class C>
