@@ -10,7 +10,8 @@
 
 # include <ostream>
 # include <memory>
-# include <map>
+# include <vector>
+#include <algorithm>
 # include "IComponentContainer.hpp"
 
 namespace ecs
@@ -18,20 +19,20 @@ namespace ecs
 
   template <class C>
   using CComponentIterator =
-  typename std::map<EntityID, std::unique_ptr<IComponent>>::iterator;
+  typename std::vector<std::unique_ptr<IComponent>>::iterator;
 
   template <class C>
   class ComponentContainer : public IComponentContainer
   {
 // ATTRIBUTES
     private:
-	  std::map<EntityID, std::unique_ptr<IComponent>> _components;
+	  std::vector<std::unique_ptr<IComponent>> _components;
 
     public:
 
 // METHODS
     public:// CONSTRUCTORS
-	  ComponentContainer();
+	  ComponentContainer() = default;
 	  ~ComponentContainer() override = default;
 	  ComponentContainer(const ComponentContainer &copy) = default;
 	  ComponentContainer(ComponentContainer &&) noexcept = default;
@@ -41,15 +42,53 @@ namespace ecs
 	  ComponentContainer &operator=(ComponentContainer &&) noexcept = default;
 
     public:
-	  const char *getComponentContainerTypeName() const override;
+	  const char *getComponentContainerTypeName() const override
+	  {
+		  static const char *componentTypeName{typeid(C).name()};
+
+		  return componentTypeName;
+	  }
 
 	  template <class ...ARGS>
-	  C &addComponent(const EntityID entityID, ARGS&&... args);
-	  C &getComponent(const EntityID entityID);
-	  void removeComponent(const EntityID entityID) override;
+	  C &addComponent(EntityID entityID, ARGS&&... args)
+	  {
+		  static_assert(std::is_base_of<IComponent, C>::value,
+		                "Component must be derived from IComponent");
 
-	  CComponentIterator<C> begin();
-	  CComponentIterator<C> end();
+		  auto component = std::make_unique<C>(std::forward(args)...);
+		  auto *iComponent = static_cast<IComponent*>(component.get());
+		  iComponent->setOwner(entityID);
+
+		  _components.push_back(std::move(component));
+		  return *static_cast<C*>(_components.back().get());
+	  }
+	  C *getComponent(EntityID entityID)
+	  {
+		  for (auto &component : _components) {
+			  if (component->getOwner() == entityID)
+				  return static_cast<C*>(component.get());
+		  }
+		  return nullptr;
+	  }
+
+	  void removeComponent(EntityID entityID) override
+	  {
+		  auto toRemove = std::find_if(_components.begin(),
+		                               _components.end(),
+			          [&](std::unique_ptr<IComponent>&component)
+		                               {return component->getOwner() == entityID;}
+		  );
+		  _components.erase(toRemove);
+	  }
+
+	  CComponentIterator<C> begin()
+	  {
+		  return _components.begin();
+	  }
+	  CComponentIterator<C> end()
+	  {
+		  return _components.end();
+	  }
 
     private:
   };

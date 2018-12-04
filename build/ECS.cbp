@@ -17,6 +17,16 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/tiphaine/Github/ECS/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/home/tiphaine/Github/ECS/build"/>
 				<Option type="4"/>
@@ -73,21 +83,11 @@
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/tiphaine/Github/ECS/build"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="ECS">
-				<Option output="/home/tiphaine/Github/ECS/build/lib/libECS.so" prefix_auto="0" extension_auto="0"/>
+			<Target title="ecs">
+				<Option output="/home/tiphaine/Github/ECS/build/lib/libecs.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/tiphaine/Github/ECS/build"/>
 				<Option object_output="./"/>
-				<Option type="3"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/usr/include/c++/7"/>
@@ -100,17 +100,17 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 ECS"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 ecs"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="ECS/fast">
-				<Option output="/home/tiphaine/Github/ECS/build/lib/libECS.so" prefix_auto="0" extension_auto="0"/>
+			<Target title="ecs/fast">
+				<Option output="/home/tiphaine/Github/ECS/build/lib/libecs.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/tiphaine/Github/ECS/build"/>
 				<Option object_output="./"/>
-				<Option type="3"/>
+				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="/usr/include/c++/7"/>
@@ -123,7 +123,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 ECS/fast"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 ecs/fast"/>
 					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j4 -f &quot;/home/tiphaine/Github/ECS/build/Makefile&quot;  VERBOSE=1 clean"/>
@@ -131,49 +131,49 @@
 			</Target>
 		</Build>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/Component.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/Component.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentContainer.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/ComponentManager.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponent.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponent.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponentContainer.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Component/IComponentContainer.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/util/util.hpp">
-			<Option target="ECS"/>
+			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/test/src/main.cpp">
 			<Option target="test"/>

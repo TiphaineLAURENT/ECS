@@ -34,7 +34,7 @@ namespace ecs
     public:
 	  virtual const char *getComponentContainerTypeName() const = 0;
 
-	  virtual void removeComponent(const EntityID entityID) = 0;
+	  virtual void removeComponent(EntityID entityID) = 0;
 
     private:
   };

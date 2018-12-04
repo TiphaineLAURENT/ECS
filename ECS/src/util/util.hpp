@@ -8,7 +8,8 @@
 #ifndef ECS_UTIL_HPP
 # define ECS_UTIL_HPP
 
-#include <cstddef>
+# include <cstddef>
+# include <limits>
 
 namespace ecs
 {
@@ -38,7 +39,13 @@ namespace ecs
         }
     };
 
+    template <class T>
+    size_t FamilyTypeID<T>::_countID = 0;
+
   }
+
+  using EntityID = util::ID;
+
 }
 
 #endif //ECS_UTIL_HPP

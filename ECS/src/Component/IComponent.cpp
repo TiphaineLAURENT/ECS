@@ -10,6 +10,9 @@
 namespace ecs
 {
 
+  std::vector<ComponentID> IComponent::_freeID;
+  ComponentID IComponent::_componentCount = 0;
+
   IComponent::IComponent()
 	  : _componentID(INVALID_COMPONENT_ID)
   {
@@ -21,7 +24,7 @@ namespace ecs
 	  }
   }
 
-  const ComponentID IComponent::getEntityCount()
+  const ComponentID IComponent::getComponentCount()
   {
 	  return _componentCount;
   }
@@ -57,6 +60,17 @@ namespace ecs
 	  _owner = entityID;
 
 	  return *this;
+  }
+
+  std::ostream &operator<<(std::ostream &out, const IComponent &component)
+  {
+	  out << "Component:" << "\n"
+	      << "\tID: " << component.getComponentID() << "\n"
+	      << "\tComponent count: " << component.getComponentCount() << "\n"
+	      << "\tComponent type ID: " << component.getComponentTypeID() << "\n"
+	      << "\tEntity owner: " << component.getOwner();
+
+	  return out;
   }
 
 }

@@ -25,7 +25,7 @@ namespace ecs
 // METHODS
     public:// CONSTRUCTORS
 	  Entity() = default;
-	  virtual ~Entity() = default;
+	  ~Entity() override = default;
 	  Entity(const Entity &copy) = default;
 	  Entity(Entity &&) noexcept = default;
 
@@ -34,7 +34,10 @@ namespace ecs
 	  Entity &operator=(Entity &&) = default;
 
     public:
-	  const EntityTypeID getEntityTypeID() const override;
+	  const EntityTypeID getEntityTypeID() const override
+	  {
+		  return _entityTypeID;
+	  }
 
     private:
   };

@@ -19,9 +19,8 @@ namespace ecs
   {
 // ATTRIBUTES
     private:
-	  static const ComponentTypeID _componentTypeID;
-
     public:
+	  static const ComponentTypeID _componentTypeID;
 
 // METHODS
     public:// CONSTRUCTORS
@@ -35,7 +34,10 @@ namespace ecs
 	  Component &operator=(Component &&) = default;
 
     public:
-	  const ComponentTypeID getComponentTypeID() const;
+	  const ComponentTypeID getComponentTypeID() const override
+	  {
+		  return _componentTypeID;
+	  }
 
     private:
   };

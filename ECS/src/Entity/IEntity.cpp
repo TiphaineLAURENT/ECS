@@ -11,7 +11,7 @@
 namespace ecs
 {
 
-  std::vector<EntityID> IEntity::_freeID = std::vector<EntityID>();
+  std::vector<EntityID> IEntity::_freeID;
   EntityID IEntity::_entityCount = 0;
 
   const EntityTypeID IEntity::getEntityTypeID() const
@@ -57,23 +57,20 @@ namespace ecs
 	  _freeID.push_back(_entityID);
   }
 
-  template<class C, class... ARGS>
-  C &IEntity::addComponent(ARGS&&... args)
-  {
-	  return ComponentManager::addComponent<C>(_entityID,
-	                                           std::forward<ARGS>(args)...);
-  }
-
-  template<class C>
-  C &IEntity::getComponent()
-  {
-	  return ComponentManager::getComponent<C>(_entityID);
-  }
-
   template<class C>
   IEntity &IEntity::removeComponent()
   {
 	  return ComponentManager::removeComponent<C>(_entityID);
+  }
+
+  std::ostream &operator<<(std::ostream &out, const IEntity &entity)
+  {
+	  out << "Entity:" << "\n"
+	      << "\tID: " << entity.getEntityID() << "\n"
+	      << "\tEntity count: " << entity.getEntityCount() << "\n"
+	      << "\tEntity type ID: " << entity.getEntityTypeID();
+
+	  return out;
   }
 
 }

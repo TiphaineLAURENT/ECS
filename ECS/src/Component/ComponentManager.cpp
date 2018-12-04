@@ -10,6 +10,8 @@
 namespace ecs
 {
 
+  ComponentManager *ComponentManager::_instance = nullptr;
+
   ComponentManager &ComponentManager::getInstance()
   {
 	  if (!_instance)
@@ -18,37 +20,15 @@ namespace ecs
 	  return *_instance;
   }
 
-  template<class C, class... ARGS>
-  C &ComponentManager::addComponent(const EntityID entityID, ARGS&&... args)
+  template<class C>
+  CComponentIterator<C> ComponentManager::begin()
   {
-	  ComponentContainer<C> &container = getComponentContainer<C>();
-
-	  return container.addComponent(std::forward(args)...);
+	  return getComponentContainer<C>().begin();
   }
 
   template<class C>
-  C &ComponentManager::getComponent(const EntityID entityID)
+  CComponentIterator<C> ComponentManager::end()
   {
-	  ComponentContainer<C> &container = getComponentContainer<C>();
-
-	  return container.getComponent(entityID);
-  }
-
-  template<class C>
-  void ComponentManager::removeComponent(const EntityID entityID)
-  {
-	  ComponentContainer<C> &container = getComponentContainer<C>();
-
-	  container.removeComponent(entityID);
-  }
-
-  template<class C>
-  ComponentContainer<C> &ComponentManager::getComponentContainer()
-  {
-	  static_assert(std::is_base_of<IComponent, C>::value,
-	                "Component must be derived from IComponent");
-
-	  const ComponentTypeID componentTypeID = C::_componentTypeID;
-	  return getInstance()._containers[componentTypeID];
+	  return getComponentContainer<C>().end();
   }
 }
