@@ -40,14 +40,46 @@ namespace ecs
     public:
 	  static ComponentManager &getInstance();
 	  template <class C>
-	  static ComponentContainer<C> &getComponentContainer();
+	  static ComponentContainer<C> &getComponentContainer()
+	  {
+		  static_assert(std::is_base_of<IComponent, C>::value,
+		                "Component must be derived from IComponent");
+
+		  const ComponentTypeID componentTypeID = C::_componentTypeID;
+		  ComponentManager &instance = getInstance();
+
+		  if (instance._containers.find(componentTypeID)
+		      == instance._containers.end()) {
+			  auto container =
+				       std::make_unique<ComponentContainer<C>>();
+			  instance._containers[componentTypeID] = std::move(container);
+		  }
+
+		  return *static_cast<ComponentContainer<C>*>(instance
+			  ._containers[componentTypeID].get());
+	  }
 
 	  template <class C, class ...ARGS>
-	  static C &addComponent(EntityID entityID, ARGS&&... args);
+	  static C &addComponent(EntityID entityID, ARGS&&... args)
+	  {
+		  ComponentContainer<C> &container = getComponentContainer<C>();
+
+		  return container.addComponent(entityID, std::forward(args)...);
+	  }
 	  template <class C>
-	  static C &getComponent(EntityID entityID);
+	  static C *getComponent(EntityID entityID)
+	  {
+		  ComponentContainer<C> &container = getComponentContainer<C>();
+
+		  return container.getComponent(entityID);
+	  }
 	  template <class C>
-	  static void removeComponent(EntityID entityID);
+	  static void removeComponent(EntityID entityID)
+	  {
+		  ComponentContainer<C> &container = getComponentContainer<C>();
+
+		  container.removeComponent(entityID);
+	  }
 
 	  template <class C>
 	  static CComponentIterator<C> begin();

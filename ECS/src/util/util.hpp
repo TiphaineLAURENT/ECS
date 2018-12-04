@@ -39,6 +39,9 @@ namespace ecs
         }
     };
 
+    template <class T>
+    size_t FamilyTypeID<T>::_countID = 0;
+
   }
 
   using EntityID = util::ID;

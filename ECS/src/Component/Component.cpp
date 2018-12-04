@@ -10,10 +10,4 @@
 namespace ecs
 {
 
-  template<class C>
-  const ComponentTypeID Component<C>::getComponentTypeID() const
-  {
-	  return _componentTypeID;
-  }
-
 }

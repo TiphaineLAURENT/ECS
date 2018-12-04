@@ -45,9 +45,10 @@ namespace ecs
 	  IComponent &operator=(IComponent &&) = default;
 
     public:
-	  static const ComponentID getEntityCount();
+	  static const ComponentID getComponentCount();
 
 	  const ComponentID getComponentID() const;
+	  virtual const ComponentTypeID getComponentTypeID() const = 0;
 
 	  IComponent &setOwner(EntityID entityID);
 	  const EntityID getOwner() const;
