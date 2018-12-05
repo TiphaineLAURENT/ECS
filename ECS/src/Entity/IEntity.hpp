@@ -61,9 +61,14 @@ namespace ecs
 		                                           std::forward<ARGS>(args)...);
 	  }
 	  template <class C>
-	  C *getComponent()
+	  C *getComponent() const
 	  {
 		  return ComponentManager::getComponent<C>(_entityID);
+	  }
+	  template <class C>
+	  std::vector<C*> getComponents() const
+	  {
+		  return ComponentManager::getComponents<C>(_entityID);
 	  }
 	  template <class C>
 	  IEntity &removeComponent();
