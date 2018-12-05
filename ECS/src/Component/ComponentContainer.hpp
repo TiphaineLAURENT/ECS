@@ -56,8 +56,7 @@ namespace ecs
 		                "Component must be derived from IComponent");
 
 		  auto component = std::make_unique<C>(std::forward(args)...);
-		  auto *iComponent = static_cast<IComponent*>(component.get());
-		  iComponent->setOwner(entityID);
+		  component->setOwner(entityID);
 
 		  _components.push_back(std::move(component));
 		  return *static_cast<C*>(_components.back().get());
@@ -70,7 +69,17 @@ namespace ecs
 		  }
 		  return nullptr;
 	  }
+	  std::vector<C*> getComponents(EntityID entityID)
+	  {
+		  std::vector<C*> components;
 
+		  for (auto &component : _components) {
+			  if (component->getOwner() == entityID)
+				  components.push_back(static_cast<C*>
+				                       (component.get()));
+		  }
+		  return components;
+	  }
 	  void removeComponent(EntityID entityID) override
 	  {
 		  auto toRemove = std::find_if(_components.begin(),

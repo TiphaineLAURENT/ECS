@@ -166,10 +166,28 @@
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/Entity.hpp">
 			<Option target="ecs"/>
 		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/EntityContainer.cpp">
+			<Option target="ecs"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/EntityContainer.hpp">
+			<Option target="ecs"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/EntityManager.cpp">
+			<Option target="ecs"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/EntityManager.hpp">
+			<Option target="ecs"/>
+		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.cpp">
 			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntity.hpp">
+			<Option target="ecs"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntityContainer.cpp">
+			<Option target="ecs"/>
+		</Unit>
+		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/Entity/IEntityContainer.hpp">
 			<Option target="ecs"/>
 		</Unit>
 		<Unit filename="/home/tiphaine/Github/ECS/ECS/src/util/util.hpp">

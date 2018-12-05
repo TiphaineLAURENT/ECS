@@ -74,6 +74,13 @@ namespace ecs
 		  return container.getComponent(entityID);
 	  }
 	  template <class C>
+	  static std::vector<C*> getComponents(EntityID entityID)
+	  {
+		  ComponentContainer<C> &container = getComponentContainer<C>();
+
+		  return container.getComponents(entityID);
+	  }
+	  template <class C>
 	  static void removeComponent(EntityID entityID)
 	  {
 		  ComponentContainer<C> &container = getComponentContainer<C>();

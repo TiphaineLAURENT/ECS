@@ -298,6 +298,60 @@ ECS/src/Entity/Entity.cpp.s:
 	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/Entity.cpp.s
 .PHONY : ECS/src/Entity/Entity.cpp.s
 
+ECS/src/Entity/EntityContainer.o: ECS/src/Entity/EntityContainer.cpp.o
+
+.PHONY : ECS/src/Entity/EntityContainer.o
+
+# target to build an object file
+ECS/src/Entity/EntityContainer.cpp.o:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityContainer.cpp.o
+.PHONY : ECS/src/Entity/EntityContainer.cpp.o
+
+ECS/src/Entity/EntityContainer.i: ECS/src/Entity/EntityContainer.cpp.i
+
+.PHONY : ECS/src/Entity/EntityContainer.i
+
+# target to preprocess a source file
+ECS/src/Entity/EntityContainer.cpp.i:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityContainer.cpp.i
+.PHONY : ECS/src/Entity/EntityContainer.cpp.i
+
+ECS/src/Entity/EntityContainer.s: ECS/src/Entity/EntityContainer.cpp.s
+
+.PHONY : ECS/src/Entity/EntityContainer.s
+
+# target to generate assembly for a file
+ECS/src/Entity/EntityContainer.cpp.s:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityContainer.cpp.s
+.PHONY : ECS/src/Entity/EntityContainer.cpp.s
+
+ECS/src/Entity/EntityManager.o: ECS/src/Entity/EntityManager.cpp.o
+
+.PHONY : ECS/src/Entity/EntityManager.o
+
+# target to build an object file
+ECS/src/Entity/EntityManager.cpp.o:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityManager.cpp.o
+.PHONY : ECS/src/Entity/EntityManager.cpp.o
+
+ECS/src/Entity/EntityManager.i: ECS/src/Entity/EntityManager.cpp.i
+
+.PHONY : ECS/src/Entity/EntityManager.i
+
+# target to preprocess a source file
+ECS/src/Entity/EntityManager.cpp.i:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityManager.cpp.i
+.PHONY : ECS/src/Entity/EntityManager.cpp.i
+
+ECS/src/Entity/EntityManager.s: ECS/src/Entity/EntityManager.cpp.s
+
+.PHONY : ECS/src/Entity/EntityManager.s
+
+# target to generate assembly for a file
+ECS/src/Entity/EntityManager.cpp.s:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/EntityManager.cpp.s
+.PHONY : ECS/src/Entity/EntityManager.cpp.s
+
 ECS/src/Entity/IEntity.o: ECS/src/Entity/IEntity.cpp.o
 
 .PHONY : ECS/src/Entity/IEntity.o
@@ -324,6 +378,33 @@ ECS/src/Entity/IEntity.s: ECS/src/Entity/IEntity.cpp.s
 ECS/src/Entity/IEntity.cpp.s:
 	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntity.cpp.s
 .PHONY : ECS/src/Entity/IEntity.cpp.s
+
+ECS/src/Entity/IEntityContainer.o: ECS/src/Entity/IEntityContainer.cpp.o
+
+.PHONY : ECS/src/Entity/IEntityContainer.o
+
+# target to build an object file
+ECS/src/Entity/IEntityContainer.cpp.o:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntityContainer.cpp.o
+.PHONY : ECS/src/Entity/IEntityContainer.cpp.o
+
+ECS/src/Entity/IEntityContainer.i: ECS/src/Entity/IEntityContainer.cpp.i
+
+.PHONY : ECS/src/Entity/IEntityContainer.i
+
+# target to preprocess a source file
+ECS/src/Entity/IEntityContainer.cpp.i:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntityContainer.cpp.i
+.PHONY : ECS/src/Entity/IEntityContainer.cpp.i
+
+ECS/src/Entity/IEntityContainer.s: ECS/src/Entity/IEntityContainer.cpp.s
+
+.PHONY : ECS/src/Entity/IEntityContainer.s
+
+# target to generate assembly for a file
+ECS/src/Entity/IEntityContainer.cpp.s:
+	$(MAKE) -f CMakeFiles/ecs.dir/build.make CMakeFiles/ecs.dir/ECS/src/Entity/IEntityContainer.cpp.s
+.PHONY : ECS/src/Entity/IEntityContainer.cpp.s
 
 test/src/main.o: test/src/main.cpp.o
 
@@ -380,9 +461,18 @@ help:
 	@echo "... ECS/src/Entity/Entity.o"
 	@echo "... ECS/src/Entity/Entity.i"
 	@echo "... ECS/src/Entity/Entity.s"
+	@echo "... ECS/src/Entity/EntityContainer.o"
+	@echo "... ECS/src/Entity/EntityContainer.i"
+	@echo "... ECS/src/Entity/EntityContainer.s"
+	@echo "... ECS/src/Entity/EntityManager.o"
+	@echo "... ECS/src/Entity/EntityManager.i"
+	@echo "... ECS/src/Entity/EntityManager.s"
 	@echo "... ECS/src/Entity/IEntity.o"
 	@echo "... ECS/src/Entity/IEntity.i"
 	@echo "... ECS/src/Entity/IEntity.s"
+	@echo "... ECS/src/Entity/IEntityContainer.o"
+	@echo "... ECS/src/Entity/IEntityContainer.i"
+	@echo "... ECS/src/Entity/IEntityContainer.s"
 	@echo "... test/src/main.o"
 	@echo "... test/src/main.i"
 	@echo "... test/src/main.s"
