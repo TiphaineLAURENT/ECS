@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/test.dir/test/src/main.cpp.o  -o bin/test lib/libecs.a 
