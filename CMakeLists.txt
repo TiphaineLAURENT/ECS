@@ -14,7 +14,15 @@ set(ECS_SOURCES
         ECS/src/Component/IComponent.cpp ECS/src/Component/IComponent.hpp
         ECS/src/Entity/Entity.cpp ECS/src/Entity/Entity.hpp
         ECS/src/Component/Component.cpp ECS/src/Component/Component.hpp
-        ECS/src/Component/IComponentContainer.cpp ECS/src/Component/IComponentContainer.hpp ECS/src/Entity/EntityManager.cpp ECS/src/Entity/EntityManager.hpp ECS/src/Entity/IEntityContainer.cpp ECS/src/Entity/IEntityContainer.hpp ECS/src/Entity/EntityContainer.cpp ECS/src/Entity/EntityContainer.hpp)
+        ECS/src/Component/IComponentContainer.cpp ECS/src/Component/IComponentContainer.hpp
+        ECS/src/Entity/EntityManager.cpp ECS/src/Entity/EntityManager.hpp
+        ECS/src/Entity/IEntityContainer.cpp ECS/src/Entity/IEntityContainer.hpp
+        ECS/src/Entity/EntityContainer.cpp ECS/src/Entity/EntityContainer.hpp
+        ECS/src/System/ISystem.cpp ECS/src/System/ISystem.hpp
+        ECS/src/System/System.cpp ECS/src/System/System.hpp
+        ECS/src/System/SystemManager.cpp ECS/src/System/SystemManager.hpp
+        ECS/src/System/SimpleSystemManager.cpp ECS/src/System/SimpleSystemManager.hpp
+        )
 add_library(ecs STATIC ${ECS_SOURCES})
 
 add_executable(test test/src/main.cpp)
