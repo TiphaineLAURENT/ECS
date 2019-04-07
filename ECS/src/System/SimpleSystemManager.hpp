@@ -141,7 +141,6 @@ namespace ecs
                   return system;
           }
 
-          //void updateSystemOrder();
           static void update();
   };
 
