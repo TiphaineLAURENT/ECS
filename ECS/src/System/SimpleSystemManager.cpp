@@ -3,23 +3,34 @@
 //
 
 #include <cassert>
+
 #include "SystemManager.hpp"
 #include "SimpleSystemManager.hpp"
 
 namespace ecs
 {
-  SystemManager *SystemManager::_instance = nullptr;
+  SimpleSystemManager *SimpleSystemManager::_instance = nullptr;
 
-  SystemManager &SystemManager::getInstance()
+  SimpleSystemManager &SimpleSystemManager::getInstance()
   {
           if (_instance == nullptr)
-                  _instance = new SystemManager;
+                  _instance = new SimpleSystemManager;
           return *_instance;
   }
 
-  void SystemManager::update()
+  /*void SimpleSystemManager::updateSystemOrder()
   {
-          SystemManager &instance = getInstance();
+          std::sort(_systems.begin(), _systems.end(),
+                  [](std::pair<util::ID, std::unique_ptr<ISystem>> sys1,
+                     std::pair<util::ID, std::unique_ptr<ISystem>> sys2) {
+                          return static_cast<int>(sys1.second->getPriority())
+                                 > static_cast<int>(sys1.second->getPriority());
+                  });
+  }*/
+
+  void SimpleSystemManager::update()
+  {
+          SimpleSystemManager &instance = getInstance();
 
           for (auto &system : instance._systems) {
                   system.second->preUpdate();

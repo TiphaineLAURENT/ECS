@@ -70,9 +70,18 @@ namespace ecs
                   _enabled = false;
           }
 
+          float getUpdateInterval() const
+          {
+                  return _updateInterval;
+          }
           void setUpdateInterval(float interval)
           {
                   _updateInterval = interval;
+          }
+
+          SystemPriority getPriority() const
+          {
+                  return _priority;
           }
           void setPriority(SystemPriority priority)
           {
