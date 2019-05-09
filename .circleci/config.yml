@@ -1,0 +1,65 @@
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.4
+
+jobs:
+  unix:
+    docker:
+      - image: ubuntu:18.04
+
+        environment:
+          CODECOV_TOKEN: 122910dd-c368-4aba-b7a5-f23da812756a
+          CXX: /usr/bin/g++-8
+          CC: /usr/bin/gcc-8
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install g++-8
+          command: "apt-get update && apt-get install -y g++-8"
+
+      - run:
+          name: Installing CMAKE
+          command: "apt-get install -y cmake"
+
+      - run:
+          name: Installing Perl
+          command: "apt-get install -y perl"
+
+      - run:
+          name: Install curl
+          command: "apt-get install curl"
+
+      - run:
+          name: Creating build files
+          command: "cmake -H. -Bbuild -DCODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Debug"
+
+      - run:
+          name: Building project
+          command: "cmake --build build --config Debug -- -j $(nproc)"
+
+      - run:
+          name: Executing tests
+          working_directory: "~/project/build"
+          command: |
+            set +e
+            ctest -j $(nproc) --output-on-failure
+            set -e
+
+      - run:
+          name: Generating coverage
+          working_directory: "~/project/build"
+          command: |
+            ../tools/lcov --directory . --capture --output-file coverage.info --gcov-tool gcov-8
+            ../tools/lcov --list coverage.info
+
+      - codecov/upload:
+          file: "~/project/build/coverage.info"
+
+
+workflows:
+  build:
+    jobs:
+      - unix
