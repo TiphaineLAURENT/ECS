@@ -38,7 +38,9 @@ class MySystem
 TEST_CASE("Basic creation", "creation")
 {
         auto entity = ecs::EntityManager::createEntity<MyEntity>();
-
+        REQUIRE(ecs::EntityManager::getEntityContainer<MyEntity>()
+                        .getEntityContainerTypeName()
+                == typeid(MyEntity).name());
         REQUIRE(entity.getEntityCount() == 1);
         REQUIRE(entity.getEntityID() == 0);
         REQUIRE(entity.getEntityTypeID() == 0);
@@ -71,8 +73,11 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(component->getComponentTypeCount() == 1);
         REQUIRE(component->getComponentID() == 1);
         REQUIRE(component->getComponentTypeID() == 1);
-        REQUIRE(component2->setActive(false).isActive() == false);
+        REQUIRE(!component2->setActive(false).isActive());
 
         entity.removeComponent<MyComponent2>();
         REQUIRE(component->getComponentCount() == 1);
+
+        REQUIRE(!entity.setActive(false).isActive());
+        ecs::EntityManager::removeEntity<MyEntity>(entity.getEntityID());
 }

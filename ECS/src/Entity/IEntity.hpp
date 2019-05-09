@@ -78,8 +78,6 @@ namespace ecs
           template <class C>
           IEntity &removeComponent();
 
-          virtual void setup(){};
-
   private:
   };
 
