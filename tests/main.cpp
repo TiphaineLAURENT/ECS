@@ -50,16 +50,29 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(system.getUpdateInterval() == 1.);
         REQUIRE(system.isEnable());
 
-        entity.addComponent<MyComponent>();
+        REQUIRE(entity.addComponent<MyComponent>() != nullptr);
         auto component = entity.getComponent<MyComponent>();
-        auto component2 = entity.addComponent<MyComponent2>();
 
-        REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 2);
-        REQUIRE(component->getComponentCount() == 2);
+        REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 1);
+        REQUIRE(component->getComponentCount() == 1);
         REQUIRE(component->getComponentTypeCount() == 1);
         REQUIRE(component->getComponentID() == 0);
         REQUIRE(component->getComponentTypeID() == 0);
-        REQUIRE(component2->getComponentTypeID() == 1);
         REQUIRE(component->isActive());
         REQUIRE(component->getOwner() == entity.getEntityID());
+
+        REQUIRE(ecs::ComponentManager::getComponentContainer<MyComponent>()
+                        .getComponentContainerTypeName()
+                == typeid(MyComponent).name());
+
+        auto component2 = entity.addComponent<MyComponent2>();
+        REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 2);
+        REQUIRE(component->getComponentCount() == 2);
+        REQUIRE(component->getComponentTypeCount() == 1);
+        REQUIRE(component->getComponentID() == 1);
+        REQUIRE(component->getComponentTypeID() == 1);
+        REQUIRE(component2->setActive(false).isActive() == false);
+
+        entity.removeComponent<MyComponent2>();
+        REQUIRE(component->getComponentCount() == 1);
 }
