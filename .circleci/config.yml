@@ -52,6 +52,7 @@ jobs:
           name: Generating coverage
           working_directory: "~/project/build"
           command: |
+            chmod +x -R ../tools
             ../tools/lcov --directory . --capture --output-file coverage.info --gcov-tool gcov-8
             ../tools/lcov --list coverage.info
 
