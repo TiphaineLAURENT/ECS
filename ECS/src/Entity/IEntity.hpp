@@ -58,7 +58,7 @@ namespace ecs
           const bool isActive() const;
 
           template <class C, class ...ARGS>
-          auto *addComponent(ARGS &&... args)
+          C *addComponent(ARGS &&... args)
           {
                   return ComponentManager::addComponent<C>(
                           _entityID,
@@ -66,7 +66,7 @@ namespace ecs
                   );
           }
           template <class C>
-          auto *getComponent() const
+          C *getComponent() const
           {
                   return ComponentManager::getComponent<C>(_entityID);
           }
@@ -76,7 +76,10 @@ namespace ecs
                   return ComponentManager::getComponents<C>(_entityID);
           }
           template <class C>
-          IEntity &removeComponent();
+          IEntity &removeComponent()
+          {
+                  return ComponentManager::removeComponent<C>(_entityID);
+          }
 
   private:
   };

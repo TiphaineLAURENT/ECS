@@ -55,12 +55,6 @@ namespace ecs
           _freeID.push_back(_entityID);
   }
 
-  template <class C>
-  IEntity &IEntity::removeComponent()
-  {
-          return ComponentManager::removeComponent<C>(_entityID);
-  }
-
   std::ostream &operator<<(std::ostream &out, const IEntity *entity)
   {
           out << "{e "
