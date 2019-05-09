@@ -21,45 +21,48 @@ namespace ecs
   class IComponent
   {
 // ATTRIBUTES
-    private:
-	  ComponentID                  _componentID;
-	  static const ComponentID     INVALID_COMPONENT_ID = util::INVALID_ID;
-	  static std::vector<ComponentID> _freeID;
-	  static ComponentID            _componentCount;
+  private:
+          static const ComponentID INVALID_COMPONENT_ID = util::INVALID_ID;
 
-	  EntityID _owner;
+          ComponentID _componentID = INVALID_COMPONENT_ID;
 
-	  bool _active;
+          static std::vector<ComponentID> _freeID;
 
-    public:
+          static ComponentID _componentCount;
+
+          EntityID _owner = util::INVALID_ID;
+
+          bool _active = true;
+
+  public:
 
 // METHODS
-    public:// CONSTRUCTORS
-	  IComponent();
-	  virtual ~IComponent();
-	  IComponent(const IComponent &copy) = default;
-	  IComponent(IComponent &&) noexcept = default;
+  public:// CONSTRUCTORS
+          IComponent();
+          virtual ~IComponent();
+          IComponent(const IComponent &copy) = default;
+          IComponent(IComponent &&) noexcept = default;
 
-    public: //OPERATORS
-	  IComponent &operator=(const IComponent &other) = default;
-	  IComponent &operator=(IComponent &&) = default;
+  public: //OPERATORS
+          IComponent &operator=(const IComponent &other) = default;
+          IComponent &operator=(IComponent &&) = default;
 
-    public:
-	  static const ComponentID getComponentCount();
+  public:
+          static const ComponentID getComponentCount();
 
-	  const ComponentID getComponentID() const;
-	  virtual const ComponentTypeID getComponentTypeID() const = 0;
+          const ComponentID getComponentID() const;
+          virtual const ComponentTypeID getComponentTypeID() const = 0;
 
-	  IComponent &setOwner(EntityID entityID);
-	  const EntityID getOwner() const;
+          IComponent &setOwner(EntityID entityID);
+          const EntityID getOwner() const;
 
-	  IComponent &setActive(bool state);
-	  const bool isActive() const;
+          IComponent &setActive(bool state);
+          const bool isActive() const;
 
-    private:
+  private:
   };
 
-  std::ostream &operator<<(std::ostream &out, const IComponent &);
+  std::ostream &operator<<(std::ostream &out, const IComponent *);
 
 }
 

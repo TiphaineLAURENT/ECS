@@ -10,78 +10,88 @@
 
 # include <ostream>
 # include <map>
+# include <memory>
 # include "IEntityContainer.hpp"
 
 namespace ecs
 {
 
   template <class E>
+  using EntityMap = std::map<EntityID, std::unique_ptr<E>>;
+
+  template <class E>
   using EEntityIterator =
-  typename std::vector<std::unique_ptr<IEntity>>::iterator;
+  typename EntityMap<E>::iterator;
 
   template <class E>
   class EntityContainer : public IEntityContainer
   {
 // ATTRIBUTES
-    private:
-	  std::map<EntityID, std::unique_ptr<IEntity>> _entities;
+  private:
+          EntityMap<E> _entities;
 
-    public:
+  public:
 
 // METHODS
-    public:// CONSTRUCTORS
-	  EntityContainer() = default;
-	  ~EntityContainer() override = default;
-	  EntityContainer(const EntityContainer &copy) = default;
-	  EntityContainer(EntityContainer &&) noexcept = default;
+  public:// CONSTRUCTORS
+          EntityContainer() = default;
+          ~EntityContainer() override = default;
+          EntityContainer(const EntityContainer &copy) = delete;
+          EntityContainer(EntityContainer &&) noexcept = delete;
 
-    public: //OPERATORS
-	  EntityContainer &operator=(const EntityContainer &other) = default;
-	  EntityContainer &operator=(EntityContainer &&) = default;
+  public: //OPERATORS
+          EntityContainer &operator=(const EntityContainer &other) = delete;
+          EntityContainer &operator=(EntityContainer &&) noexcept = delete;
 
-    public:
-	  const char* getEntityContainerTypeName() const override
-	  {
-		  static const char *entityTypeName{typeid(E).name()};
+  public:
+          const char *getEntityContainerTypeName() const override
+          {
+                  static const char *entityTypeName{typeid(E).name()};
 
-		  return entityTypeName;
-	  }
+                  return entityTypeName;
+          }
 
-	  template <class ...ARGS>
-	  E &createEntity(ARGS&& ...args)
-	  {
-		  static_assert(std::is_base_of<IEntity, E>::value,
-		                "Entity must be derived from IEntity");
+          template <class ...ARGS>
+          E &createEntity(ARGS &&...args)
+          {
+                  static_assert(
+                          std::is_base_of<IEntity, E>::value,
+                          "Entity must be derived from IEntity"
+                  );
 
-		  auto entity = std::make_unique<E>(std::forward(args)...);
-		  const EntityID entityID = entity->getEntityID();
+                  auto entity = std::make_unique<E>(std::forward(args)...);
+                  const EntityID entityID = entity->getEntityID();
 
-		  _entities[entityID] = std::move(entity);
-		  return *static_cast<E*>(_entities[entityID].get());
-	  }
-	  E *getEntityById(EntityID entityID)
-	  {
-		  return static_cast<E*>(_entities[entityID].get());
-	  }
-	  std::vector<E*> getEntities()
-	  {
-		  return std::vector<E*>(_entities.begin(), _entities.end());
-	  }
-	  void destroyEntity(IEntity *entity) override
-	  {
-		  _entities.erase(entity->getEntityID());
-	  }
+                  _entities[entityID] = std::move(entity);
+                  return getEntityById(entityID);
+          }
+          E &getEntityById(EntityID entityID)
+          {
+                  return *_entities[entityID].get();
+          }
+          EntityMap<E> &getEntities()
+          {
+                  return _entities;
+          }
+          const EntityMap<E> &getEntities() const
+          {
+                  return _entities;
+          }
+          void destroyEntity(EntityID entityId) override
+          {
+                  _entities.erase(entityId);
+          }
 
-	  EEntityIterator<E> begin()
-	  {
-		  return _entities.begin();
-	  }
-	  EEntityIterator<E> end()
-	  {
-		  return _entities.end();
-	  }
+          EEntityIterator<E> begin()
+          {
+                  return _entities.begin();
+          }
+          EEntityIterator<E> end()
+          {
+                  return _entities.end();
+          }
 
-    private:
+  private:
   };
 
   template <class E>

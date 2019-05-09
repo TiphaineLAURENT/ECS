@@ -10,26 +10,22 @@
 namespace ecs
 {
 
-  EntityManager *EntityManager::_instance = nullptr;
-
   EntityManager &EntityManager::getInstance()
   {
-	  if (_instance == nullptr)
-	  	_instance = new EntityManager;
-
-	  return *_instance;
+          static EntityManager instance;
+          return instance;
   }
 
-  template<class E>
+  template <class E>
   CComponentIterator<E> EntityManager::begin()
   {
-	  return getEntityContainer<E>().begin();
+          return getEntityContainer<E>().begin();
   }
 
-  template<class E>
+  template <class E>
   CComponentIterator<E> EntityManager::end()
   {
-	  return getEntityContainer<E>().begin();
+          return getEntityContainer<E>().begin();
   }
 
 }
