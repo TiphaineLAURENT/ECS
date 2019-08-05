@@ -38,11 +38,11 @@ namespace ecs
           System &operator=(System &&other) = delete;
 
   public:
-          const SystemTypeID getSystemTypeID() const override
+          [[nodiscard]] SystemTypeID getSystemTypeID() const override
           {
                   return _systemTypeID;
           }
-          const char *getSystemTypeName() const override
+          [[nodiscard]] const char *getSystemTypeName() const override
           {
                   static const char *systemTypeName{typeid(S).name()};
 

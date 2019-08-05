@@ -32,7 +32,7 @@ namespace ecs
           IComponentContainer &operator=(IComponentContainer &&) = delete;
 
   public:
-          virtual const char *getComponentContainerTypeName() const = 0;
+          [[nodiscard]] virtual const char *getComponentContainerTypeName() const = 0;
 
           virtual void removeComponent(EntityID entityID) = 0;
 

@@ -45,7 +45,7 @@ namespace ecs
           ComponentContainer &operator=(ComponentContainer &&) noexcept = delete;
 
   public:
-          const char *getComponentContainerTypeName() const override
+          [[nodiscard]] const char *getComponentContainerTypeName() const override
           {
                   static const auto componentTypeName{typeid(C).name()};
 
@@ -66,7 +66,7 @@ namespace ecs
                   _components.push_back(std::move(component));
                   return _components.back().get();
           }
-          C *getComponent(EntityID entityID)
+          [[nodiscard]] C *getComponent(EntityID entityID)
           {
                   for (auto &component : _components) {
                           if (component->getOwner() == entityID) {
@@ -75,7 +75,7 @@ namespace ecs
                   }
                   return nullptr;
           }
-          std::vector<C *const> getComponents(EntityID entityID)
+          [[nodiscard]] std::vector<C *const> getComponents(EntityID entityID)
           {
                   auto components = std::vector<C *const>{};
 
@@ -86,7 +86,8 @@ namespace ecs
                   }
                   return components;
           }
-          const ComponentStorage<C> getComponents(EntityID entityID) const
+          [[nodiscard]] ComponentStorage<C> getComponents(EntityID entityID)
+          const
           {
                   auto components = std::vector<C *const>{};
 
@@ -130,7 +131,7 @@ namespace ecs
                   return _components.end();
           }
 
-          ComponentStorage<C> &getComponents()
+          [[nodiscard]] ComponentStorage<C> &getComponents()
           {
                   return _components;
           }

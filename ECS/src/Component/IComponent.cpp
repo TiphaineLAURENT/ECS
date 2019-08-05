@@ -24,23 +24,23 @@ namespace ecs
           }
   }
 
-  const ComponentID IComponent::getComponentCount()
-  {
-          return _componentCount;
-  }
-
-  const ComponentID IComponent::getComponentID() const
-  {
-          return _componentID;
-  }
-
   IComponent::~IComponent()
   {
           _freeID.push_back(_componentID);
           --_componentCount;
   }
 
-  const EntityID IComponent::getOwner() const
+  ComponentID IComponent::getComponentCount()
+  {
+          return _componentCount;
+  }
+
+  ComponentID IComponent::getComponentID() const
+  {
+          return _componentID;
+  }
+
+  EntityID IComponent::getOwner() const
   {
           return _owner;
   }
@@ -51,7 +51,7 @@ namespace ecs
           return *this;
   }
 
-  const bool IComponent::isActive() const
+  bool IComponent::isActive() const
   {
           return _active;
   }

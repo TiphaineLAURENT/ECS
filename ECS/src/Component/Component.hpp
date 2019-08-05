@@ -8,7 +8,6 @@
 #ifndef ECS_COMPONENT_HPP
 #define ECS_COMPONENT_HPP
 
-# include <ostream>
 # include "IComponent.hpp"
 
 namespace ecs
@@ -43,12 +42,12 @@ namespace ecs
           Component &operator=(Component &&) noexcept = default;
 
   public:
-          static const ComponentID getComponentTypeCount()
+          static ComponentID getComponentTypeCount()
           {
                   return _componentTypeCount;
           }
 
-          const ComponentTypeID getComponentTypeID() const override
+          [[nodiscard]] ComponentTypeID getComponentTypeID() const override
           {
                   return _componentTypeID;
           }

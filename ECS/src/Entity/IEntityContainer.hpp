@@ -32,7 +32,7 @@ namespace ecs
           IEntityContainer &operator=(IEntityContainer &&) = delete;
 
   public:
-          virtual const char *getEntityContainerTypeName() const = 0;
+          [[nodiscard]] virtual const char *getEntityContainerTypeName() const = 0;
 
           virtual void destroyEntity(EntityID) = 0;
 

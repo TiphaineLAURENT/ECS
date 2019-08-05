@@ -34,7 +34,7 @@ namespace ecs
           Entity &operator=(Entity &&) noexcept = default;
 
   public:
-          const EntityTypeID getEntityTypeID() const override
+          [[nodiscard]] EntityTypeID getEntityTypeID() const override
           {
                   return _entityTypeID;
           }

@@ -39,7 +39,7 @@ namespace ecs
   public:
           static EntityManager &getInstance();
           template <class E>
-          constexpr static EntityContainer<E> &getEntityContainer()
+          [[nodiscard]] constexpr static EntityContainer<E> &getEntityContainer()
           {
                   static_assert(
                           std::is_base_of<IEntity, E>::value,
@@ -70,14 +70,14 @@ namespace ecs
                   return container.createEntity(std::forward(args)...);
           }
           template <class E>
-          static E &getEntityById(EntityID entityID)
+          [[nodiscard]] static E &getEntityById(EntityID entityID)
           {
                   EntityContainer<E> &container = getEntityContainer<E>();
 
                   return container.getEntityById(entityID);
           }
           template <class E>
-          static EntityMap<E> &getComponents(EntityID entityID)
+          [[nodiscard]] static EntityMap<E> &getComponents(EntityID entityID)
           {
                   EntityContainer<E> &container = getEntityContainer<E>();
 

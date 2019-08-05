@@ -56,14 +56,14 @@ namespace ecs
           ISystem &operator=(ISystem &&other) noexcept = delete;
 
   public:
-          virtual const SystemTypeID getSystemTypeID() const = 0;
-          virtual const char *getSystemTypeName() const = 0;
+          [[nodiscard]] virtual SystemTypeID getSystemTypeID() const = 0;
+          [[nodiscard]] virtual const char *getSystemTypeName() const = 0;
 
           virtual void preUpdate() = 0;
           virtual void update() = 0;
           virtual void postUpdate() = 0;
 
-          bool isEnable() const
+          [[nodiscard]] bool isEnable() const
           {
                   return _enabled;
           }
@@ -76,11 +76,11 @@ namespace ecs
                   _enabled = false;
           }
 
-          float getUpdateInterval() const
+          [[nodiscard]] float getUpdateInterval() const
           {
                   return _updateInterval;
           }
-          float getTimeSinceLastUpdate() const
+          [[nodiscard]] float getTimeSinceLastUpdate() const
           {
                   return _timeSinceLastUpdate;
           }
@@ -89,7 +89,7 @@ namespace ecs
                   _updateInterval = interval;
           }
 
-          SystemPriority getPriority() const
+          [[nodiscard]] SystemPriority getPriority() const
           {
                   return _priority;
           }

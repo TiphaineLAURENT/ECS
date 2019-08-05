@@ -44,7 +44,7 @@ namespace ecs
           EntityContainer &operator=(EntityContainer &&) noexcept = delete;
 
   public:
-          const char *getEntityContainerTypeName() const override
+          [[nodiscard]] const char *getEntityContainerTypeName() const override
           {
                   static const char *entityTypeName{typeid(E).name()};
 
@@ -65,15 +65,15 @@ namespace ecs
                   _entities[entityID] = std::move(entity);
                   return getEntityById(entityID);
           }
-          E &getEntityById(EntityID entityID)
+          [[nodiscard]] E &getEntityById(EntityID entityID)
           {
                   return *_entities[entityID].get();
           }
-          EntityMap<E> &getEntities()
+          [[nodiscard]] EntityMap<E> &getEntities()
           {
                   return _entities;
           }
-          const EntityMap<E> &getEntities() const
+          [[nodiscard]] const EntityMap<E> &getEntities() const
           {
                   return _entities;
           }

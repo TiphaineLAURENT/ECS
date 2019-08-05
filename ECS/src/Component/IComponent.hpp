@@ -48,16 +48,16 @@ namespace ecs
           IComponent &operator=(IComponent &&) = default;
 
   public:
-          static const ComponentID getComponentCount();
+          [[nodiscard]] static ComponentID getComponentCount();
 
-          const ComponentID getComponentID() const;
-          virtual const ComponentTypeID getComponentTypeID() const = 0;
+          [[nodiscard]] ComponentID getComponentID() const;
+          [[nodiscard]] virtual ComponentTypeID getComponentTypeID() const = 0;
 
           IComponent &setOwner(EntityID entityID);
-          const EntityID getOwner() const;
+          [[nodiscard]] EntityID getOwner() const;
 
           IComponent &setActive(bool state);
-          const bool isActive() const;
+          [[nodiscard]] bool isActive() const;
 
   private:
   };

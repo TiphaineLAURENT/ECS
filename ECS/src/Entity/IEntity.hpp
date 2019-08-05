@@ -49,13 +49,13 @@ namespace ecs
           IEntity &operator=(IEntity &&) noexcept = default;
 
   public:
-          static const EntityID getEntityCount();
+          [[nodiscard]] static EntityID getEntityCount();
 
-          const EntityID getEntityID() const;
-          virtual const EntityTypeID getEntityTypeID() const = 0;
+          [[nodiscard]] EntityID getEntityID() const;
+          [[nodiscard]] virtual EntityTypeID getEntityTypeID() const = 0;
 
           IEntity &setActive(bool state);
-          const bool isActive() const;
+          [[nodiscard]] bool isActive() const;
 
           template <class C, class ...ARGS>
           C *addComponent(ARGS &&... args)
@@ -66,19 +66,19 @@ namespace ecs
                   );
           }
           template <class C>
-          C *getComponent() const
+          [[nodiscard]] C *getComponent() const
           {
                   return ComponentManager::getComponent<C>(_entityID);
           }
           template <class C>
-          std::vector<C *const> getComponents() const
+          [[nodiscard]] std::vector<C *const> getComponents() const
           {
                   return ComponentManager::getComponents<C>(_entityID);
           }
           template <class C>
-          IEntity &removeComponent()
+          void removeComponent()
           {
-                  return ComponentManager::removeComponent<C>(_entityID);
+                  ComponentManager::removeComponent<C>(_entityID);
           }
 
   private:

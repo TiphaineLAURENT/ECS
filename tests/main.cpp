@@ -71,8 +71,13 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 2);
         REQUIRE(component->getComponentCount() == 2);
         REQUIRE(component->getComponentTypeCount() == 1);
-        REQUIRE(component->getComponentID() == 1);
-        REQUIRE(component->getComponentTypeID() == 1);
+        REQUIRE(component->getComponentID() == 0);
+        REQUIRE(component->getComponentTypeID() == 0);
+
+        REQUIRE(component2->getComponentCount() == 2);
+        REQUIRE(component2->getComponentTypeCount() == 1);
+        REQUIRE(component2->getComponentID() == 1);
+        REQUIRE(component2->getComponentTypeID() == 1);
         REQUIRE(!component2->setActive(false).isActive());
 
         entity.removeComponent<MyComponent2>();

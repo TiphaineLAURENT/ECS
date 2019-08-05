@@ -67,14 +67,14 @@ namespace ecs
                   );
           }
           template <class C>
-          static C *getComponent(EntityID entityID)
+          [[nodiscard]] static C *getComponent(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 
                   return container.getComponent(entityID);
           }
           template <class C>
-          static std::vector<C *> getComponents(EntityID entityID)
+          [[nodiscard]] static std::vector<C *> getComponents(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 
@@ -99,7 +99,7 @@ namespace ecs
                   return getComponentContainer<C>().end();
           }
 
-          size_t getContainerCount() const
+          [[nodiscard]] size_t getContainerCount() const
           {
                   return _containers.size();
           }
@@ -117,7 +117,7 @@ namespace ecs
           }
 
           template <class C>
-          ComponentContainer<C> *getContainer()
+          [[nodiscard]] ComponentContainer<C> *getContainer()
           {
                   const auto componentTypeID = C::_componentTypeID;
                   auto it = _containers.find(componentTypeID);
