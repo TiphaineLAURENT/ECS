@@ -108,7 +108,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &setSystemPriority(SystemPriority priority)
+          static S &setSystemPriority(SYSTEM_PRIORITY priority)
           {
                   SimpleSystemManager &instance = getInstance();
 
@@ -118,6 +118,7 @@ namespace ecs
           }
 
           static void update();
+
   };
 
   std::ostream &operator<<(std::ostream &out, const SimpleSystemManager &);

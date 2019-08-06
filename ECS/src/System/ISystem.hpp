@@ -13,7 +13,7 @@ namespace ecs
 
   using SystemTypeID = util::ID;
 
-  enum class SystemPriority
+  enum class SYSTEM_PRIORITY
   {
           LOWEST,
           LOW,
@@ -31,7 +31,7 @@ namespace ecs
 
           float _updateInterval = 1.;
 
-          SystemPriority _priority = SystemPriority::NORMAL;
+          SYSTEM_PRIORITY _priority = SYSTEM_PRIORITY::NORMAL;
 
           bool _enabled = true;
 
@@ -44,7 +44,7 @@ namespace ecs
 // METHODS:
   public: // CONSTRUCTORS
           explicit ISystem(
-                  SystemPriority,
+                  SYSTEM_PRIORITY,
                   float
           );
           virtual ~ISystem() = default;
@@ -89,11 +89,11 @@ namespace ecs
                   _updateInterval = interval;
           }
 
-          [[nodiscard]] SystemPriority getPriority() const
+          [[nodiscard]] SYSTEM_PRIORITY getPriority() const
           {
                   return _priority;
           }
-          void setPriority(SystemPriority priority)
+          void setPriority(SYSTEM_PRIORITY priority)
           {
                   _priority = priority;
           }

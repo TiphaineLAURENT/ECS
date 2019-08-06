@@ -24,8 +24,10 @@ set(ECS_SOURCES
     ${CMAKE_SOURCE_DIR}/ECS/src/System/System.cpp ${CMAKE_SOURCE_DIR}/ECS/src/System/System.hpp
     ${CMAKE_SOURCE_DIR}/ECS/src/System/SystemManager.cpp ${CMAKE_SOURCE_DIR}/ECS/src/System/SystemManager.hpp
     ${CMAKE_SOURCE_DIR}/ECS/src/System/SimpleSystemManager.cpp ${CMAKE_SOURCE_DIR}/ECS/src/System/SimpleSystemManager.hpp
+    ${CMAKE_SOURCE_DIR}/ECS/src/System/MediumSystemManager.cpp ${CMAKE_SOURCE_DIR}/ECS/src/System/MediumSystemManager.hpp
     )
 add_library(ecs STATIC ${ECS_SOURCES})
+add_library(ecs_shared SHARED ${ECS_SOURCES})
 
 include_directories(ECS/src/Entity)
 include_directories(ECS/src/Component)

@@ -12,7 +12,7 @@
 #include <Component.hpp>
 #include <ComponentManager.hpp>
 #include <System.hpp>
-#include <SystemManager.hpp>
+#include <MediumSystemManager.hpp>
 
 
 class MyEntity
@@ -30,9 +30,31 @@ class MyComponent2
 {
 };
 
-class MySystem
-        : public ecs::System<MySystem>
+struct MySystem1
+        : public ecs::System<MySystem1>
 {
+        MySystem1()
+                : System(ecs::SYSTEM_PRIORITY::LOWEST)
+        {
+        }
+};
+
+struct MySystem2
+        : public ecs::System<MySystem2>
+{
+        MySystem2()
+                : System(ecs::SYSTEM_PRIORITY::NORMAL)
+        {
+        }
+};
+
+struct MySystem3
+        : public ecs::System<MySystem3>
+{
+        MySystem3()
+                : System(ecs::SYSTEM_PRIORITY::HIGHEST)
+        {
+        }
 };
 
 TEST_CASE("Basic creation", "creation")
@@ -45,12 +67,22 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(entity.getEntityID() == 0);
         REQUIRE(entity.getEntityTypeID() == 0);
 
-        auto &system = ecs::SystemManager::createSystem<MySystem>();
+        auto systemManager = ecs::MediumSystemManager();
+        auto &system1 = systemManager.createSystem<MySystem1>();
+        REQUIRE(system1.getPriority() == ecs::SYSTEM_PRIORITY::LOWEST);
+        REQUIRE(system1.getSystemTypeID() == 0);
+        REQUIRE(system1.getUpdateInterval() == 1.);
+        REQUIRE(system1.isEnable());
 
-        REQUIRE(system.getPriority() == ecs::SystemPriority::NORMAL);
-        REQUIRE(system.getSystemTypeID() == 0);
-        REQUIRE(system.getUpdateInterval() == 1.);
-        REQUIRE(system.isEnable());
+        auto &system2 = systemManager.createSystem<MySystem2>();
+        auto &system3 = systemManager.createSystem<MySystem3>();
+        systemManager.updateSytemsOrder();
+        REQUIRE(systemManager[0]->getPriority() ==
+                ecs::SYSTEM_PRIORITY::HIGHEST);
+        REQUIRE(systemManager[1]->getPriority() ==
+                ecs::SYSTEM_PRIORITY::NORMAL);
+        REQUIRE(systemManager[2]->getPriority() ==
+                ecs::SYSTEM_PRIORITY::LOWEST);
 
         REQUIRE(entity.addComponent<MyComponent>() != nullptr);
         auto component = entity.getComponent<MyComponent>();

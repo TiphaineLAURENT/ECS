@@ -7,7 +7,7 @@
 namespace ecs
 {
 
-  ISystem::ISystem(SystemPriority priority, float updateInterval)
+  ISystem::ISystem(SYSTEM_PRIORITY priority, float updateInterval)
           : _updateInterval(updateInterval), _priority(priority)
   {
   }

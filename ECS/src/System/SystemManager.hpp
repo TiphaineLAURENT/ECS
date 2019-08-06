@@ -190,7 +190,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &setSystemPriority(SystemPriority priority)
+          static S &setSystemPriority(SYSTEM_PRIORITY priority)
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
