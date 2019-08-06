@@ -40,6 +40,7 @@ namespace ecs
           bool _reserved = false;
 
   public:
+          friend class MediumSystemManager;
 
 // METHODS:
   public: // CONSTRUCTORS
@@ -59,9 +60,9 @@ namespace ecs
           [[nodiscard]] virtual SystemTypeID getSystemTypeID() const = 0;
           [[nodiscard]] virtual const char *getSystemTypeName() const = 0;
 
-          virtual void preUpdate() = 0;
-          virtual void update() = 0;
-          virtual void postUpdate() = 0;
+          [[deprecated]] virtual void preUpdate(float deltaTime) = 0;
+          virtual void update(float deltaTime) = 0;
+          [[deprecated]] virtual void postUpdate(float deltaTime) = 0;
 
           [[nodiscard]] bool isEnable() const
           {
@@ -80,13 +81,14 @@ namespace ecs
           {
                   return _updateInterval;
           }
-          [[nodiscard]] float getTimeSinceLastUpdate() const
-          {
-                  return _timeSinceLastUpdate;
-          }
           void setUpdateInterval(float interval)
           {
                   _updateInterval = interval;
+          }
+
+          [[nodiscard]] float getTimeSinceLastUpdate() const
+          {
+                  return _timeSinceLastUpdate;
           }
 
           [[nodiscard]] SYSTEM_PRIORITY getPriority() const

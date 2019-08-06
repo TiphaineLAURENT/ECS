@@ -19,20 +19,20 @@ namespace ecs
           return *_instance;
   }
 
-  void SimpleSystemManager::update()
+  void SimpleSystemManager::update(float deltaTime)
   {
           SimpleSystemManager &instance = getInstance();
 
           for (auto &system : instance._systems) {
-                  system.second->preUpdate();
+                  system.second->preUpdate(deltaTime);
           }
 
           for (auto &system : instance._systems) {
-                  system.second->update();
+                  system.second->update(deltaTime);
           }
 
           for (auto &system : instance._systems) {
-                  system.second->postUpdate();
+                  system.second->postUpdate(deltaTime);
           }
   }
 

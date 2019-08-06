@@ -73,7 +73,10 @@ namespace ecs
                   for (
                           auto &pair : _systems
                           ) {
-                          _orderedSystems.emplace_back(pair.second.get());
+                          if (pair.second->isEnable()) {
+                                  _orderedSystems
+                                          .emplace_back(pair.second.get());
+                          }
                   }
                   std::sort(
                           _orderedSystems.begin(), _orderedSystems.end(),
@@ -128,9 +131,7 @@ namespace ecs
                   return system;
           }
 
-          void preUpdate();
-          void update();
-          void postUpdate();
+          void update(float deltaTime);
 
   private:
   };

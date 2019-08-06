@@ -48,13 +48,13 @@ namespace ecs
                   return systemTypeName;
           }
 
-          void preUpdate() override
+          void preUpdate(float deltaTime) override
           {
           }
-          void update() override
+          void update(float deltaTime) override
           {
           }
-          void postUpdate() override
+          void postUpdate(float deltaTime) override
           {
           }
 

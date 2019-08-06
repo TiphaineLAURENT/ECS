@@ -37,14 +37,22 @@ struct MySystem1
                 : System(ecs::SYSTEM_PRIORITY::LOWEST)
         {
         }
+        void update(float deltaTime) override
+        {
+                std::cout << deltaTime << " for 1\n";
+        }
 };
 
 struct MySystem2
         : public ecs::System<MySystem2>
 {
         MySystem2()
-                : System(ecs::SYSTEM_PRIORITY::NORMAL)
+                : System(ecs::SYSTEM_PRIORITY::NORMAL, 0.5)
         {
+        }
+        void update(float deltaTime) override
+        {
+                std::cout << deltaTime << " for 2\n";
         }
 };
 
@@ -52,8 +60,12 @@ struct MySystem3
         : public ecs::System<MySystem3>
 {
         MySystem3()
-                : System(ecs::SYSTEM_PRIORITY::HIGHEST)
+                : System(ecs::SYSTEM_PRIORITY::HIGHEST, 0.1)
         {
+        }
+        void update(float deltaTime) override
+        {
+                std::cout << deltaTime << " for 3\n";
         }
 };
 
@@ -83,6 +95,10 @@ TEST_CASE("Basic creation", "creation")
                 ecs::SYSTEM_PRIORITY::NORMAL);
         REQUIRE(systemManager[2]->getPriority() ==
                 ecs::SYSTEM_PRIORITY::LOWEST);
+
+        systemManager.update(1.);
+        systemManager.update(0.5);
+        systemManager.update(0.1);
 
         REQUIRE(entity.addComponent<MyComponent>() != nullptr);
         auto component = entity.getComponent<MyComponent>();

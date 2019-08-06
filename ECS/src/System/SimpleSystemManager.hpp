@@ -107,17 +107,7 @@ namespace ecs
                   return system;
           }
 
-          template <class S>
-          static S &setSystemPriority(SYSTEM_PRIORITY priority)
-          {
-                  SimpleSystemManager &instance = getInstance();
-
-                  auto system = instance.getSystem<S>();
-                  system.setPriority(priority);
-                  return system;
-          }
-
-          static void update();
+          static void update(float deltaTime);
 
   };
 

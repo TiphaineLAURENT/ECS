@@ -3,3 +3,22 @@
 //
 
 #include "MediumSystemManager.hpp"
+
+
+namespace ecs
+{
+
+  void MediumSystemManager::update(float deltaTime)
+  {
+          for (
+                  auto &system : _orderedSystems
+                  ) {
+                  system->_timeSinceLastUpdate += deltaTime;
+                  if (system->_timeSinceLastUpdate >= system->_updateInterval) {
+                          system->update(deltaTime);
+                          system->_timeSinceLastUpdate = 0.;
+                  }
+          }
+  }
+
+}
