@@ -131,7 +131,7 @@ namespace ecs
                   return system;
           }
 
-          void update(float deltaTime);
+          void update(long deltaTime);
 
   private:
   };

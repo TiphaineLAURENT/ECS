@@ -33,7 +33,7 @@ struct SYSTEM(MySystem1)
                 : System(ecs::SYSTEM_PRIORITY::LOWEST)
         {
         }
-        void update(float deltaTime) override
+        void update(long deltaTime) override
         {
                 std::cout << deltaTime << " for 1\n";
         }
@@ -42,10 +42,10 @@ struct SYSTEM(MySystem1)
 struct SYSTEM(MySystem2)
 {
         MySystem2()
-                : System(ecs::SYSTEM_PRIORITY::NORMAL, 0.5)
+                : System(ecs::SYSTEM_PRIORITY::NORMAL, 5)
         {
         }
-        void update(float deltaTime) override
+        void update(long deltaTime) override
         {
                 std::cout << deltaTime << " for 2\n";
         }
@@ -54,10 +54,10 @@ struct SYSTEM(MySystem2)
 struct SYSTEM(MySystem3)
 {
         MySystem3()
-                : System(ecs::SYSTEM_PRIORITY::HIGHEST, 0.1)
+                : System(ecs::SYSTEM_PRIORITY::HIGHEST, 1)
         {
         }
-        void update(float deltaTime) override
+        void update(long deltaTime) override
         {
                 std::cout << deltaTime << " for 3\n";
         }
@@ -77,7 +77,7 @@ TEST_CASE("Basic creation", "creation")
         auto &system1 = systemManager.createSystem<MySystem1>();
         REQUIRE(system1.getPriority() == ecs::SYSTEM_PRIORITY::LOWEST);
         REQUIRE(system1.getSystemTypeID() == 0);
-        REQUIRE(system1.getUpdateInterval() == 1.);
+        REQUIRE(system1.getUpdateInterval() == 10);
         REQUIRE(system1.isEnable());
 
         auto &system2 = systemManager.createSystem<MySystem2>();
@@ -90,9 +90,9 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(systemManager[2]->getPriority() ==
                 ecs::SYSTEM_PRIORITY::LOWEST);
 
-        systemManager.update(1.);
-        systemManager.update(0.5);
-        systemManager.update(0.1);
+        systemManager.update(10);
+        systemManager.update(5);
+        systemManager.update(1);
 
         REQUIRE(entity.addComponent<MyComponent>() != nullptr);
         auto component = entity.getComponent<MyComponent>();

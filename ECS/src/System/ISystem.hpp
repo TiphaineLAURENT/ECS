@@ -27,9 +27,9 @@ namespace ecs
   {
 // ATTRIBUTES
   protected:
-          float _timeSinceLastUpdate = 0.;
+          long _timeSinceLastUpdate = 0;
 
-          float _updateInterval = 1.;
+          long _updateInterval = 1;
 
           SYSTEM_PRIORITY _priority = SYSTEM_PRIORITY::NORMAL;
 
@@ -46,7 +46,7 @@ namespace ecs
   public: // CONSTRUCTORS
           explicit ISystem(
                   SYSTEM_PRIORITY,
-                  float
+                  long updateInterval
           );
           virtual ~ISystem() = default;
           ISystem(const ISystem &copy) = delete;
@@ -61,7 +61,7 @@ namespace ecs
           [[nodiscard]] virtual const char *getSystemTypeName() const = 0;
 
           [[deprecated]] virtual void preUpdate(float deltaTime) = 0;
-          virtual void update(float deltaTime) = 0;
+          virtual void update(long deltaTime) = 0;
           [[deprecated]] virtual void postUpdate(float deltaTime) = 0;
 
           [[nodiscard]] bool isEnable() const
@@ -77,16 +77,16 @@ namespace ecs
                   _enabled = false;
           }
 
-          [[nodiscard]] float getUpdateInterval() const
+          [[nodiscard]] long getUpdateInterval() const
           {
                   return _updateInterval;
           }
-          void setUpdateInterval(float interval)
+          void setUpdateInterval(long interval)
           {
                   _updateInterval = interval;
           }
 
-          [[nodiscard]] float getTimeSinceLastUpdate() const
+          [[nodiscard]] long getTimeSinceLastUpdate() const
           {
                   return _timeSinceLastUpdate;
           }

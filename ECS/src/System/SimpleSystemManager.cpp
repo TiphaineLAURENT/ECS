@@ -19,7 +19,7 @@ namespace ecs
           return *_instance;
   }
 
-  void SimpleSystemManager::update(float deltaTime)
+  void SimpleSystemManager::update(long deltaTime)
   {
           SimpleSystemManager &instance = getInstance();
 
