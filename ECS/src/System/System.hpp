@@ -10,6 +10,7 @@
 
 namespace ecs
 {
+# define SYSTEM(system) system : public ecs::System<system>
 
   template <class S>
   class System : public ISystem

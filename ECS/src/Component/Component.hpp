@@ -12,6 +12,7 @@
 
 namespace ecs
 {
+# define COMPONENT(component) component : public ecs::Component<component>
 
   template <class C>
   class Component : public IComponent

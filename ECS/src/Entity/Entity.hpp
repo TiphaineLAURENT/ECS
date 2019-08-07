@@ -13,6 +13,7 @@
 
 namespace ecs
 {
+# define ENTITY(entity) entity : public ecs::Entity<entity>
 
   template <class E>
   class Entity : public IEntity

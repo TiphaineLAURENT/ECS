@@ -15,23 +15,19 @@
 #include <MediumSystemManager.hpp>
 
 
-class MyEntity
-        : public ecs::Entity<MyEntity>
+class ENTITY(MyEntity)
 {
 };
 
-class MyComponent
-        : public ecs::Component<MyComponent>
+class COMPONENT(MyComponent)
 {
 };
 
-class MyComponent2
-        : public ecs::Component<MyComponent2>
+class COMPONENT(MyComponent2)
 {
 };
 
-struct MySystem1
-        : public ecs::System<MySystem1>
+struct SYSTEM(MySystem1)
 {
         MySystem1()
                 : System(ecs::SYSTEM_PRIORITY::LOWEST)
@@ -43,8 +39,7 @@ struct MySystem1
         }
 };
 
-struct MySystem2
-        : public ecs::System<MySystem2>
+struct SYSTEM(MySystem2)
 {
         MySystem2()
                 : System(ecs::SYSTEM_PRIORITY::NORMAL, 0.5)
@@ -56,8 +51,7 @@ struct MySystem2
         }
 };
 
-struct MySystem3
-        : public ecs::System<MySystem3>
+struct SYSTEM(MySystem3)
 {
         MySystem3()
                 : System(ecs::SYSTEM_PRIORITY::HIGHEST, 0.1)
