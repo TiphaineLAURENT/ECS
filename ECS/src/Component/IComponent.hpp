@@ -10,10 +10,12 @@
 
 # include <ostream>
 # include <vector>
+
 # include "../util/util.hpp"
 
 namespace ecs
 {
+  class IEntity;
 
   using ComponentID = util::ID;
   using ComponentTypeID = util::ID;
@@ -30,7 +32,9 @@ namespace ecs
 
           static ComponentID _componentCount;
 
-          EntityID _owner = util::INVALID_ID;
+          EntityID _ownerId = util::INVALID_ID;
+
+          IEntity *_owner = nullptr;
 
           bool _active = true;
 
@@ -53,8 +57,9 @@ namespace ecs
           [[nodiscard]] ComponentID getComponentID() const;
           [[nodiscard]] virtual ComponentTypeID getComponentTypeID() const = 0;
 
-          IComponent &setOwner(EntityID entityID);
-          [[nodiscard]] EntityID getOwner() const;
+          IComponent &setOwner(IEntity *entity);
+          [[nodiscard]] IEntity *getOwner() const;
+          [[nodiscard]] EntityID getOwnerId() const;
 
           IComponent &setActive(bool state);
           [[nodiscard]] bool isActive() const;

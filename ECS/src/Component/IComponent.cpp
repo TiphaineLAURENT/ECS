@@ -6,6 +6,7 @@
 */
 
 #include "IComponent.hpp"
+#include "IEntity.hpp"
 
 namespace ecs
 {
@@ -40,9 +41,9 @@ namespace ecs
           return _componentID;
   }
 
-  EntityID IComponent::getOwner() const
+  EntityID IComponent::getOwnerId() const
   {
-          return _owner;
+          return _ownerId;
   }
 
   IComponent &IComponent::setActive(bool state)
@@ -56,11 +57,16 @@ namespace ecs
           return _active;
   }
 
-  IComponent &IComponent::setOwner(const EntityID entityID)
+  IComponent &IComponent::setOwner(IEntity *entity)
   {
-          _owner = entityID;
+          _owner = entity;
+          _ownerId = _owner->getEntityID();
 
           return *this;
+  }
+  IEntity *IComponent::getOwner() const
+  {
+          return _owner;
   }
 
   std::ostream &operator<<(std::ostream &out, const IComponent *component)
@@ -70,7 +76,7 @@ namespace ecs
               << "Count: " << component->getComponentCount() << ", "
               << "TypeID: " << component->getComponentTypeID() << ", "
               << "TypeName: " << typeid(component).name() << ", "
-              << "Owner: " << component->getOwner() << ", "
+              << "Owner: " << component->getOwnerId() << ", "
               << "Active: " << component->isActive() << true
               << " }";
           return out;

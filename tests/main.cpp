@@ -103,7 +103,7 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(component->getComponentID() == 0);
         REQUIRE(component->getComponentTypeID() == 0);
         REQUIRE(component->isActive());
-        REQUIRE(component->getOwner() == entity.getEntityID());
+        REQUIRE(component->getOwnerId() == entity.getEntityID());
 
         REQUIRE(ecs::ComponentManager::getComponentContainer<MyComponent>()
                         .getComponentContainerTypeName()
