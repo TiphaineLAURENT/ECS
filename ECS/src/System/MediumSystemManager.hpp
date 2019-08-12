@@ -126,7 +126,7 @@ namespace ecs
           template <class S>
           S &setSystemPriority(SYSTEM_PRIORITY priority)
           {
-                  auto system = instance.getSystem<S>();
+                  auto system = getSystem<S>();
                   system.setPriority(priority);
                   return system;
           }
