@@ -22,7 +22,9 @@ jobs:
 
       - run:
           name: Installing CMAKE
-          command: "apt-get install -y cmake"
+          command: |
+            python -m pip install --upgrade pip
+            python -m pip install cmake
 
       - run:
           name: Installing Perl
