@@ -12,6 +12,7 @@
 # include <memory>
 # include <vector>
 # include <algorithm>
+
 # include "IComponentContainer.hpp"
 
 namespace ecs
@@ -53,7 +54,7 @@ namespace ecs
           }
 
           template <class ...ARGS>
-          C *addComponent(EntityID entityID, ARGS &&... args)
+          C *addComponent(IEntity *entity, ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of<IComponent, C>::value,
@@ -61,7 +62,7 @@ namespace ecs
                   );
 
                   auto component = std::make_unique<C>(std::forward<ARGS>(args)...);
-                  component->setOwner(entityID);
+                  component->setOwner(entity);
 
                   _components.push_back(std::move(component));
                   return _components.back().get();
@@ -69,7 +70,7 @@ namespace ecs
           [[nodiscard]] C *getComponent(EntityID entityID)
           {
                   for (auto &component : _components) {
-                          if (component->getOwner() == entityID) {
+                          if (component->getOwnerId() == entityID) {
                                   return component.get();
                           }
                   }
@@ -80,7 +81,7 @@ namespace ecs
                   auto components = std::vector<C *const>{};
 
                   for (auto &component : _components) {
-                          if (component->getOwner() == entityID) {
+                          if (component->getOwnerId() == entityID) {
                                   components.emplace_back(component.get());
                           }
                   }
@@ -92,7 +93,7 @@ namespace ecs
                   auto components = std::vector<C *const>{};
 
                   for (auto &component : _components) {
-                          if (component->getOwner() == entityID) {
+                          if (component->getOwnerId() == entityID) {
                                   components.emplace_back(component.get());
                           }
                   }
@@ -104,7 +105,7 @@ namespace ecs
                           _components.begin(),
                           _components.end(),
                           [&](auto &component) {
-                                  return component->getOwner()
+                                  return component->getOwnerId()
                                          == entityID;
                           }
                   );

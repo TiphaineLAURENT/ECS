@@ -61,7 +61,7 @@ namespace ecs
           C *addComponent(ARGS &&... args)
           {
                   return ComponentManager::addComponent<C>(
-                          _entityID,
+                          this,
                           std::forward<ARGS>(args)...
                   );
           }

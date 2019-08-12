@@ -10,6 +10,7 @@
 
 # include <ostream>
 # include <unordered_map>
+
 # include "ComponentContainer.hpp"
 
 
@@ -58,11 +59,11 @@ namespace ecs
           }
 
           template <class C, class ...ARGS>
-          static C *addComponent(EntityID entityID, ARGS &&... args)
+          static C *addComponent(IEntity *entity, ARGS &&... args)
           {
                   auto &container = getComponentContainer<C>();
                   return container.addComponent(
-                          entityID,
+                          entity,
                           std::forward<ARGS>(args)...
                   );
           }
