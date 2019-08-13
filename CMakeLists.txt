@@ -35,10 +35,6 @@ message("Found ecs sources: [\n" ${ECS_SOURCES_STRING} "\n]")
 add_library(ecs STATIC ${ECS_SOURCES})
 add_library(ecs_shared SHARED ${ECS_SOURCES})
 
-include_directories(ECS/src/Entity)
-include_directories(ECS/src/Component)
-include_directories(ECS/src/System)
-
 add_library(coverage_config INTERFACE)
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 if (CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
