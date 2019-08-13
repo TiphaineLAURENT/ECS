@@ -32,6 +32,10 @@ list(TRANSFORM ECS_SOURCES PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/")
 list(JOIN ECS_SOURCES "\n" ECS_SOURCES_STRING)
 message("Found ecs sources: [\n" ${ECS_SOURCES_STRING} "\n]")
 
+include_directories(${CMAKE_SOURCE_DIR}/ECS/src/Entity)
+include_directories(${CMAKE_SOURCE_DIR}/ECS/src/Component)
+include_directories(${CMAKE_SOURCE_DIR}/ECS/src/System)
+
 add_library(ecs STATIC ${ECS_SOURCES})
 add_library(ecs_shared SHARED ${ECS_SOURCES})
 
