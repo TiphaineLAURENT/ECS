@@ -43,6 +43,9 @@ namespace ecs
           Component &operator=(Component &&) noexcept = default;
 
   public:
+          void setup() override
+          {
+          }
           static ComponentID getComponentTypeCount()
           {
                   return _componentTypeCount;

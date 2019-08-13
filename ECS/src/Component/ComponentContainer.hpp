@@ -63,6 +63,7 @@ namespace ecs
 
                   auto component = std::make_unique<C>(std::forward<ARGS>(args)...);
                   component->setOwner(entity);
+                  component->setup();
 
                   _components.push_back(std::move(component));
                   return _components.back().get();

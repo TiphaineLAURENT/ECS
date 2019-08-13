@@ -52,6 +52,8 @@ namespace ecs
           IComponent &operator=(IComponent &&) = default;
 
   public:
+          virtual void setup() = 0;
+
           [[nodiscard]] static ComponentID getComponentCount();
 
           [[nodiscard]] ComponentID getComponentID() const;
