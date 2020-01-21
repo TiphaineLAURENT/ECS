@@ -11,9 +11,6 @@
 namespace ecs
 {
 
-  std::vector<EntityID> IEntity::_freeID;
-  EntityID IEntity::_entityCount = 0;
-
   EntityTypeID IEntity::getEntityTypeID() const
   {
           return _entityTypeID;
@@ -45,7 +42,7 @@ namespace ecs
           return _active;
   }
 
-  EntityID IEntity::getEntityCount()
+  size_t IEntity::getEntityCount()
   {
           return _entityCount;
   }

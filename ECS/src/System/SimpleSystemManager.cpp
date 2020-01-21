@@ -9,17 +9,13 @@
 
 namespace ecs
 {
-  SimpleSystemManager *SimpleSystemManager::_instance = nullptr;
+        SimpleSystemManager &SimpleSystemManager::getInstance()
+        {
+                static SimpleSystemManager instance;
+                return instance;
+        }
 
-  SimpleSystemManager &SimpleSystemManager::getInstance()
-  {
-          if (_instance == nullptr) {
-                  _instance = new SimpleSystemManager;
-          }
-          return *_instance;
-  }
-
-  void SimpleSystemManager::update(long deltaTime)
+  void SimpleSystemManager::update(Interval deltaTime)
   {
           SimpleSystemManager &instance = getInstance();
 

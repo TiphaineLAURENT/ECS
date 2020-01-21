@@ -40,9 +40,9 @@ namespace ecs
           ComponentManager &operator=(ComponentManager &&) = delete;
 
   public:
-          static ComponentManager &getInstance();
+          [[nodiscard]] static ComponentManager &getInstance();
           template <class C>
-          constexpr static auto &getComponentContainer()
+          static auto &getComponentContainer()
           {
                   static_assert(
                           std::is_base_of<IComponent, C>::value,
@@ -82,7 +82,7 @@ namespace ecs
                   return container.getComponents(entityID);
           }
           template <class C>
-          static void removeComponent(EntityID entityID)
+          [[noreturn]] static void removeComponent(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 
@@ -90,12 +90,12 @@ namespace ecs
           }
 
           template <class C>
-          static CComponentIterator<C> begin()
+          [[nodiscard]] static CComponentIterator<C> begin()
           {
                   return getComponentContainer<C>().begin();
           }
           template <class C>
-          static CComponentIterator<C> end()
+          [[nodiscard]] static CComponentIterator<C> end()
           {
                   return getComponentContainer<C>().end();
           }

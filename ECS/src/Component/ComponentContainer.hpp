@@ -12,6 +12,7 @@
 # include <memory>
 # include <vector>
 # include <algorithm>
+# include <string>
 
 # include "IComponentContainer.hpp"
 
@@ -30,7 +31,7 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          ComponentStorage<C> _components;
+          ComponentStorage<C> _components{};
 
   public:
 
@@ -46,9 +47,9 @@ namespace ecs
           ComponentContainer &operator=(ComponentContainer &&) noexcept = delete;
 
   public:
-          [[nodiscard]] const char *getComponentContainerTypeName() const override
+          [[nodiscard]] const std::string &getComponentContainerTypeName() const override
           {
-                  static const auto componentTypeName{typeid(C).name()};
+                  static const std::string componentTypeName{typeid(C).name()};
 
                   return componentTypeName;
           }
@@ -100,7 +101,7 @@ namespace ecs
                   }
                   return components;
           }
-          void removeComponent(EntityID entityID) override
+          [[noreturn]] void removeComponent(EntityID entityID) override
           {
                   auto toRemove = std::find_if(
                           _components.begin(),
@@ -112,23 +113,25 @@ namespace ecs
                   );
                   _components.erase(toRemove);
           }
-          void removeComponentByID(ComponentID componentID)
+          [[noreturn]] void removeComponentByID(ComponentID componentID)
           {
                   auto toRemove = std::find_if(
                           _components.begin(),
                           _components.end(),
-                          [&](auto &component) {
+                          [&] (auto &component)
+                          {
                                   return component->getComponentID()
-                                         == componentID;
+                                          == componentID;
                           }
                   );
+                  _components.erase(toRemove);
           }
 
-          CComponentIterator<C> begin()
+          [[nodiscard]] CComponentIterator<C> begin()
           {
                   return _components.begin();
           }
-          CComponentIterator<C> end()
+          [[nodiscard]] CComponentIterator<C> end()
           {
                   return _components.end();
           }
@@ -138,7 +141,7 @@ namespace ecs
                   return _components;
           }
 
-          const ComponentStorage<C> &getComponents() const
+          [[nodiscard]] const ComponentStorage<C> &getComponents() const
           {
                   return _components;
           }

@@ -8,13 +8,13 @@
 namespace ecs
 {
 
-  void MediumSystemManager::update(long deltaTime)
+  void MediumSystemManager::update(Interval deltaTime)
   {
-          for (
-                  auto &system : _orderedSystems
-                  ) {
+          for (auto &system : _orderedSystems)
+          {
                   system->_timeSinceLastUpdate += deltaTime;
-                  if (system->_timeSinceLastUpdate >= system->_updateInterval) {
+                  if (system->_timeSinceLastUpdate >= system->_updateInterval)
+                  {
                           system->update(deltaTime);
                           system->_timeSinceLastUpdate = 0;
                   }

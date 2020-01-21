@@ -11,6 +11,8 @@
 # include <ostream>
 # include <map>
 # include <memory>
+# include <string>
+
 # include "IEntityContainer.hpp"
 
 namespace ecs
@@ -28,7 +30,7 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          EntityMap<E> _entities;
+          EntityMap<E> _entities{};
 
   public:
 
@@ -44,9 +46,9 @@ namespace ecs
           EntityContainer &operator=(EntityContainer &&) noexcept = delete;
 
   public:
-          [[nodiscard]] const char *getEntityContainerTypeName() const override
+          [[nodiscard]] const std::string &getEntityContainerTypeName() const override
           {
-                  static const char *entityTypeName{typeid(E).name()};
+                  static const std::string entityTypeName{typeid(E).name()};
 
                   return entityTypeName;
           }
@@ -77,16 +79,16 @@ namespace ecs
           {
                   return _entities;
           }
-          void destroyEntity(EntityID entityId) override
+          [[noreturn]] void destroyEntity(EntityID entityId) override
           {
                   _entities.erase(entityId);
           }
 
-          EEntityIterator<E> begin()
+          [[nodiscard]] EEntityIterator<E> begin()
           {
                   return _entities.begin();
           }
-          EEntityIterator<E> end()
+          [[nodiscard]] EEntityIterator<E> end()
           {
                   return _entities.end();
           }

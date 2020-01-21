@@ -9,6 +9,8 @@
 # define ECS_ICOMPONENTCONTAINER_HPP
 
 # include <ostream>
+# include <string>
+
 # include "IComponent.hpp"
 
 namespace ecs
@@ -32,9 +34,9 @@ namespace ecs
           IComponentContainer &operator=(IComponentContainer &&) = delete;
 
   public:
-          [[nodiscard]] virtual const char *getComponentContainerTypeName() const = 0;
+          [[nodiscard]] virtual const std::string &getComponentContainerTypeName() const = 0;
 
-          virtual void removeComponent(EntityID entityID) = 0;
+          [[noreturn]] virtual void removeComponent(EntityID entityID) = 0;
 
   private:
   };

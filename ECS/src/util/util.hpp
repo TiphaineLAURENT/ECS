@@ -46,6 +46,7 @@ namespace ecs
   }
 
   using EntityID = util::ID;
+  using Interval = int64_t;
 
 }
 

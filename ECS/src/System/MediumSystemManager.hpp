@@ -43,7 +43,7 @@ namespace ecs
           MediumSystemManager &operator=(const MediumSystemManager &other) = delete;
           MediumSystemManager &operator=(MediumSystemManager &&) = delete;
 
-          ISystem *const operator[](size_t index) const
+          [[nodiscard]] ISystem *const operator[](size_t index) const
           {
                   return _orderedSystems[index];
           }
@@ -67,12 +67,11 @@ namespace ecs
                   return getSystem<S>();
           }
 
-          void updateSytemsOrder()
+          [[noreturn]] void updateSytemsOrder()
           {
                   _orderedSystems.clear();
-                  for (
-                          auto &pair : _systems
-                          ) {
+                  _orderedSystems.reserve(_systems.size());
+                  for (auto &pair : _systems) {
                           if (pair.second->isEnable()) {
                                   _orderedSystems
                                           .emplace_back(pair.second.get());
@@ -88,7 +87,7 @@ namespace ecs
           }
 
           template <class S>
-          S &getSystem()
+          [[nodiscard]] S &getSystem()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -116,7 +115,7 @@ namespace ecs
           }
 
           template <class S>
-          S &setSystemUpdateInterval(float interval)
+          S &setSystemUpdateInterval(Interval interval)
           {
                   auto system = getSystem<S>();
                   system.setUpdateInterval(interval);
@@ -131,7 +130,7 @@ namespace ecs
                   return system;
           }
 
-          void update(long deltaTime);
+          [[noreturn]] void update(Interval deltaTime);
 
   private:
   };

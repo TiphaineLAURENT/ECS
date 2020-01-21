@@ -7,14 +7,10 @@
 
 namespace ecs
 {
-  SystemManager *SystemManager::_instance = nullptr;
-
   SystemManager &SystemManager::getInstance()
   {
-          if (_instance == nullptr) {
-                  _instance = new SystemManager;
-          }
-          return *_instance;
+          static SystemManager instance;
+          return instance;
   }
 
   SystemWorkStateMaks SystemManager::getSystemWorkState()

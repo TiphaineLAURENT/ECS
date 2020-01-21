@@ -10,6 +10,7 @@
 
 # include <ostream>
 # include <vector>
+
 # include "../util/util.hpp"
 # include "../Component/ComponentManager.hpp"
 
@@ -25,15 +26,15 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          EntityID _entityID = util::INVALID_ID;
+          EntityID _entityID{util::INVALID_ID};
 
-          static std::vector<EntityID> _freeID;
+          static inline std::vector<EntityID> _freeID{};
 
-          static EntityID _entityCount;
+          static inline size_t _entityCount{0};
 
-          EntityTypeID _entityTypeID = util::INVALID_ID;
+          EntityTypeID _entityTypeID{util::INVALID_ID};
 
-          bool _active = true;
+          bool _active{true};
 
   public:
 
@@ -76,7 +77,7 @@ namespace ecs
                   return ComponentManager::getComponents<C>(_entityID);
           }
           template <class C>
-          void removeComponent()
+          [[noreturn]] void removeComponent()
           {
                   ComponentManager::removeComponent<C>(_entityID);
           }

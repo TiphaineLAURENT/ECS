@@ -37,7 +37,7 @@ namespace ecs
           EntityManager &operator=(EntityManager &&) = delete;
 
   public:
-          static EntityManager &getInstance();
+          [[nodiscard]] static EntityManager &getInstance();
           template <class E>
           [[nodiscard]] constexpr static EntityContainer<E> &getEntityContainer()
           {
@@ -84,7 +84,7 @@ namespace ecs
                   return container.getEntities(entityID);
           }
           template <class E>
-          static void removeEntity(EntityID entityID)
+          [[noreturn]] static void removeEntity(EntityID entityID)
           {
                   EntityContainer<E> &container = getEntityContainer<E>();
 
@@ -92,9 +92,9 @@ namespace ecs
           }
 
           template <class E>
-          static CComponentIterator<E> begin();
+          [[nodiscard]] static CComponentIterator<E> begin();
           template <class E>
-          static CComponentIterator<E> end();
+          [[nodiscard]] static CComponentIterator<E> end();
 
   private:
   };

@@ -24,19 +24,19 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          static const ComponentID INVALID_COMPONENT_ID = util::INVALID_ID;
+          static inline const ComponentID INVALID_COMPONENT_ID{util::INVALID_ID};
 
-          ComponentID _componentID = INVALID_COMPONENT_ID;
+          ComponentID _componentID{INVALID_COMPONENT_ID};
 
-          static std::vector<ComponentID> _freeID;
+          static inline ::std::vector<ComponentID> _freeID{};
 
-          static ComponentID _componentCount;
+          static inline size_t _componentCount{0};
 
-          EntityID _ownerId = util::INVALID_ID;
+          EntityID _ownerId{util::INVALID_ID};
 
-          IEntity *_owner = nullptr;
+          IEntity *_owner{nullptr};
 
-          bool _active = true;
+          bool _active{true};
 
   public:
 
@@ -52,9 +52,9 @@ namespace ecs
           IComponent &operator=(IComponent &&) = default;
 
   public:
-          virtual void setup() = 0;
+          [[noreturn]] virtual void setup() = 0;
 
-          [[nodiscard]] static ComponentID getComponentCount();
+          [[nodiscard]] static size_t getComponentCount();
 
           [[nodiscard]] ComponentID getComponentID() const;
           [[nodiscard]] virtual ComponentTypeID getComponentTypeID() const = 0;
@@ -69,7 +69,7 @@ namespace ecs
   private:
   };
 
-  std::ostream &operator<<(std::ostream &out, const IComponent *);
+  ::std::ostream &operator<<(::std::ostream &out, const IComponent *);
 
 }
 

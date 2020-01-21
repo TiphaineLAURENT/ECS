@@ -18,13 +18,13 @@ namespace ecs
 // ATTRIBUTES
   private:
   public:
-          static const SystemTypeID _systemTypeID;
+          static inline const SystemTypeID _systemTypeID{util::FamilyTypeID<ISystem>::getTypeID<S>()};
 
 // METHODS:
   public: // CONSTRUCTORS
           explicit System(
                   SYSTEM_PRIORITY priority = SYSTEM_PRIORITY::NORMAL,
-                  long updateInterval = 10
+                  Interval updateInterval = 10
           )
                   : ISystem(priority, updateInterval)
           {
@@ -49,13 +49,13 @@ namespace ecs
                   return systemTypeName;
           }
 
-          [[deprecated]] void preUpdate(float deltaTime) override
+          [[deprecated]] [[noreturn]] void preUpdate(Interval deltaTime) override
           {
           }
-          void update(long deltaTime) override
+          [[noreturn]] void update(Interval deltaTime) override
           {
           }
-          [[deprecated]] void postUpdate(float deltaTime) override
+          [[deprecated]] [[noreturn]] void postUpdate(Interval deltaTime) override
           {
           }
 
@@ -73,10 +73,6 @@ namespace ecs
 
   template <class S>
   std::ostream &operator<<(std::ostream &out, const System<S> &);
-
-  template <class S>
-  const SystemTypeID System<S>::_systemTypeID =
-          util::FamilyTypeID<ISystem>::getTypeID<S>();
 
 }
 

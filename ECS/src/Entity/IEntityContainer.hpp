@@ -9,6 +9,8 @@
 # define ECS_IENTITYCONTAINER_HPP
 
 # include <ostream>
+# include <string>
+
 # include "IEntity.hpp"
 
 namespace ecs
@@ -32,9 +34,9 @@ namespace ecs
           IEntityContainer &operator=(IEntityContainer &&) = delete;
 
   public:
-          [[nodiscard]] virtual const char *getEntityContainerTypeName() const = 0;
+          [[nodiscard]] virtual const std::string &getEntityContainerTypeName() const = 0;
 
-          virtual void destroyEntity(EntityID) = 0;
+          [[noreturn]] virtual void destroyEntity(EntityID) = 0;
 
   private:
   };

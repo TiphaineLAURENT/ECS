@@ -27,17 +27,17 @@ namespace ecs
   {
 // ATTRIBUTES
   protected:
-          long _timeSinceLastUpdate = 0;
+          Interval _timeSinceLastUpdate{0};
 
-          long _updateInterval = 1;
+          Interval _updateInterval{1};
 
-          SYSTEM_PRIORITY _priority = SYSTEM_PRIORITY::NORMAL;
+          SYSTEM_PRIORITY _priority{SYSTEM_PRIORITY::NORMAL};
 
-          bool _enabled = true;
+          bool _enabled{true};
 
-          bool _needUpdate = true;
+          bool _needUpdate{true};
 
-          bool _reserved = false;
+          bool _reserved{false};
 
   public:
           friend class MediumSystemManager;
@@ -46,7 +46,7 @@ namespace ecs
   public: // CONSTRUCTORS
           explicit ISystem(
                   SYSTEM_PRIORITY,
-                  long updateInterval
+                  Interval updateInterval
           );
           virtual ~ISystem() = default;
           ISystem(const ISystem &copy) = delete;
@@ -60,33 +60,33 @@ namespace ecs
           [[nodiscard]] virtual SystemTypeID getSystemTypeID() const = 0;
           [[nodiscard]] virtual const char *getSystemTypeName() const = 0;
 
-          [[deprecated]] virtual void preUpdate(float deltaTime) = 0;
-          virtual void update(long deltaTime) = 0;
-          [[deprecated]] virtual void postUpdate(float deltaTime) = 0;
+          [[deprecated]] virtual void preUpdate(Interval deltaTime) = 0;
+          [[noreturn]] virtual void update(Interval deltaTime) = 0;
+          [[deprecated]] virtual void postUpdate(Interval deltaTime) = 0;
 
           [[nodiscard]] bool isEnable() const
           {
                   return _enabled;
           }
-          void enable()
+          [[noreturn]] void enable()
           {
                   _enabled = true;
           }
-          void disable()
+          [[noreturn]] void disable()
           {
                   _enabled = false;
           }
 
-          [[nodiscard]] long getUpdateInterval() const
+          [[nodiscard]] Interval getUpdateInterval() const
           {
                   return _updateInterval;
           }
-          void setUpdateInterval(long interval)
+          [[noreturn]] void setUpdateInterval(Interval interval)
           {
                   _updateInterval = interval;
           }
 
-          [[nodiscard]] long getTimeSinceLastUpdate() const
+          [[nodiscard]] Interval getTimeSinceLastUpdate() const
           {
                   return _timeSinceLastUpdate;
           }
@@ -95,14 +95,14 @@ namespace ecs
           {
                   return _priority;
           }
-          void setPriority(SYSTEM_PRIORITY priority)
+          [[noreturn]] void setPriority(SYSTEM_PRIORITY priority)
           {
                   _priority = priority;
           }
 
   };
 
-  std::ostream &operator<<(std::ostream &out, const ISystem *);
+  std::ostream &operator<<(std::ostream &out, const ISystem*);
 
 }
 

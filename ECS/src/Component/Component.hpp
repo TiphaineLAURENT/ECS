@@ -19,10 +19,10 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          static ComponentID _componentTypeCount;
+          static inline ComponentID _componentTypeCount{0};
 
   public:
-          static const ComponentTypeID _componentTypeID;
+          static inline const ComponentTypeID _componentTypeID{util::FamilyTypeID<IComponent>::getTypeID<C>()};
 
 // METHODS
   public:// CONSTRUCTORS
@@ -43,10 +43,10 @@ namespace ecs
           Component &operator=(Component &&) noexcept = default;
 
   public:
-          void setup() override
+          [[noreturn]] void setup() override
           {
           }
-          static ComponentID getComponentTypeCount()
+          [[nodiscard]] static size_t getComponentTypeCount()
           {
                   return _componentTypeCount;
           }
@@ -62,11 +62,6 @@ namespace ecs
   template <class C>
   std::ostream &operator<<(std::ostream &out, const Component<C> &);
 
-  template <class C>
-  const ComponentTypeID Component<C>::_componentTypeID =
-          util::FamilyTypeID<IComponent>::getTypeID<C>();
-  template <class C>
-  ComponentID Component<C>::_componentTypeCount = 0;
 }
 
 #endif /* !ECS_COMPONENT_HPP */

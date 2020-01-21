@@ -11,6 +11,7 @@
 # include <map>
 # include <list>
 # include <algorithm>
+
 # include "../util/util.hpp"
 # include "ISystem.hpp"
 
@@ -26,9 +27,7 @@ namespace ecs
                   std::unique_ptr<ISystem>
                                          >;
 
-          static SimpleSystemManager *_instance;
-
-          SystemRegistry _systems;
+          SystemRegistry _systems{};
 
   public:
 
@@ -44,7 +43,7 @@ namespace ecs
           SimpleSystemManager &operator=(SimpleSystemManager &&other) = delete;
 
   public:
-          static SimpleSystemManager &getInstance();
+          [[nodiscard]] static SimpleSystemManager &getInstance();
 
           template <class S, class ...ARGS>
           static S &createSystem(ARGS &&... args)
@@ -64,7 +63,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &getSystem()
+          [[nodiscard]] static S &getSystem()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -98,7 +97,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &setSystemUpdateInterval(float interval)
+          static S &setSystemUpdateInterval(Interval interval)
           {
                   SimpleSystemManager &instance = getInstance();
 
@@ -107,7 +106,7 @@ namespace ecs
                   return system;
           }
 
-          static void update(long deltaTime);
+          static void update(Interval deltaTime);
 
   };
 

@@ -10,6 +10,7 @@
 # include <memory>
 # include <map>
 # include <list>
+
 # include "../util/util.hpp"
 # include "ISystem.hpp"
 
@@ -26,13 +27,11 @@ namespace ecs
           using SystemRegistry = std::map<util::ID, std::unique_ptr<ISystem>>;
           using SystemWorkOrder = std::vector<ISystem *>;
 
-          static SystemManager *_instance;
+          SystemRegistry _systems{};
 
-          SystemRegistry _systems;
+          SystemDependencyMatrix _systemDependencyMatrix{};
 
-          SystemDependencyMatrix _systemDependencyMatrix;
-
-          SystemWorkOrder _systemWorkOrder;
+          SystemWorkOrder _systemWorkOrder{};
 
   public:
 
@@ -48,7 +47,7 @@ namespace ecs
           SystemManager &operator=(SystemManager &&other) = delete;
 
   public:
-          static SystemManager &getInstance();
+          [[nodiscard]] static SystemManager &getInstance();
 
           template <class S, class ...ARGS>
           static S &createSystem(ARGS &&... args)
@@ -128,7 +127,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &getSystem()
+          [[nodiscard]] static S &getSystem()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -174,7 +173,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &setSystemUpdateInterval(float interval)
+          static S &setSystemUpdateInterval(Interval interval)
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -206,7 +205,7 @@ namespace ecs
           }
 
           static SystemWorkStateMaks getSystemWorkState();
-          static void setSystemWorkState(SystemWorkStateMaks);
+          [[noreturn]] static void setSystemWorkState(SystemWorkStateMaks);
 
           template <class... ActiveSystems>
           static SystemWorkStateMaks generateActiveSystemWorkState
@@ -235,8 +234,8 @@ namespace ecs
                   return mask;
           }
 
-          static void updateSystemWorkOrder();
-          static void update();
+          [[noreturn]] static void updateSystemWorkOrder();
+          [[noreturn]] static void update();
   };
 
   std::ostream &operator<<(std::ostream &out, const SystemManager &);

@@ -11,9 +11,6 @@
 namespace ecs
 {
 
-  std::vector<ComponentID> IComponent::_freeID;
-  ComponentID IComponent::_componentCount = 0;
-
   IComponent::IComponent()
   {
           if (!_freeID.empty()) {
@@ -31,7 +28,7 @@ namespace ecs
           --_componentCount;
   }
 
-  ComponentID IComponent::getComponentCount()
+  size_t IComponent::getComponentCount()
   {
           return _componentCount;
   }

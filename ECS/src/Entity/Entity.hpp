@@ -9,6 +9,7 @@
 # define ECS_ENTITY_HPP
 
 # include <ostream>
+
 # include "IEntity.hpp"
 
 namespace ecs
@@ -21,7 +22,7 @@ namespace ecs
 // ATTRIBUTES
   private:
   public:
-          static const EntityTypeID _entityTypeID;
+          static inline const EntityTypeID _entityTypeID{util::FamilyTypeID<IEntity>::getTypeID<E>()};
 
 // METHODS
   public:// CONSTRUCTORS
@@ -45,10 +46,6 @@ namespace ecs
 
   template <class E>
   std::ostream &operator<<(std::ostream &out, const Entity<E> &);
-
-  template <class E>
-  const EntityTypeID Entity<E>::_entityTypeID =
-          util::FamilyTypeID<IEntity>::getTypeID<E>();
 
 }
 
