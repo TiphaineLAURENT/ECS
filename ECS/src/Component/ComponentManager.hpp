@@ -59,7 +59,7 @@ namespace ecs
                   return *container;
           }
 
-          template <typename C, typename Container = C, class ...ARGS>
+          template <typename C, typename Container = C, typename ...ARGS>
           static C *addComponent(IEntity *entity, ARGS &&... args)
           {
                   if constexpr (std::is_same_v<C, Container>)
@@ -73,7 +73,7 @@ namespace ecs
                   else
                   {
                           auto &container = getComponentContainer<Container>();
-                          return container.addComponent<C>(
+                          return container.template addComponent<C>(
                                   entity,
                                   std::forward<ARGS>(args)...
                           );
