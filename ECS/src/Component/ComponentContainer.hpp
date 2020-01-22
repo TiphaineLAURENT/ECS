@@ -66,18 +66,12 @@ namespace ecs
                   );
 
                   auto component = std::make_unique<Custom>(std::forward<ARGS>(args)...);
+                  auto pointer = component.get();
                   component->setOwner(entity);
                   component->setup();
 
                   _components.push_back(std::move(component));
-                  if constexpr (std::is_same_v<Custom, C>)
-                  {
-                          return _components.back().get();
-                  }
-                  else
-                  {
-                          return static_cast<Custom*>(_components.back().get());
-                  }
+                  return pointer;
           }
           [[nodiscard]] C *getComponent(EntityID entityID)
           {
@@ -102,12 +96,12 @@ namespace ecs
                                   components.emplace_back(component.get());
                           }
                   }
+
                   return components;
           }
-          [[nodiscard]] const ComponentView<C> getComponents(EntityID entityID)
-          const
+          [[nodiscard]] const ComponentView<C> getComponents(EntityID entityID) const
           {
-                  auto components = ComponentView{};
+                  auto components = ComponentView<C>{};
 
                   for (auto &component : _components) {
                           if (component->getOwnerId() == entityID) {

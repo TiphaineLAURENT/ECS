@@ -59,10 +59,10 @@ namespace ecs
                   return *container;
           }
 
-          template <typename C, typename C2 = C, class ...ARGS>
+          template <typename C, typename Container = C, class ...ARGS>
           static C *addComponent(IEntity *entity, ARGS &&... args)
           {
-                  if constexpr (std::is_same_v<C, C2>)
+                  if constexpr (std::is_same_v<C, Container>)
                   {
                           auto &container = getComponentContainer<C>();
                           return container.addComponent(
@@ -72,7 +72,7 @@ namespace ecs
                   }
                   else
                   {
-                          auto &container = getComponentContainer<C2>();
+                          auto &container = getComponentContainer<Container>();
                           return container.addComponent<C>(
                                   entity,
                                   std::forward<ARGS>(args)...
@@ -87,7 +87,7 @@ namespace ecs
                   return container.getComponent(entityID);
           }
           template <typename C>
-          [[nodiscard]] static std::vector<C*> getComponents(EntityID entityID)
+          [[nodiscard]] static ComponentView<C> getComponents(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 
@@ -123,10 +123,10 @@ namespace ecs
           {
                   const auto componentTypeID = C::_componentTypeID;
                   auto container = std::make_unique<ComponentContainer<C>>();
+                  auto pointer = container.get();
                   _containers[componentTypeID] = std::move(container);
 
-                  return static_cast<ComponentContainer<C> *>(_containers[componentTypeID]
-                          .get());
+                  return pointer;
           }
 
           template <class C>
@@ -135,8 +135,7 @@ namespace ecs
                   const auto componentTypeID = C::_componentTypeID;
                   auto it = _containers.find(componentTypeID);
                   if (it != _containers.end()) {
-                          return static_cast<ComponentContainer<C> *>(it->second
-                                                                        .get());
+                          return static_cast<ComponentContainer<C>*>(it->second.get());
                   }
                   return nullptr;
           }

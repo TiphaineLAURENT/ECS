@@ -62,10 +62,11 @@ namespace ecs
                   );
 
                   auto entity = std::make_unique<E>(std::forward(args)...);
-                  const EntityID entityID = entity->getEntityID();
+                  auto pointer = entity.get();
+                  const auto entityID = entity->getEntityID();
 
                   _entities[entityID] = std::move(entity);
-                  return getEntityById(entityID);
+                  return *pointer;
           }
           [[nodiscard]] E &getEntityById(EntityID entityID)
           {
