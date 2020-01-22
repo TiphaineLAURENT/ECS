@@ -6,6 +6,7 @@
 # define ECS_ISYSTEM_HPP
 
 # include <ostream>
+
 # include "../util/util.hpp"
 
 namespace ecs
@@ -58,7 +59,7 @@ namespace ecs
 
   public:
           [[nodiscard]] virtual SystemTypeID getSystemTypeID() const = 0;
-          [[nodiscard]] virtual const char *getSystemTypeName() const = 0;
+          [[nodiscard]] virtual const std::string &getSystemTypeName() const = 0;
 
           [[deprecated]] virtual void preUpdate(Interval deltaTime) = 0;
           [[noreturn]] virtual void update(Interval deltaTime) = 0;

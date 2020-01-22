@@ -41,41 +41,53 @@ namespace ecs
 
   public:
           [[nodiscard]] static ComponentManager &getInstance();
-          template <class C>
+          template <typename C>
           static auto &getComponentContainer()
           {
                   static_assert(
-                          std::is_base_of<IComponent, C>::value,
+                          std::is_base_of_v<IComponent, C>,
                           "Component must be derived from IComponent"
-                  );
+                          );
 
                   auto &instance = getInstance();
 
                   auto container = instance.getContainer<C>();
-                  if (container == nullptr) {
+                  if (container == nullptr)
+                  {
                           return *instance.createContainer<C>();
                   }
                   return *container;
           }
 
-          template <class C, class ...ARGS>
+          template <typename C, typename C2 = C, class ...ARGS>
           static C *addComponent(IEntity *entity, ARGS &&... args)
           {
-                  auto &container = getComponentContainer<C>();
-                  return container.addComponent(
-                          entity,
-                          std::forward<ARGS>(args)...
-                  );
+                  if constexpr (std::is_same_v<C, C2>)
+                  {
+                          auto &container = getComponentContainer<C>();
+                          return container.addComponent(
+                                  entity,
+                                  std::forward<ARGS>(args)...
+                          );
+                  }
+                  else
+                  {
+                          auto &container = getComponentContainer<C2>();
+                          return container.addComponent<C>(
+                                  entity,
+                                  std::forward<ARGS>(args)...
+                          );
+                  }
           }
-          template <class C>
+          template <typename C, typename Container = C>
           [[nodiscard]] static C *getComponent(EntityID entityID)
           {
-                  auto &container = getComponentContainer<C>();
+                  auto &container = getComponentContainer<Container>();
 
                   return container.getComponent(entityID);
           }
-          template <class C>
-          [[nodiscard]] static std::vector<C *> getComponents(EntityID entityID)
+          template <typename C>
+          [[nodiscard]] static std::vector<C*> getComponents(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 

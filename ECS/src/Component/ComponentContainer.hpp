@@ -26,6 +26,9 @@ namespace ecs
   using CComponentIterator =
   typename ComponentStorage<C>::iterator;
 
+  template <typename C>
+  using ComponentView = std::vector<C*>;
+
   template <class C>
   class ComponentContainer : public IComponentContainer
   {
@@ -54,33 +57,45 @@ namespace ecs
                   return componentTypeName;
           }
 
-          template <class ...ARGS>
-          C *addComponent(IEntity *entity, ARGS &&... args)
+          template <typename Custom = C, class ...ARGS>
+          Custom *addComponent(IEntity *entity, ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of<IComponent, C>::value,
                           "Component must be derived from IComponent"
                   );
 
-                  auto component = std::make_unique<C>(std::forward<ARGS>(args)...);
+                  auto component = std::make_unique<Custom>(std::forward<ARGS>(args)...);
                   component->setOwner(entity);
                   component->setup();
 
                   _components.push_back(std::move(component));
-                  return _components.back().get();
+                  if constexpr (std::is_same_v<Custom, C>)
+                  {
+                          return _components.back().get();
+                  }
+                  else
+                  {
+                          return static_cast<Custom*>(_components.back().get());
+                  }
           }
           [[nodiscard]] C *getComponent(EntityID entityID)
           {
-                  for (auto &component : _components) {
-                          if (component->getOwnerId() == entityID) {
-                                  return component.get();
-                          }
+                  auto iter = std::find_if(_components.begin(), _components.end(),
+                                           [entityID] (const auto &component)
+                                           {
+                                                   return component->getOwnerId() == entityID;
+                                           }
+                  );
+                  if (iter != _components.end())
+                  {
+                          return iter->get();
                   }
                   return nullptr;
           }
-          [[nodiscard]] std::vector<C *const> getComponents(EntityID entityID)
+          [[nodiscard]] ComponentView<C> getComponents(EntityID entityID)
           {
-                  auto components = std::vector<C *const>{};
+                  auto components = ComponentView<C>{};
 
                   for (auto &component : _components) {
                           if (component->getOwnerId() == entityID) {
@@ -89,10 +104,10 @@ namespace ecs
                   }
                   return components;
           }
-          [[nodiscard]] ComponentStorage<C> getComponents(EntityID entityID)
+          [[nodiscard]] const ComponentView<C> getComponents(EntityID entityID)
           const
           {
-                  auto components = std::vector<C *const>{};
+                  auto components = ComponentView{};
 
                   for (auto &component : _components) {
                           if (component->getOwnerId() == entityID) {
@@ -103,28 +118,21 @@ namespace ecs
           }
           [[noreturn]] void removeComponent(EntityID entityID) override
           {
-                  auto toRemove = std::find_if(
-                          _components.begin(),
-                          _components.end(),
-                          [&](auto &component) {
-                                  return component->getOwnerId()
-                                         == entityID;
-                          }
-                  );
-                  _components.erase(toRemove);
+                  auto toErase = std::remove_if(_components.begin(), _components.end(),
+                                                [entityID] (const auto &component)
+                                                {
+                                                        return component->getOwnerId() == entityID;
+                                                });
+                  _components.erase(toErase);
           }
           [[noreturn]] void removeComponentByID(ComponentID componentID)
           {
-                  auto toRemove = std::find_if(
-                          _components.begin(),
-                          _components.end(),
-                          [&] (auto &component)
-                          {
-                                  return component->getComponentID()
-                                          == componentID;
-                          }
-                  );
-                  _components.erase(toRemove);
+                  auto toErase = std::remove_if(_components.begin(), _components.end(),
+                                                [componentID] (const auto &component)
+                                                {
+                                                        return component->getComponentID() == componentID;
+                                                });
+                  _components.erase(toErase);
           }
 
           [[nodiscard]] CComponentIterator<C> begin()

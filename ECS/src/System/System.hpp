@@ -42,9 +42,9 @@ namespace ecs
           {
                   return _systemTypeID;
           }
-          [[nodiscard]] const char *getSystemTypeName() const override
+          [[nodiscard]] const std::string &getSystemTypeName() const override
           {
-                  static const char *systemTypeName{typeid(S).name()};
+                  static const std::string systemTypeName{typeid(S).name()};
 
                   return systemTypeName;
           }

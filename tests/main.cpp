@@ -23,6 +23,9 @@ class COMPONENT(MyComponent)
 {
 };
 
+class DerivedComponent : public MyComponent
+{};
+
 class COMPONENT(MyComponent2)
 {
 };
@@ -126,8 +129,11 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(component2->getComponentTypeID() == 1);
         REQUIRE(!component2->setActive(false).isActive());
 
+        auto derived = ecs::ComponentManager::addComponent<DerivedComponent, MyComponent>(&entity);
+        REQUIRE(ecs::ComponentManager::getComponents<MyComponent>(entity.getEntityID()).size() == 2);
+
         entity.removeComponent<MyComponent2>();
-        REQUIRE(component->getComponentCount() == 1);
+        REQUIRE(component->getComponentCount() == 2);
 
         REQUIRE(!entity.setActive(false).isActive());
         ecs::EntityManager::removeEntity<MyEntity>(entity.getEntityID());
