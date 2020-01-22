@@ -28,7 +28,7 @@ namespace ecs
 
           SystemMap _systems{};
 
-          std::vector<ISystem *> _orderedSystems{};
+          std::vector<ISystem*> _orderedSystems{};
 
   public:
 
@@ -45,7 +45,11 @@ namespace ecs
 
           [[nodiscard]] ISystem *const operator[](size_t index) const
           {
-                  return _orderedSystems[index];
+                  if (index < _orderedSystems.size())
+                  {
+                          return _orderedSystems[index];
+                  }
+                  return nullptr;
           }
 
   public:
@@ -53,11 +57,11 @@ namespace ecs
           S &createSystem(ARGS &&... args)
           {
                   static_assert(
-                          std::is_base_of<ISystem, S>::value,
+                          std::is_base_of_v<ISystem, S>,
                           "System must be derived from ISystem"
-                  );
+                          );
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
+                  const auto systemTypeID = S::_systemTypeID;
 
                   _systems.emplace(
                           systemTypeID,
@@ -71,17 +75,20 @@ namespace ecs
           {
                   _orderedSystems.clear();
                   _orderedSystems.reserve(_systems.size());
-                  for (auto &pair : _systems) {
-                          if (pair.second->isEnable()) {
+                  for (auto &pair : _systems)
+                  {
+                          if (pair.second->isEnable())
+                          {
                                   _orderedSystems
                                           .emplace_back(pair.second.get());
                           }
                   }
                   std::sort(
                           _orderedSystems.begin(), _orderedSystems.end(),
-                          [](const auto &system1, const auto &system2) {
+                          [] (const auto &system1, const auto &system2)
+                          {
                                   return system1->getPriority() >
-                                         system2->getPriority();
+                                          system2->getPriority();
                           }
                   );
           }
@@ -90,12 +97,12 @@ namespace ecs
           [[nodiscard]] S &getSystem()
           {
                   static_assert(
-                          std::is_base_of<ISystem, S>::value,
+                          std::is_base_of_v<ISystem, S>,
                           "System must be derived from ISystem"
                   );
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  return *static_cast<S *>(_systems[systemTypeID].get());
+                  const auto systemTypeID = S::_systemTypeID;
+                  return *static_cast<S*>(_systems[systemTypeID].get());
           }
 
           template <class S>

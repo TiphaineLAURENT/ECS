@@ -24,24 +24,21 @@ namespace ecs
     class FamilyTypeID
     {
     private:
-            static ID _countID;
+            static inline ID _maxID{0};
 
     public:
             template <class E>
             static const ID getTypeID()
             {
-                    static const ID _typeID{_countID++};
+                    static const ID _typeID{_maxID++};
                     return _typeID;
             }
 
             static const ID getCountID()
             {
-                    return _countID;
+                    return _maxID;
             }
     };
-
-    template <class T>
-    size_t FamilyTypeID<T>::_countID = 0;
 
   }
 
