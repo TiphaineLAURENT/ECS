@@ -58,18 +58,18 @@ namespace ecs
           IEntity &setActive(bool state);
           [[nodiscard]] bool isActive() const;
 
-          template <class C, class ...ARGS>
+          template <class C, typename Container = C, class ...ARGS>
           C *addComponent(ARGS &&... args)
           {
-                  return ComponentManager::addComponent<C>(
+                  return ComponentManager::addComponent<C, Container>(
                           this,
                           std::forward<ARGS>(args)...
                   );
           }
-          template <class C>
+          template <typename C, typename Container = C>
           [[nodiscard]] C *getComponent() const
           {
-                  return ComponentManager::getComponent<C>(_entityID);
+                  return ComponentManager::getComponent<C, Container>(_entityID);
           }
           template <class C>
           [[nodiscard]] std::vector<C *const> getComponents() const

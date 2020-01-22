@@ -131,7 +131,7 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(component2->getComponentTypeID() == 1);
         REQUIRE(!component2->setActive(false).isActive());
 
-        auto derived = ecs::ComponentManager::addComponent<DerivedComponent, MyComponent>(&entity);
+        auto derived = entity.addComponent<DerivedComponent, MyComponent>();
         REQUIRE(ecs::ComponentManager::getComponents<MyComponent>(entity.getEntityID()).size() == 2);
 
         entity.removeComponent<MyComponent2>();
