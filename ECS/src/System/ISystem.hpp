@@ -62,7 +62,7 @@ namespace ecs
           [[nodiscard]] virtual const std::string &getSystemTypeName() const = 0;
 
           [[deprecated]] virtual void preUpdate(Interval deltaTime) = 0;
-          [[noreturn]] virtual void update(Interval deltaTime) = 0;
+          virtual void update(Interval deltaTime) = 0;
           [[deprecated]] virtual void postUpdate(Interval deltaTime) = 0;
 
           [[nodiscard]] bool isEnable() const

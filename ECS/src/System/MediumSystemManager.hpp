@@ -71,7 +71,7 @@ namespace ecs
                   return getSystem<S>();
           }
 
-          [[noreturn]] void updateSytemsOrder()
+          void updateSytemsOrder()
           {
                   _orderedSystems.clear();
                   _orderedSystems.reserve(_systems.size());

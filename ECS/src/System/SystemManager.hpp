@@ -205,7 +205,7 @@ namespace ecs
           }
 
           static SystemWorkStateMaks getSystemWorkState();
-          [[noreturn]] static void setSystemWorkState(SystemWorkStateMaks);
+          static void setSystemWorkState(SystemWorkStateMaks);
 
           template <class... ActiveSystems>
           static SystemWorkStateMaks generateActiveSystemWorkState
