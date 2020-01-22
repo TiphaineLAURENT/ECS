@@ -234,8 +234,8 @@ namespace ecs
                   return mask;
           }
 
-          [[noreturn]] static void updateSystemWorkOrder();
-          [[noreturn]] static void update();
+          static void updateSystemWorkOrder();
+          static void update();
   };
 
   std::ostream &operator<<(std::ostream &out, const SystemManager &);

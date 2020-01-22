@@ -69,11 +69,11 @@ namespace ecs
           {
                   return _enabled;
           }
-          [[noreturn]] void enable()
+          void enable()
           {
                   _enabled = true;
           }
-          [[noreturn]] void disable()
+          void disable()
           {
                   _enabled = false;
           }
@@ -82,7 +82,7 @@ namespace ecs
           {
                   return _updateInterval;
           }
-          [[noreturn]] void setUpdateInterval(Interval interval)
+          void setUpdateInterval(Interval interval)
           {
                   _updateInterval = interval;
           }
@@ -96,7 +96,7 @@ namespace ecs
           {
                   return _priority;
           }
-          [[noreturn]] void setPriority(SYSTEM_PRIORITY priority)
+          void setPriority(SYSTEM_PRIORITY priority)
           {
                   _priority = priority;
           }

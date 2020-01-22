@@ -84,7 +84,7 @@ namespace ecs
                   return container.getEntities(entityID);
           }
           template <class E>
-          [[noreturn]] static void removeEntity(EntityID entityID)
+          static void removeEntity(EntityID entityID)
           {
                   EntityContainer<E> &container = getEntityContainer<E>();
 

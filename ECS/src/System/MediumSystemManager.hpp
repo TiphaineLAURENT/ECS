@@ -137,7 +137,7 @@ namespace ecs
                   return system;
           }
 
-          [[noreturn]] void update(Interval deltaTime);
+          void update(Interval deltaTime);
 
   private:
   };

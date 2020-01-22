@@ -52,7 +52,7 @@ namespace ecs
           IComponent &operator=(IComponent &&) = default;
 
   public:
-          [[noreturn]] virtual void setup() = 0;
+          virtual void setup() = 0;
 
           [[nodiscard]] static size_t getComponentCount();
 

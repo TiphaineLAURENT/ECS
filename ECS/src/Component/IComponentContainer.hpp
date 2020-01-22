@@ -36,7 +36,7 @@ namespace ecs
   public:
           [[nodiscard]] virtual const std::string &getComponentContainerTypeName() const = 0;
 
-          [[noreturn]] virtual void removeComponent(EntityID entityID) = 0;
+          virtual void removeComponent(EntityID entityID) = 0;
 
   private:
   };

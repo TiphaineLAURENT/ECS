@@ -80,7 +80,7 @@ namespace ecs
           {
                   return _entities;
           }
-          [[noreturn]] void destroyEntity(EntityID entityId) override
+          void destroyEntity(EntityID entityId) override
           {
                   _entities.erase(entityId);
           }

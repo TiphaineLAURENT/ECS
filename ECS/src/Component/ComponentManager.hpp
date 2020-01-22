@@ -94,7 +94,7 @@ namespace ecs
                   return container.getComponents(entityID);
           }
           template <class C>
-          [[noreturn]] static void removeComponent(EntityID entityID)
+          static void removeComponent(EntityID entityID)
           {
                   auto &container = getComponentContainer<C>();
 

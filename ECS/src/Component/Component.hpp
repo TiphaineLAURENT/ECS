@@ -43,7 +43,7 @@ namespace ecs
           Component &operator=(Component &&) noexcept = default;
 
   public:
-          [[noreturn]] void setup() override
+          void setup() override
           {
           }
           [[nodiscard]] static size_t getComponentTypeCount()

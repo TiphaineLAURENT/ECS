@@ -77,7 +77,7 @@ namespace ecs
                   return ComponentManager::getComponents<C>(_entityID);
           }
           template <class C>
-          [[noreturn]] void removeComponent()
+          void removeComponent()
           {
                   ComponentManager::removeComponent<C>(_entityID);
           }

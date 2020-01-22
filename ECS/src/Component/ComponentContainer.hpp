@@ -110,7 +110,7 @@ namespace ecs
                   }
                   return components;
           }
-          [[noreturn]] void removeComponent(EntityID entityID) override
+          void removeComponent(EntityID entityID) override
           {
                   auto toErase = std::remove_if(_components.begin(), _components.end(),
                                                 [entityID] (const auto &component)
@@ -119,7 +119,7 @@ namespace ecs
                                                 });
                   _components.erase(toErase);
           }
-          [[noreturn]] void removeComponentByID(ComponentID componentID)
+          void removeComponentByID(ComponentID componentID)
           {
                   auto toErase = std::remove_if(_components.begin(), _components.end(),
                                                 [componentID] (const auto &component)

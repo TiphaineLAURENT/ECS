@@ -36,7 +36,7 @@ namespace ecs
   public:
           [[nodiscard]] virtual const std::string &getEntityContainerTypeName() const = 0;
 
-          [[noreturn]] virtual void destroyEntity(EntityID) = 0;
+          virtual void destroyEntity(EntityID) = 0;
 
   private:
   };

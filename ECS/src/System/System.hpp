@@ -49,13 +49,13 @@ namespace ecs
                   return systemTypeName;
           }
 
-          [[deprecated]] [[noreturn]] void preUpdate(Interval deltaTime) override
+          [[deprecated]] void preUpdate(Interval deltaTime) override
           {
           }
-          [[noreturn]] void update(Interval deltaTime) override
+          void update(Interval deltaTime) override
           {
           }
-          [[deprecated]] [[noreturn]] void postUpdate(Interval deltaTime) override
+          [[deprecated]] void postUpdate(Interval deltaTime) override
           {
           }
 
