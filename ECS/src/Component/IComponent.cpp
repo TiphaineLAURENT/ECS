@@ -56,7 +56,8 @@ namespace ecs
 
   IComponent &IComponent::setOwner(NonOwningPointer<IEntity> entity)
   {
-          const_cast<IEntity*>(_owner) = entity;
+          auto nonConstEntityPointer = const_cast<IEntity**>(&_owner);
+          *nonConstEntityPointer = entity;
           _ownerId = _owner->getEntityID();
 
           return *this;
