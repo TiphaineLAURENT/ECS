@@ -34,9 +34,10 @@ namespace ecs
           IComponentContainer &operator=(IComponentContainer &&) = delete;
 
   public:
-          [[nodiscard]] virtual const std::string &getComponentContainerTypeName() const = 0;
+          [[nodiscard]] virtual const std::string &get_component_type_name() const = 0;
 
-          virtual void removeComponent(EntityID entityID) = 0;
+          virtual void erase_for_entity(EntityID entityID) = 0;
+          virtual void erase(ComponentID componentID) = 0;
 
   private:
   };

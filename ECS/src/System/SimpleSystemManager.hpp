@@ -43,7 +43,7 @@ namespace ecs
                 SimpleSystemManager &operator=(SimpleSystemManager &&other) = delete;
 
         public:
-                [[nodiscard]] static SimpleSystemManager &getInstance();
+                [[nodiscard]] static SimpleSystemManager &get_instance();
 
                 template <class S, class ...ARGS>
                 static S &createSystem(ARGS &&... args)
@@ -53,7 +53,7 @@ namespace ecs
                                 "System must be derived from ISystem"
                                 );
 
-                        SimpleSystemManager &instance = getInstance();
+                        SimpleSystemManager &instance = get_instance();
                         const SystemTypeID systemTypeID = S::_systemTypeID;
 
                         auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
@@ -70,7 +70,7 @@ namespace ecs
                                 "System must be derived from ISystem"
                                 );
 
-                        SimpleSystemManager &instance = getInstance();
+                        SimpleSystemManager &instance = get_instance();
                         const SystemTypeID systemTypeID = S::_systemTypeID;
 
                         return *static_cast<S *>(instance._systems[systemTypeID].get());
@@ -79,7 +79,7 @@ namespace ecs
                 template <class S>
                 static S &enableSystem()
                 {
-                        SimpleSystemManager &instance = getInstance();
+                        SimpleSystemManager &instance = get_instance();
 
                         auto system = instance.getSystem<S>();
                         system.enable();
@@ -89,7 +89,7 @@ namespace ecs
                 template <class S>
                 static S &disableSystem()
                 {
-                        SimpleSystemManager &instance = getInstance();
+                        SimpleSystemManager &instance = get_instance();
 
                         auto system = instance.getSystem<S>();
                         system.disable();
@@ -99,10 +99,10 @@ namespace ecs
                 template <class S>
                 static S &setSystemUpdateInterval(Interval interval)
                 {
-                        SimpleSystemManager &instance = getInstance();
+                        SimpleSystemManager &instance = get_instance();
 
                         auto system = instance.getSystem<S>();
-                        system.setUpdateInterval(interval);
+                        system.set_update_interval(interval);
                         return system;
                 }
 

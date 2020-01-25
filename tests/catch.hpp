@@ -743,7 +743,7 @@ struct is_unique<T0, T1, Rest...> : std::integral_constant
  #define CATCH_REC_OUT
 
  #define CATCH_EMPTY()
- #define CATCH_DEFER(id) id CATCH_EMPTY()
+ #define CATCH_DEFER(get_id) get_id CATCH_EMPTY()
 
  #define CATCH_REC_GET_END2() 0, CATCH_REC_END
  #define CATCH_REC_GET_END1(...) CATCH_REC_GET_END2
@@ -11347,7 +11347,7 @@ namespace Catch
 {
   struct SignalDefs
   {
-          DWORD id;
+          DWORD get_id;
           const char *name;
   };
 
@@ -11368,7 +11368,7 @@ namespace Catch
           for (
                   auto const &def : signalDefs
                   ) {
-                  if (ExceptionInfo->ExceptionRecord->ExceptionCode == def.id) {
+                  if (ExceptionInfo->ExceptionRecord->ExceptionCode == def.get_id) {
                           reportFatal(def.name);
                   }
           }

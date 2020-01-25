@@ -58,14 +58,14 @@ namespace ecs
           ISystem &operator=(ISystem &&other) noexcept = delete;
 
   public:
-          [[nodiscard]] virtual SystemTypeID getSystemTypeID() const = 0;
-          [[nodiscard]] virtual const std::string &getSystemTypeName() const = 0;
+          [[nodiscard]] virtual SystemTypeID get_system_type_id() const = 0;
+          [[nodiscard]] virtual const std::string &get_system_type_name() const = 0;
 
-          [[deprecated]] virtual void preUpdate(Interval deltaTime) = 0;
+          [[deprecated]] virtual void pre_update(Interval deltaTime) = 0;
           virtual void update(Interval deltaTime) = 0;
-          [[deprecated]] virtual void postUpdate(Interval deltaTime) = 0;
+          [[deprecated]] virtual void post_update(Interval deltaTime) = 0;
 
-          [[nodiscard]] bool isEnable() const
+          [[nodiscard]] bool is_enabled() const
           {
                   return _enabled;
           }
@@ -78,32 +78,32 @@ namespace ecs
                   _enabled = false;
           }
 
-          [[nodiscard]] Interval getUpdateInterval() const
+          [[nodiscard]] Interval get_update_interval() const
           {
                   return _updateInterval;
           }
-          void setUpdateInterval(Interval interval)
+          void set_update_interval(Interval interval)
           {
                   _updateInterval = interval;
           }
 
-          [[nodiscard]] Interval getTimeSinceLastUpdate() const
+          [[nodiscard]] Interval get_time_since_last_update() const
           {
                   return _timeSinceLastUpdate;
           }
 
-          [[nodiscard]] SYSTEM_PRIORITY getPriority() const
+          [[nodiscard]] SYSTEM_PRIORITY get_priority() const
           {
                   return _priority;
           }
-          void setPriority(SYSTEM_PRIORITY priority)
+          void set_priority(SYSTEM_PRIORITY priority)
           {
                   _priority = priority;
           }
 
   };
 
-  std::ostream &operator<<(std::ostream &out, const ISystem*);
+  std::ostream &operator<<(std::ostream &out, const NonOwningPointer<ISystem>);
 
 }
 

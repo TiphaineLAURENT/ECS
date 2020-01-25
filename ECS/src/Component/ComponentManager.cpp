@@ -10,7 +10,7 @@
 namespace ecs
 {
 
-  ComponentManager &ComponentManager::getInstance()
+  ComponentManager &ComponentManager::get_instance()
   {
           static ComponentManager instance;
           return instance;

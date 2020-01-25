@@ -18,7 +18,7 @@ namespace ecs
                 // ATTRIBUTES
         private:
         public:
-                static inline const SystemTypeID _systemTypeID{util::FamilyTypeID<ISystem>::getTypeID<S>()};
+                static inline const SystemTypeID _systemTypeID{util::FamilyTypeID<ISystem>::get_type_id<S>()};
 
                 // METHODS:
         public: // CONSTRUCTORS
@@ -37,22 +37,22 @@ namespace ecs
                 System &operator=(System &&other) = delete;
 
         public:
-                [[nodiscard]] SystemTypeID getSystemTypeID() const override
+                [[nodiscard]] SystemTypeID get_system_type_id() const override
                 {
                         return _systemTypeID;
                 }
-                [[nodiscard]] const std::string &getSystemTypeName() const override
+                [[nodiscard]] const std::string &get_system_type_name() const override
                 {
                         static const std::string systemTypeName{typeid(S).name()};
 
                         return systemTypeName;
                 }
 
-                [[deprecated]] void preUpdate(Interval deltaTime) override
+                [[deprecated]] void pre_update(Interval deltaTime) override
                 {}
                 void update(Interval deltaTime) override
                 {}
-                [[deprecated]] void postUpdate(Interval deltaTime) override
+                [[deprecated]] void post_update(Interval deltaTime) override
                 {}
 
                 /*

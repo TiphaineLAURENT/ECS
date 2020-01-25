@@ -37,9 +37,9 @@ namespace ecs
           EntityManager &operator=(EntityManager &&) = delete;
 
   public:
-          [[nodiscard]] static EntityManager &getInstance();
+          [[nodiscard]] static EntityManager &get_instance();
           template <class E>
-          [[nodiscard]] constexpr static EntityContainer<E> &getEntityContainer()
+          [[nodiscard]] constexpr static EntityContainer<E> &get_entity_container()
           {
                   static_assert(
                           std::is_base_of<IEntity, E>::value,
@@ -47,7 +47,7 @@ namespace ecs
                   );
 
                   const ComponentTypeID entityTypeID = E::_entityTypeID;
-                  EntityManager &instance = getInstance();
+                  EntityManager &instance = get_instance();
 
                   if (instance._containers.find(entityTypeID)
                       == instance._containers.end()) {
@@ -63,25 +63,25 @@ namespace ecs
           }
 
           template <class E, class ...ARGS>
-          static E &createEntity(ARGS &&... args)
+          static E &create(ARGS &&... args)
           {
-                  EntityContainer<E> &container = getEntityContainer<E>();
+                  EntityContainer<E> &container = get_entity_container<E>();
 
-                  return container.createEntity(std::forward(args)...);
+                  return container.create(std::forward(args)...);
           }
           template <class E>
-          [[nodiscard]] static E &getEntityById(EntityID entityID)
+          [[nodiscard]] static E &get_entity(EntityID entityID)
           {
-                  EntityContainer<E> &container = getEntityContainer<E>();
+                  EntityContainer<E> &container = get_entity_container<E>();
 
-                  return container.getEntityById(entityID);
+                  return container.get_entity(entityID);
           }
           template <class E>
-          static void removeEntity(EntityID entityID)
+          static void remove_entity(EntityID entityID)
           {
-                  EntityContainer<E> &container = getEntityContainer<E>();
+                  EntityContainer<E> &container = get_entity_container<E>();
 
-                  container.destroyEntity(entityID);
+                  container.erase(entityID);
           }
 
           template <class E>

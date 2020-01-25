@@ -7,7 +7,7 @@
 
 namespace ecs
 {
-  SystemManager &SystemManager::getInstance()
+  SystemManager &SystemManager::get_instance()
   {
           static SystemManager instance;
           return instance;
@@ -15,11 +15,11 @@ namespace ecs
 
   SystemWorkStateMaks SystemManager::getSystemWorkState()
   {
-          SystemManager &instance = getInstance();
+          SystemManager &instance = get_instance();
 
           SystemWorkStateMaks mask(instance._systemWorkOrder.size());
           for (size_t i = 0; i < instance._systemWorkOrder.size(); ++i) {
-                  mask[i] = instance._systemWorkOrder[i]->isEnable();
+                  mask[i] = instance._systemWorkOrder[i]->is_enabled();
           }
 
           return mask;
@@ -27,7 +27,7 @@ namespace ecs
 
   void SystemManager::setSystemWorkState(SystemWorkStateMaks mask)
   {
-          SystemManager &instance = getInstance();
+          SystemManager &instance = get_instance();
 
           assert(mask.size() == instance._systemWorkOrder.size() && "Provided"
                                                                     " mask "

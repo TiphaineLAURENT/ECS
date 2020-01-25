@@ -16,53 +16,58 @@ namespace ecs
           if (!_freeID.empty()) {
                   _componentID = _freeID.back();
                   _freeID.pop_back();
-                  ++_componentCount;
+                  ++_componentTypeCount;
           } else {
-                  _componentID = _componentCount++;
+                  _componentID = _componentTypeCount++;
           }
   }
 
   IComponent::~IComponent()
   {
           _freeID.push_back(_componentID);
-          --_componentCount;
+          --_componentTypeCount;
   }
 
-  size_t IComponent::getComponentCount()
+  const size_t &IComponent::get_component_type_count()
   {
-          return _componentCount;
+          return _componentTypeCount;
   }
 
-  ComponentID IComponent::getComponentID() const
+  const ComponentID &IComponent::get_id() const
   {
           return _componentID;
   }
 
-  EntityID IComponent::getOwnerId() const
+  const EntityID &IComponent::get_owner_id() const
   {
-          return _ownerId;
+          return _owner->get_id();
   }
 
-  IComponent &IComponent::setActive(bool state)
+  IComponent &IComponent::enable()
   {
-          _active = state;
+          _active = true;
           return *this;
   }
 
-  bool IComponent::isActive() const
+  IComponent &IComponent::disable()
+  {
+          _active = false;
+          return *this;
+  }
+
+  bool IComponent::is_enabled() const
   {
           return _active;
   }
 
-  IComponent &IComponent::setOwner(NonOwningPointer<IEntity> entity)
+  IComponent &IComponent::set_owner(NonOwningPointer<IEntity> entity)
   {
           auto nonConstEntityPointer = const_cast<IEntity**>(&_owner);
           *nonConstEntityPointer = entity;
-          _ownerId = _owner->getEntityID();
 
           return *this;
   }
-  NonOwningPointer<IEntity> IComponent::getOwner() const
+  NonOwningPointer<IEntity> IComponent::get_owner() const
   {
           return _owner;
   }
@@ -70,12 +75,12 @@ namespace ecs
   std::ostream &operator<<(std::ostream &out, const NonOwningPointer<IComponent> component)
   {
           out << "{c "
-              << "ID: " << component->getComponentID() << ", "
-              << "Count: " << component->getComponentCount() << ", "
-              << "TypeID: " << component->getComponentTypeID() << ", "
+              << "ID: " << component->get_id() << ", "
+              << "Count: " << component->get_component_type_count() << ", "
+              << "TypeID: " << component->get_component_type_id() << ", "
               << "TypeName: " << typeid(component).name() << ", "
-              << "Owner: " << component->getOwnerId() << ", "
-              << "Active: " << component->isActive() << true
+              << "Owner: " << component->get_owner_id() << ", "
+              << "Active: " << component->is_enabled() << true
               << " }";
           return out;
   }

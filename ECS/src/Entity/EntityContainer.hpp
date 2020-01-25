@@ -46,7 +46,7 @@ namespace ecs
           EntityContainer &operator=(EntityContainer &&) noexcept = delete;
 
   public:
-          [[nodiscard]] const std::string &getEntityContainerTypeName() const override
+          [[nodiscard]] const std::string &get_entity_type_name() const override
           {
                   static const std::string entityTypeName{typeid(E).name()};
 
@@ -54,7 +54,7 @@ namespace ecs
           }
 
           template <class ...ARGS>
-          E &createEntity(ARGS &&...args)
+          E &create(ARGS &&...args)
           {
                   static_assert(
                           std::is_base_of<IEntity, E>::value,
@@ -63,24 +63,24 @@ namespace ecs
 
                   auto entity = std::make_unique<E>(std::forward(args)...);
                   auto pointer = entity.get();
-                  const auto entityID = entity->getEntityID();
+                  const auto entityID = entity->get_id();
 
                   _entities[entityID] = std::move(entity);
                   return *pointer;
           }
-          [[nodiscard]] E &getEntityById(EntityID entityID)
+          [[nodiscard]] E &get_entity(EntityID entityID)
           {
                   return *_entities[entityID].get();
           }
-          [[nodiscard]] EntityMap<E> &getEntities()
+          [[nodiscard]] EntityMap<E> &get_entities()
           {
                   return _entities;
           }
-          [[nodiscard]] const EntityMap<E> &getEntities() const
+          [[nodiscard]] const EntityMap<E> &get_entities() const
           {
                   return _entities;
           }
-          void destroyEntity(EntityID entityId) override
+          void erase(EntityID entityId) override
           {
                   _entities.erase(entityId);
           }

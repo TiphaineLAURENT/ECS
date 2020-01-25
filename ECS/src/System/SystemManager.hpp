@@ -47,7 +47,7 @@ namespace ecs
           SystemManager &operator=(SystemManager &&other) = delete;
 
   public:
-          [[nodiscard]] static SystemManager &getInstance();
+          [[nodiscard]] static SystemManager &get_instance();
 
           template <class S, class ...ARGS>
           static S &createSystem(ARGS &&... args)
@@ -58,7 +58,7 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
 
@@ -88,10 +88,10 @@ namespace ecs
                           "Dependency must be derived from ISystem"
                   );
 
-                  SystemTypeID targetTypeID = target.getSystemTypeID();
-                  SystemTypeID dependencyTypeID = dependency.getSystemTypeID();
+                  SystemTypeID targetTypeID = target.get_system_type_id();
+                  SystemTypeID dependencyTypeID = dependency.get_system_type_id();
 
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
                   instance
                           ._systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
 
@@ -113,10 +113,10 @@ namespace ecs
                           "Dependency must be derived from ISystem"
                   );
 
-                  SystemTypeID targetTypeID = target.getSystemTypeID();
-                  SystemTypeID dependencyTypeID = dependency.getSystemTypeID();
+                  SystemTypeID targetTypeID = target.get_system_type_id();
+                  SystemTypeID dependencyTypeID = dependency.get_system_type_id();
 
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
                   instance
                           ._systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
 
@@ -135,7 +135,7 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   return *static_cast<S *>(instance._systems[systemTypeID].get());
           }
@@ -149,7 +149,7 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   auto system = instance.getSystem<S>();
                   system.enable();
@@ -165,7 +165,7 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   auto system = instance.getSystem<S>();
                   system.disable();
@@ -181,10 +181,10 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   auto system = instance.getSystem<S>();
-                  system.setUpdateInterval(interval);
+                  system.set_update_interval(interval);
                   return system;
           }
 
@@ -197,10 +197,10 @@ namespace ecs
                   );
 
                   const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   auto system = instance.getSystem<S>();
-                  system.setPriority(priority);
+                  system.set_priority(priority);
                   return system;
           }
 
@@ -211,7 +211,7 @@ namespace ecs
           static SystemWorkStateMaks generateActiveSystemWorkState
                   (ActiveSystems &&... activeSystems)
           {
-                  SystemManager &instance = getInstance();
+                  SystemManager &instance = get_instance();
 
                   SystemWorkStateMaks mask(
                           instance._systemWorkOrder.size(),
@@ -222,9 +222,9 @@ namespace ecs
                           for (size_t i = 0; i < instance._systemWorkOrder
                                                          .size(); ++i) {
                                   if (instance
-                                              ._systemWorkOrder[i]->getSystemTypeID()
+                                              ._systemWorkOrder[i]->get_system_type_id()
                                       ==
-                                      system->getSystemTypeID()) {
+                                      system->get_system_type_id()) {
                                           mask[i] = true;
                                           break;
                                   }

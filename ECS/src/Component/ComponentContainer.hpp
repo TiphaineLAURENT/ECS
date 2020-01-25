@@ -27,7 +27,7 @@ namespace ecs
   using CComponentIterator =
   typename ComponentStorage<C>::iterator;
 
-  template <typename C>
+  template <class C>
   using ComponentView = std::list<C*>;
 
   template <class C>
@@ -51,15 +51,15 @@ namespace ecs
           ComponentContainer &operator=(ComponentContainer &&) noexcept = delete;
 
   public:
-          [[nodiscard]] const std::string &getComponentContainerTypeName() const override
+          [[nodiscard]] const std::string &get_component_type_name() const override
           {
                   static const std::string componentTypeName{typeid(C).name()};
 
                   return componentTypeName;
           }
 
-          template <typename Custom = C, class ...ARGS>
-          NonOwningPointer<Custom> addComponent(NonOwningPointer<IEntity> entity, ARGS &&... args)
+          template <class Custom = C, class ...ARGS>
+          NonOwningPointer<Custom> create(NonOwningPointer<IEntity> entity, ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of<IComponent, C>::value,
@@ -68,18 +68,18 @@ namespace ecs
 
                   auto component = std::make_unique<Custom>(std::forward<ARGS>(args)...);
                   auto pointer = component.get();
-                  component->setOwner(entity);
+                  component->set_owner(entity);
                   component->setup();
 
                   _components.push_back(std::move(component));
                   return pointer;
           }
-          [[nodiscard]] NonOwningPointer<C> getComponent(EntityID entityID)
+          [[nodiscard]] NonOwningPointer<C> get_for_entity(EntityID entityID)
           {
                   auto iter = std::find_if(_components.begin(), _components.end(),
                                            [entityID] (const auto &component)
                                            {
-                                                   return component->getOwnerId() == entityID;
+                                                   return component->get_owner_id() == entityID;
                                            }
                   );
                   if (iter != _components.end())
@@ -88,44 +88,44 @@ namespace ecs
                   }
                   return nullptr;
           }
-          [[nodiscard]] ComponentView<C> getComponents(EntityID entityID)
+          [[nodiscard]] ComponentView<C> get_components(EntityID entityID)
           {
                   auto components = ComponentView<C>{};
 
                   for (auto &component : _components) {
-                          if (component->getOwnerId() == entityID) {
+                          if (component->get_owner_id() == entityID) {
                                   components.push_back(component.get());
                           }
                   }
 
                   return components;
           }
-          [[nodiscard]] const ComponentView<C> getComponents(EntityID entityID) const
+          [[nodiscard]] const ComponentView<C> get_components(EntityID entityID) const
           {
                   auto components = ComponentView<C>{};
 
                   for (auto &component : _components) {
-                          if (component->getOwnerId() == entityID) {
+                          if (component->get_owner_id() == entityID) {
                                   components.push_back(component.get());
                           }
                   }
                   return components;
           }
-          void removeComponent(EntityID entityID) override
+          void erase_for_entity(EntityID entityID) override
           {
                   auto toErase = std::remove_if(_components.begin(), _components.end(),
                                                 [entityID] (const auto &component)
                                                 {
-                                                        return component->getOwnerId() == entityID;
+                                                        return component->get_owner_id() == entityID;
                                                 });
                   _components.erase(toErase);
           }
-          void removeComponentByID(ComponentID componentID)
+          void erase(ComponentID componentID) override
           {
                   auto toErase = std::remove_if(_components.begin(), _components.end(),
                                                 [componentID] (const auto &component)
                                                 {
-                                                        return component->getComponentID() == componentID;
+                                                        return component->get_id() == componentID;
                                                 });
                   _components.erase(toErase);
           }
@@ -139,12 +139,12 @@ namespace ecs
                   return _components.end();
           }
 
-          [[nodiscard]] ComponentStorage<C> &getComponents()
+          [[nodiscard]] ComponentStorage<C> &get_components()
           {
                   return _components;
           }
 
-          [[nodiscard]] const ComponentStorage<C> &getComponents() const
+          [[nodiscard]] const ComponentStorage<C> &get_components() const
           {
                   return _components;
           }

@@ -19,21 +19,21 @@ namespace ecs
   {
 // ATTRIBUTES
   private:
-          static inline ComponentID _componentTypeCount{0};
+          static inline ComponentID _componentCount{0};
 
   public:
-          static inline const ComponentTypeID _componentTypeID{util::FamilyTypeID<IComponent>::getTypeID<C>()};
+          static inline const ComponentTypeID _componentTypeID{util::FamilyTypeID<IComponent>::get_type_id<C>()};
 
 // METHODS
   public:// CONSTRUCTORS
           Component()
                 : IComponent()
           {
-                  ++_componentTypeCount;
+                  ++_componentCount;
           }
           ~Component() override
           {
-                  --_componentTypeCount;
+                  --_componentCount;
           }
           Component(const Component &copy) = default;
           Component(Component &&) noexcept = default;
@@ -46,12 +46,12 @@ namespace ecs
           void setup() override
           {
           }
-          [[nodiscard]] static size_t getComponentTypeCount()
+          [[nodiscard]] static size_t get_component_count()
           {
-                  return _componentTypeCount;
+                  return _componentCount;
           }
 
-          [[nodiscard]] ComponentTypeID getComponentTypeID() const override
+          [[nodiscard]] ComponentTypeID get_component_type_id() const override
           {
                   return _componentTypeID;
           }

@@ -15,11 +15,11 @@ namespace ecs
   std::ostream &operator<<(std::ostream &out, const ISystem *system)
   {
           out << "{ "
-              << "Name: " << system->getSystemTypeName() << ", "
-              << "ID: " << system->getSystemTypeID() << ", "
-              << "Update Interval: " << system->getUpdateInterval() << ", "
-              << "TypeID: " << system->getTimeSinceLastUpdate() << ", "
-              << "Active: " << system->isEnable() << true
+              << "Name: " << system->get_system_type_name() << ", "
+              << "ID: " << system->get_system_type_id() << ", "
+              << "Update Interval: " << system->get_update_interval() << ", "
+              << "TypeID: " << system->get_time_since_last_update() << ", "
+              << "Active: " << system->is_enabled() << true
               << " }";
           return out;
   }

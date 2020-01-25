@@ -50,42 +50,43 @@ namespace ecs
           IEntity &operator=(IEntity &&) noexcept = default;
 
   public:
-          [[nodiscard]] static EntityID getEntityCount();
+          [[nodiscard]] static EntityID get_entity_count();
 
-          [[nodiscard]] EntityID getEntityID() const;
-          [[nodiscard]] virtual EntityTypeID getEntityTypeID() const = 0;
+          [[nodiscard]] const EntityID &get_id() const;
+          [[nodiscard]] virtual EntityTypeID get_entity_type_id() const = 0;
 
-          IEntity &setActive(bool state);
-          [[nodiscard]] bool isActive() const;
+          IEntity &enable();
+          IEntity &disable();
+          [[nodiscard]] bool is_enabled() const;
 
-          template <class C, typename Container = C, class ...ARGS>
-          NonOwningPointer<C> addComponent(ARGS &&... args)
+          template <class C, class Container = C, class ...ARGS>
+          NonOwningPointer<C> create_component(ARGS &&... args)
           {
-                  return ComponentManager::addComponent<C, Container>(
+                  return ComponentManager::create_component<C, Container>(
                           this,
                           std::forward<ARGS>(args)...
                   );
           }
-          template <typename C, typename Container = C>
-          [[nodiscard]] NonOwningPointer<C> getComponent() const
+          template <class C, class Container = C>
+          [[nodiscard]] NonOwningPointer<C> get_component() const
           {
-                  return ComponentManager::getComponent<C, Container>(_entityID);
+                  return ComponentManager::get_component<C, Container>(_entityID);
           }
           template <class C>
-          [[nodiscard]] ComponentView<C> getComponents() const
+          [[nodiscard]] ComponentView<C> get_components() const
           {
-                  return ComponentManager::getComponents<C>(_entityID);
+                  return ComponentManager::get_components<C>(_entityID);
           }
           template <class C>
-          void removeComponent()
+          void erase_component()
           {
-                  ComponentManager::removeComponent<C>(_entityID);
+                  ComponentManager::erase_for_entity<C>(_entityID);
           }
 
   private:
   };
 
-  std::ostream &operator<<(std::ostream &out, const IEntity *);
+  std::ostream &operator<<(std::ostream &out, const NonOwningPointer<IEntity>);
 }
 
 #endif /* !ECS_IENTITY_HPP */

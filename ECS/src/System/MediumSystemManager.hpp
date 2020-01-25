@@ -77,7 +77,7 @@ namespace ecs
                   _orderedSystems.reserve(_systems.size());
                   for (auto &pair : _systems)
                   {
-                          if (pair.second->isEnable())
+                          if (pair.second->is_enabled())
                           {
                                   _orderedSystems
                                           .emplace_back(pair.second.get());
@@ -87,8 +87,8 @@ namespace ecs
                           _orderedSystems.begin(), _orderedSystems.end(),
                           [] (const auto &system1, const auto &system2)
                           {
-                                  return system1->getPriority() >
-                                          system2->getPriority();
+                                  return system1->get_priority() >
+                                          system2->get_priority();
                           }
                   );
           }
@@ -125,7 +125,7 @@ namespace ecs
           S &setSystemUpdateInterval(Interval interval)
           {
                   auto system = getSystem<S>();
-                  system.setUpdateInterval(interval);
+                  system.set_update_interval(interval);
                   return system;
           }
 
@@ -133,7 +133,7 @@ namespace ecs
           S &setSystemPriority(SYSTEM_PRIORITY priority)
           {
                   auto system = getSystem<S>();
-                  system.setPriority(priority);
+                  system.set_priority(priority);
                   return system;
           }
 

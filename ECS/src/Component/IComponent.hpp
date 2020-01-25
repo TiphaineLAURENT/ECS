@@ -30,9 +30,7 @@ namespace ecs
 
           static inline ::std::vector<ComponentID> _freeID{};
 
-          static inline size_t _componentCount{0};
-
-          EntityID _ownerId{util::INVALID_ID};
+          static inline size_t _componentTypeCount{0};
 
           NonOwningPointer<IEntity> _owner{nullptr};
 
@@ -54,17 +52,18 @@ namespace ecs
   public:
           virtual void setup() = 0;
 
-          [[nodiscard]] static size_t getComponentCount();
+          [[nodiscard]] static const size_t &get_component_type_count();
 
-          [[nodiscard]] ComponentID getComponentID() const;
-          [[nodiscard]] virtual ComponentTypeID getComponentTypeID() const = 0;
+          [[nodiscard]] const ComponentID &get_id() const;
+          [[nodiscard]] virtual ComponentTypeID get_component_type_id() const = 0;
 
-          IComponent &setOwner(NonOwningPointer<IEntity> entity);
-          [[nodiscard]] NonOwningPointer<IEntity> getOwner() const;
-          [[nodiscard]] EntityID getOwnerId() const;
+          IComponent &set_owner(NonOwningPointer<IEntity> entity);
+          [[nodiscard]] NonOwningPointer<IEntity> get_owner() const;
+          [[nodiscard]] const EntityID &get_owner_id() const;
 
-          IComponent &setActive(bool state);
-          [[nodiscard]] bool isActive() const;
+          IComponent &enable();
+          IComponent &disable();
+          [[nodiscard]] bool is_enabled() const;
 
   private:
   };

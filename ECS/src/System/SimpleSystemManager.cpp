@@ -9,7 +9,7 @@
 
 namespace ecs
 {
-        SimpleSystemManager &SimpleSystemManager::getInstance()
+        SimpleSystemManager &SimpleSystemManager::get_instance()
         {
                 static SimpleSystemManager instance;
                 return instance;
@@ -17,10 +17,10 @@ namespace ecs
 
   void SimpleSystemManager::update(Interval deltaTime)
   {
-          SimpleSystemManager &instance = getInstance();
+          SimpleSystemManager &instance = get_instance();
 
           for (auto &system : instance._systems) {
-                  system.second->preUpdate(deltaTime);
+                  system.second->pre_update(deltaTime);
           }
 
           for (auto &system : instance._systems) {
@@ -28,7 +28,7 @@ namespace ecs
           }
 
           for (auto &system : instance._systems) {
-                  system.second->postUpdate(deltaTime);
+                  system.second->post_update(deltaTime);
           }
   }
 

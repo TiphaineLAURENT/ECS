@@ -28,13 +28,13 @@ namespace ecs
 
     public:
             template <class E>
-            static const ID getTypeID()
+            static const ID get_type_id()
             {
                     static const ID _typeID{_maxID++};
                     return _typeID;
             }
 
-            static const ID getCountID()
+            static const ID get_max_id()
             {
                     return _maxID;
             }

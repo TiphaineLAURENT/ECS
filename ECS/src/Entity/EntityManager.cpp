@@ -10,7 +10,7 @@
 namespace ecs
 {
 
-  EntityManager &EntityManager::getInstance()
+  EntityManager &EntityManager::get_instance()
   {
           static EntityManager instance;
           return instance;
@@ -19,13 +19,13 @@ namespace ecs
   template <class E>
   CComponentIterator<E> EntityManager::begin()
   {
-          return getEntityContainer<E>().begin();
+          return get_entity_container<E>().begin();
   }
 
   template <class E>
   CComponentIterator<E> EntityManager::end()
   {
-          return getEntityContainer<E>().begin();
+          return get_entity_container<E>().begin();
   }
 
 }

@@ -70,29 +70,29 @@ struct SYSTEM(MySystem3)
 
 TEST_CASE("Basic creation", "creation")
 {
-        auto entity = ecs::EntityManager::createEntity<MyEntity>();
-        REQUIRE(ecs::EntityManager::getEntityContainer<MyEntity>()
-                        .getEntityContainerTypeName()
+        auto entity = ecs::EntityManager::create<MyEntity>();
+        REQUIRE(ecs::EntityManager::get_entity_container<MyEntity>()
+                        .get_entity_type_name()
                 == typeid(MyEntity).name());
-        REQUIRE(entity.getEntityCount() == 1);
-        REQUIRE(entity.getEntityID() == 0);
-        REQUIRE(entity.getEntityTypeID() == 0);
+        REQUIRE(entity.get_entity_count() == 1);
+        REQUIRE(entity.get_id() == 0);
+        REQUIRE(entity.get_entity_type_id() == 0);
 
         auto systemManager = ecs::MediumSystemManager();
         auto &system1 = systemManager.createSystem<MySystem1>();
-        REQUIRE(system1.getPriority() == ecs::SYSTEM_PRIORITY::LOWEST);
-        REQUIRE(system1.getSystemTypeID() == 0);
-        REQUIRE(system1.getUpdateInterval() == 10);
-        REQUIRE(system1.isEnable());
+        REQUIRE(system1.get_priority() == ecs::SYSTEM_PRIORITY::LOWEST);
+        REQUIRE(system1.get_system_type_id() == 0);
+        REQUIRE(system1.get_update_interval() == 10);
+        REQUIRE(system1.is_enabled());
 
         auto &system2 = systemManager.createSystem<MySystem2>();
         auto &system3 = systemManager.createSystem<MySystem3>();
         systemManager.updateSytemsOrder();
-        REQUIRE(systemManager[0]->getPriority() ==
+        REQUIRE(systemManager[0]->get_priority() ==
                 ecs::SYSTEM_PRIORITY::HIGHEST);
-        REQUIRE(systemManager[1]->getPriority() ==
+        REQUIRE(systemManager[1]->get_priority() ==
                 ecs::SYSTEM_PRIORITY::NORMAL);
-        REQUIRE(systemManager[2]->getPriority() ==
+        REQUIRE(systemManager[2]->get_priority() ==
                 ecs::SYSTEM_PRIORITY::LOWEST);
 
         systemManager.update(10); // 10 us passed
@@ -103,40 +103,41 @@ TEST_CASE("Basic creation", "creation")
         systemManager.update(1);  // 19 us passed
         systemManager.update(1);  // 20 us passed
 
-        REQUIRE(entity.addComponent<MyComponent>() != nullptr);
-        auto component = entity.getComponent<MyComponent>();
+        REQUIRE(entity.create_component<MyComponent>() != nullptr);
+        auto component = entity.get_component<MyComponent>();
 
-        REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 1);
-        REQUIRE(component->getComponentCount() == 1);
-        REQUIRE(component->getComponentTypeCount() == 1);
-        REQUIRE(component->getComponentID() == 0);
-        REQUIRE(component->getComponentTypeID() == 0);
-        REQUIRE(component->isActive());
-        REQUIRE(component->getOwnerId() == entity.getEntityID());
+        REQUIRE(ecs::ComponentManager::get_instance().get_container_count() == 1);
+        REQUIRE(component->get_component_count() == 1);
+        REQUIRE(component->get_id() == 0);
+        REQUIRE(component->get_component_type_id() == 0);
+        REQUIRE(component->is_enabled());
+        REQUIRE(component->get_owner() == &entity);
+        REQUIRE(component->get_owner()->get_id() == entity.get_id());
+        REQUIRE(component->get_owner_id() == entity.get_id());
 
-        REQUIRE(ecs::ComponentManager::getComponentContainer<MyComponent>()
-                        .getComponentContainerTypeName()
+        REQUIRE(ecs::ComponentManager::get_component_container<MyComponent>()
+                        .get_component_type_name()
                 == typeid(MyComponent).name());
 
-        auto component2 = entity.addComponent<MyComponent2>();
-        REQUIRE(ecs::ComponentManager::getInstance().getContainerCount() == 2);
-        REQUIRE(component->getComponentCount() == 2);
-        REQUIRE(component->getComponentTypeCount() == 1);
-        REQUIRE(component->getComponentID() == 0);
-        REQUIRE(component->getComponentTypeID() == 0);
+        auto component2 = entity.create_component<MyComponent2>();
+        REQUIRE(ecs::ComponentManager::get_instance().get_container_count() == 2);
+        REQUIRE(component->get_component_type_count() == 2);
+        REQUIRE(component->get_component_count() == 1);
+        REQUIRE(component->get_id() == 0);
+        REQUIRE(component->get_component_type_id() == 0);
 
-        REQUIRE(component2->getComponentCount() == 2);
-        REQUIRE(component2->getComponentTypeCount() == 1);
-        REQUIRE(component2->getComponentID() == 1);
-        REQUIRE(component2->getComponentTypeID() == 1);
-        REQUIRE(!component2->setActive(false).isActive());
+        REQUIRE(component2->get_component_type_count() == 2);
+        REQUIRE(component2->get_component_count() == 1);
+        REQUIRE(component2->get_id() == 1);
+        REQUIRE(component2->get_component_type_id() == 1);
+        REQUIRE(!component2->disable().is_enabled());
 
-        auto derived = entity.addComponent<DerivedComponent, MyComponent>();
-        REQUIRE(ecs::ComponentManager::getComponents<MyComponent>(entity.getEntityID()).size() == 2);
+        auto derived = entity.create_component<DerivedComponent, MyComponent>();
+        REQUIRE(ecs::ComponentManager::get_components<MyComponent>(entity.get_id()).size() == 2);
 
-        entity.removeComponent<MyComponent2>();
-        REQUIRE(component->getComponentCount() == 2);
+        entity.erase_component<MyComponent2>();
+        REQUIRE(component->get_component_count() == 2);
 
-        REQUIRE(!entity.setActive(false).isActive());
-        ecs::EntityManager::removeEntity<MyEntity>(entity.getEntityID());
+        REQUIRE(!entity.disable().is_enabled());
+        ecs::EntityManager::remove_entity<MyEntity>(entity.get_id());
 }

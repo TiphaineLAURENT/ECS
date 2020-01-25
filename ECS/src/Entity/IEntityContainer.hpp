@@ -34,9 +34,9 @@ namespace ecs
           IEntityContainer &operator=(IEntityContainer &&) = delete;
 
   public:
-          [[nodiscard]] virtual const std::string &getEntityContainerTypeName() const = 0;
+          [[nodiscard]] virtual const std::string &get_entity_type_name() const = 0;
 
-          virtual void destroyEntity(EntityID) = 0;
+          virtual void erase(EntityID) = 0;
 
   private:
   };

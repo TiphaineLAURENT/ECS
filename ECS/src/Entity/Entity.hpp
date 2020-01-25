@@ -22,7 +22,7 @@ namespace ecs
 // ATTRIBUTES
   private:
   public:
-          static inline const EntityTypeID _entityTypeID{util::FamilyTypeID<IEntity>::getTypeID<E>()};
+          static inline const EntityTypeID _entityTypeID{util::FamilyTypeID<IEntity>::get_type_id<E>()};
 
 // METHODS
   public:// CONSTRUCTORS
@@ -36,7 +36,7 @@ namespace ecs
           Entity &operator=(Entity &&) noexcept = default;
 
   public:
-          [[nodiscard]] EntityTypeID getEntityTypeID() const override
+          [[nodiscard]] EntityTypeID get_entity_type_id() const override
           {
                   return _entityTypeID;
           }
