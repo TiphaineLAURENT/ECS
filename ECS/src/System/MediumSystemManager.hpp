@@ -43,7 +43,7 @@ namespace ecs
           MediumSystemManager &operator=(const MediumSystemManager &other) = delete;
           MediumSystemManager &operator=(MediumSystemManager &&) = delete;
 
-          [[nodiscard]] ISystem *const operator[](size_t index) const
+          [[nodiscard]] NonOwningPointer<ISystem> operator[](size_t index) const
           {
                   if (index < _orderedSystems.size())
                   {

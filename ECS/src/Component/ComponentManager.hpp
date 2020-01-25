@@ -60,7 +60,7 @@ namespace ecs
           }
 
           template <typename C, typename Container = C, typename ...ARGS>
-          static C *addComponent(IEntity *entity, ARGS &&... args)
+          static NonOwningPointer<C> addComponent(NonOwningPointer<IEntity> entity, ARGS &&... args)
           {
                   if constexpr (std::is_same_v<C, Container>)
                   {
@@ -80,7 +80,7 @@ namespace ecs
                   }
           }
           template <typename C, typename Container = C>
-          [[nodiscard]] static C *getComponent(EntityID entityID)
+          [[nodiscard]] static NonOwningPointer<C> getComponent(EntityID entityID)
           {
                   auto &container = getComponentContainer<Container>();
 
@@ -119,7 +119,7 @@ namespace ecs
 
   private:
           template <class C>
-          ComponentContainer<C> *createContainer()
+          NonOwningPointer<ComponentContainer<C>> createContainer()
           {
                   const auto componentTypeID = C::_componentTypeID;
                   auto container = std::make_unique<ComponentContainer<C>>();
@@ -130,7 +130,7 @@ namespace ecs
           }
 
           template <class C>
-          [[nodiscard]] ComponentContainer<C> *getContainer()
+          [[nodiscard]] NonOwningPointer<ComponentContainer<C>> getContainer()
           {
                   const auto componentTypeID = C::_componentTypeID;
                   auto it = _containers.find(componentTypeID);

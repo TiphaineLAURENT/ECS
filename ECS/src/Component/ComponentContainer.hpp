@@ -11,6 +11,7 @@
 # include <ostream>
 # include <memory>
 # include <vector>
+# include <list>
 # include <algorithm>
 # include <string>
 
@@ -27,7 +28,7 @@ namespace ecs
   typename ComponentStorage<C>::iterator;
 
   template <typename C>
-  using ComponentView = std::vector<C*>;
+  using ComponentView = std::list<C*>;
 
   template <class C>
   class ComponentContainer : public IComponentContainer
@@ -58,7 +59,7 @@ namespace ecs
           }
 
           template <typename Custom = C, class ...ARGS>
-          Custom *addComponent(IEntity *entity, ARGS &&... args)
+          NonOwningPointer<Custom> addComponent(NonOwningPointer<IEntity> entity, ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of<IComponent, C>::value,
@@ -73,7 +74,7 @@ namespace ecs
                   _components.push_back(std::move(component));
                   return pointer;
           }
-          [[nodiscard]] C *getComponent(EntityID entityID)
+          [[nodiscard]] NonOwningPointer<C> getComponent(EntityID entityID)
           {
                   auto iter = std::find_if(_components.begin(), _components.end(),
                                            [entityID] (const auto &component)
@@ -93,7 +94,7 @@ namespace ecs
 
                   for (auto &component : _components) {
                           if (component->getOwnerId() == entityID) {
-                                  components.emplace_back(component.get());
+                                  components.push_back(component.get());
                           }
                   }
 
@@ -105,7 +106,7 @@ namespace ecs
 
                   for (auto &component : _components) {
                           if (component->getOwnerId() == entityID) {
-                                  components.emplace_back(component.get());
+                                  components.push_back(component.get());
                           }
                   }
                   return components;

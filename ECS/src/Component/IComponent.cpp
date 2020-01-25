@@ -54,19 +54,19 @@ namespace ecs
           return _active;
   }
 
-  IComponent &IComponent::setOwner(IEntity *entity)
+  IComponent &IComponent::setOwner(NonOwningPointer<IEntity> entity)
   {
-          _owner = entity;
+          const_cast<IEntity*>(_owner) = entity;
           _ownerId = _owner->getEntityID();
 
           return *this;
   }
-  IEntity *IComponent::getOwner() const
+  NonOwningPointer<IEntity> IComponent::getOwner() const
   {
           return _owner;
   }
 
-  std::ostream &operator<<(std::ostream &out, const IComponent *component)
+  std::ostream &operator<<(std::ostream &out, const NonOwningPointer<IComponent> component)
   {
           out << "{c "
               << "ID: " << component->getComponentID() << ", "

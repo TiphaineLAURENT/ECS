@@ -18,99 +18,99 @@
 namespace ecs
 {
 
-  class SimpleSystemManager
-  {
-// ATTRIBUTES
-  private:
-          using SystemRegistry = std::map<
-                  util::ID,
-                  std::unique_ptr<ISystem>
-                                         >;
+        class SimpleSystemManager
+        {
+                // ATTRIBUTES
+        private:
+                using SystemRegistry = std::map<
+                        util::ID,
+                        std::unique_ptr<ISystem>
+                >;
 
-          SystemRegistry _systems{};
+                SystemRegistry _systems{};
 
-  public:
+        public:
 
-// METHODS:
-  public: // CONSTRUCTORS
-          SimpleSystemManager() = default;
-          ~SimpleSystemManager() = default;
-          SimpleSystemManager(const SimpleSystemManager &copy) = delete;
-          SimpleSystemManager(SimpleSystemManager &&other) noexcept = delete;
+                // METHODS:
+        public: // CONSTRUCTORS
+                SimpleSystemManager() = default;
+                ~SimpleSystemManager() = default;
+                SimpleSystemManager(const SimpleSystemManager &copy) = delete;
+                SimpleSystemManager(SimpleSystemManager &&other) noexcept = delete;
 
-  public: // OPERATORS
-          SimpleSystemManager &operator=(const SimpleSystemManager &other) = delete;
-          SimpleSystemManager &operator=(SimpleSystemManager &&other) = delete;
+        public: // OPERATORS
+                SimpleSystemManager &operator=(const SimpleSystemManager &other) = delete;
+                SimpleSystemManager &operator=(SimpleSystemManager &&other) = delete;
 
-  public:
-          [[nodiscard]] static SimpleSystemManager &getInstance();
+        public:
+                [[nodiscard]] static SimpleSystemManager &getInstance();
 
-          template <class S, class ...ARGS>
-          static S &createSystem(ARGS &&... args)
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                template <class S, class ...ARGS>
+                static S &createSystem(ARGS &&... args)
+                {
+                        static_assert(
+                                std::is_base_of<ISystem, S>::value,
+                                "System must be derived from ISystem"
+                                );
 
-                  SimpleSystemManager &instance = getInstance();
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
+                        SimpleSystemManager &instance = getInstance();
+                        const SystemTypeID systemTypeID = S::_systemTypeID;
 
-                  auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
-                  instance._systems[systemTypeID] = std::move(system);
+                        auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
+                        instance._systems[systemTypeID] = std::move(system);
 
-                  return instance.getSystem<S>();
-          }
+                        return instance.getSystem<S>();
+                }
 
-          template <class S>
-          [[nodiscard]] static S &getSystem()
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                template <class S>
+                [[nodiscard]] static S &getSystem()
+                {
+                        static_assert(
+                                std::is_base_of<ISystem, S>::value,
+                                "System must be derived from ISystem"
+                                );
 
-                  SimpleSystemManager &instance = getInstance();
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
+                        SimpleSystemManager &instance = getInstance();
+                        const SystemTypeID systemTypeID = S::_systemTypeID;
 
-                  return *static_cast<S *>(instance._systems[systemTypeID].get());
-          }
+                        return *static_cast<S *>(instance._systems[systemTypeID].get());
+                }
 
-          template <class S>
-          static S &enableSystem()
-          {
-                  SimpleSystemManager &instance = getInstance();
+                template <class S>
+                static S &enableSystem()
+                {
+                        SimpleSystemManager &instance = getInstance();
 
-                  auto system = instance.getSystem<S>();
-                  system.enable();
-                  return system;
-          }
+                        auto system = instance.getSystem<S>();
+                        system.enable();
+                        return system;
+                }
 
-          template <class S>
-          static S &disableSystem()
-          {
-                  SimpleSystemManager &instance = getInstance();
+                template <class S>
+                static S &disableSystem()
+                {
+                        SimpleSystemManager &instance = getInstance();
 
-                  auto system = instance.getSystem<S>();
-                  system.disable();
-                  return system;
-          }
+                        auto system = instance.getSystem<S>();
+                        system.disable();
+                        return system;
+                }
 
-          template <class S>
-          static S &setSystemUpdateInterval(Interval interval)
-          {
-                  SimpleSystemManager &instance = getInstance();
+                template <class S>
+                static S &setSystemUpdateInterval(Interval interval)
+                {
+                        SimpleSystemManager &instance = getInstance();
 
-                  auto system = instance.getSystem<S>();
-                  system.setUpdateInterval(interval);
-                  return system;
-          }
+                        auto system = instance.getSystem<S>();
+                        system.setUpdateInterval(interval);
+                        return system;
+                }
 
-          static void update(Interval deltaTime);
+                static void update(Interval deltaTime);
 
-  };
+        };
 
-  std::ostream &operator<<(std::ostream &out, const SimpleSystemManager &);
+        std::ostream &operator<<(std::ostream &out, const SimpleSystemManager &);
 
 }
 

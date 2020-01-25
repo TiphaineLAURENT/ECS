@@ -77,13 +77,6 @@ namespace ecs
                   return container.getEntityById(entityID);
           }
           template <class E>
-          [[nodiscard]] static EntityMap<E> &getComponents(EntityID entityID)
-          {
-                  EntityContainer<E> &container = getEntityContainer<E>();
-
-                  return container.getEntities(entityID);
-          }
-          template <class E>
           static void removeEntity(EntityID entityID)
           {
                   EntityContainer<E> &container = getEntityContainer<E>();

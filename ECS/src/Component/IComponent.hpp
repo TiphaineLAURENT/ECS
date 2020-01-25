@@ -34,7 +34,7 @@ namespace ecs
 
           EntityID _ownerId{util::INVALID_ID};
 
-          IEntity *_owner{nullptr};
+          NonOwningPointer<IEntity> _owner{nullptr};
 
           bool _active{true};
 
@@ -59,8 +59,8 @@ namespace ecs
           [[nodiscard]] ComponentID getComponentID() const;
           [[nodiscard]] virtual ComponentTypeID getComponentTypeID() const = 0;
 
-          IComponent &setOwner(IEntity *entity);
-          [[nodiscard]] IEntity *getOwner() const;
+          IComponent &setOwner(NonOwningPointer<IEntity> entity);
+          [[nodiscard]] NonOwningPointer<IEntity> getOwner() const;
           [[nodiscard]] EntityID getOwnerId() const;
 
           IComponent &setActive(bool state);
@@ -69,7 +69,7 @@ namespace ecs
   private:
   };
 
-  ::std::ostream &operator<<(::std::ostream &out, const IComponent *);
+  ::std::ostream &operator<<(::std::ostream &out, const NonOwningPointer<IComponent>);
 
 }
 

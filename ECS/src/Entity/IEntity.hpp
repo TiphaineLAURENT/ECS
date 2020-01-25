@@ -59,7 +59,7 @@ namespace ecs
           [[nodiscard]] bool isActive() const;
 
           template <class C, typename Container = C, class ...ARGS>
-          C *addComponent(ARGS &&... args)
+          NonOwningPointer<C> addComponent(ARGS &&... args)
           {
                   return ComponentManager::addComponent<C, Container>(
                           this,
@@ -67,12 +67,12 @@ namespace ecs
                   );
           }
           template <typename C, typename Container = C>
-          [[nodiscard]] C *getComponent() const
+          [[nodiscard]] NonOwningPointer<C> getComponent() const
           {
                   return ComponentManager::getComponent<C, Container>(_entityID);
           }
           template <class C>
-          [[nodiscard]] std::vector<C *const> getComponents() const
+          [[nodiscard]] ComponentView<C> getComponents() const
           {
                   return ComponentManager::getComponents<C>(_entityID);
           }
