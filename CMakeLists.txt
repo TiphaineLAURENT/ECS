@@ -25,6 +25,7 @@ set(ECS_SOURCES
     ECS/src/System/SystemManager.cpp ECS/src/System/SystemManager.hpp
     ECS/src/System/SimpleSystemManager.cpp ECS/src/System/SimpleSystemManager.hpp
     ECS/src/System/MediumSystemManager.cpp ECS/src/System/MediumSystemManager.hpp
+    ECS/src/Util/NonOwningPointer.cpp ECS/src/Util/NonOwningPointer.hpp
     )
 
 list(SORT ECS_SOURCES COMPARE FILE_BASENAME)

@@ -12,6 +12,8 @@
 # include <limits>
 # include <iostream>
 
+//# include "NonOwningPointer.hpp"
+
 namespace ecs
 {
   namespace util
@@ -46,6 +48,12 @@ namespace ecs
   using Interval = int64_t;
   template <typename Type>
   using NonOwningPointer = Type*const;
+
+  template <class Type>
+  void replace_pointer(NonOwningPointer<Type> &current, Type *replacer)
+  {
+          const_cast<Type*&>(current) = replacer;
+  }
 
 }
 
