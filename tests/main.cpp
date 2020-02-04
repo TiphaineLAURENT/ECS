@@ -79,15 +79,15 @@ TEST_CASE("Basic creation", "creation")
         REQUIRE(entity.get_entity_type_id() == 0);
 
         auto systemManager = ecs::MediumSystemManager();
-        auto &system1 = systemManager.createSystem<MySystem1>();
+        auto &system1 = systemManager.create_system<MySystem1>();
         REQUIRE(system1.get_priority() == ecs::SYSTEM_PRIORITY::LOWEST);
         REQUIRE(system1.get_system_type_id() == 0);
         REQUIRE(system1.get_update_interval() == 10);
         REQUIRE(system1.is_enabled());
 
-        auto &system2 = systemManager.createSystem<MySystem2>();
-        auto &system3 = systemManager.createSystem<MySystem3>();
-        systemManager.updateSytemsOrder();
+        auto &system2 = systemManager.create_system<MySystem2>();
+        auto &system3 = systemManager.create_system<MySystem3>();
+        systemManager.update_systems_order();
         REQUIRE(systemManager[0]->get_priority() ==
                 ecs::SYSTEM_PRIORITY::HIGHEST);
         REQUIRE(systemManager[1]->get_priority() ==

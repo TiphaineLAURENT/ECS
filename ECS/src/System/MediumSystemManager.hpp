@@ -54,7 +54,7 @@ namespace ecs
 
   public:
           template <class S, class ...ARGS>
-          S &createSystem(ARGS &&... args)
+          S &create_system(ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of_v<ISystem, S>,
@@ -68,10 +68,10 @@ namespace ecs
                           std::make_unique<S>(std::forward<ARGS>(args)...)
                   );
 
-                  return getSystem<S>();
+                  return get_system<S>();
           }
 
-          void updateSytemsOrder()
+          void update_systems_order()
           {
                   _orderedSystems.clear();
                   _orderedSystems.reserve(_systems.size());
@@ -94,7 +94,7 @@ namespace ecs
           }
 
           template <class S>
-          [[nodiscard]] S &getSystem()
+          [[nodiscard]] S &get_system()
           {
                   static_assert(
                           std::is_base_of_v<ISystem, S>,
@@ -106,33 +106,33 @@ namespace ecs
           }
 
           template <class S>
-          static S &enableSystem()
+          static S &enable_system()
           {
-                  auto system = getSystem<S>();
+                  auto system = get_system<S>();
                   system.enable();
                   return system;
           }
 
           template <class S>
-          S &disableSystem()
+          S &disable_system()
           {
-                  auto system = getSystem<S>();
+                  auto system = get_system<S>();
                   system.disable();
                   return system;
           }
 
           template <class S>
-          S &setSystemUpdateInterval(Interval interval)
+          S &set_system_update_interval(Interval interval)
           {
-                  auto system = getSystem<S>();
+                  auto system = get_system<S>();
                   system.set_update_interval(interval);
                   return system;
           }
 
           template <class S>
-          S &setSystemPriority(SYSTEM_PRIORITY priority)
+          S &set_system_priority(SYSTEM_PRIORITY priority)
           {
-                  auto system = getSystem<S>();
+                  auto system = get_system<S>();
                   system.set_priority(priority);
                   return system;
           }

@@ -50,7 +50,7 @@ namespace ecs
           [[nodiscard]] static SystemManager &get_instance();
 
           template <class S, class ...ARGS>
-          static S &createSystem(ARGS &&... args)
+          static S &create_system(ARGS &&... args)
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -127,7 +127,7 @@ namespace ecs
           }
 
           template <class S>
-          [[nodiscard]] static S &getSystem()
+          [[nodiscard]] static S &get_system()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -141,7 +141,7 @@ namespace ecs
           }
 
           template <class S>
-          static S &enableSystem()
+          static S &enable_system()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -151,13 +151,13 @@ namespace ecs
                   const SystemTypeID systemTypeID = S::_systemTypeID;
                   SystemManager &instance = get_instance();
 
-                  auto system = instance.getSystem<S>();
+                  auto system = instance.get_system<S>();
                   system.enable();
                   return system;
           }
 
           template <class S>
-          static S &disableSystem()
+          static S &disable_system()
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -167,13 +167,13 @@ namespace ecs
                   const SystemTypeID systemTypeID = S::_systemTypeID;
                   SystemManager &instance = get_instance();
 
-                  auto system = instance.getSystem<S>();
+                  auto system = instance.get_system<S>();
                   system.disable();
                   return system;
           }
 
           template <class S>
-          static S &setSystemUpdateInterval(Interval interval)
+          static S &set_system_update_interval(Interval interval)
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -183,13 +183,13 @@ namespace ecs
                   const SystemTypeID systemTypeID = S::_systemTypeID;
                   SystemManager &instance = get_instance();
 
-                  auto system = instance.getSystem<S>();
+                  auto system = instance.get_system<S>();
                   system.set_update_interval(interval);
                   return system;
           }
 
           template <class S>
-          static S &setSystemPriority(SYSTEM_PRIORITY priority)
+          static S &set_system_priority(SYSTEM_PRIORITY priority)
           {
                   static_assert(
                           std::is_base_of<ISystem, S>::value,
@@ -199,7 +199,7 @@ namespace ecs
                   const SystemTypeID systemTypeID = S::_systemTypeID;
                   SystemManager &instance = get_instance();
 
-                  auto system = instance.getSystem<S>();
+                  auto system = instance.get_system<S>();
                   system.set_priority(priority);
                   return system;
           }
