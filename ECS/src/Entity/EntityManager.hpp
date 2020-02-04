@@ -67,7 +67,7 @@ namespace ecs
           {
                   EntityContainer<E> &container = get_entity_container<E>();
 
-                  return container.create(std::forward(args)...);
+                  return container.create(std::forward<ARGS>(args)...);
           }
           template <class E>
           [[nodiscard]] static E &get_entity(EntityID entityID)
