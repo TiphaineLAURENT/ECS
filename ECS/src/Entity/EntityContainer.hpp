@@ -61,7 +61,7 @@ namespace ecs
                           "Entity must be derived from IEntity"
                   );
 
-                  auto entity = std::make_unique<E>(std::forward(args)...);
+                  auto entity = std::make_unique<E>(std::forward<ARGS>(args)...);
                   auto pointer = entity.get();
                   const auto entityID = entity->get_id();
 
