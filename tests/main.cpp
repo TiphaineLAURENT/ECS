@@ -134,6 +134,7 @@ TEST_CASE("Basic creation", "creation")
 
         auto derived = entity.create_component<DerivedComponent, MyComponent>();
         REQUIRE(ecs::ComponentManager::get_components<MyComponent>(entity.get_id()).size() == 2);
+        REQUIRE(ecs::ComponentManager::get_component_container<MyComponent>().size() == 2);
 
         entity.erase_component<MyComponent2>();
         REQUIRE(component->get_component_count() == 2);

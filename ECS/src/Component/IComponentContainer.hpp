@@ -39,6 +39,8 @@ namespace ecs
           virtual void erase_for_entity(EntityID entityID) = 0;
           virtual void erase(ComponentID componentID) = 0;
 
+          virtual size_t size() = 0;
+
   private:
   };
 

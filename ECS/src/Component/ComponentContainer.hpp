@@ -149,12 +149,16 @@ namespace ecs
                   return _components;
           }
 
+          [[nodiscard]] size_t size() override
+          {
+                  return _components.size();
+          }
+
   private:
   };
 
   template <class C>
   std::ostream &operator<<(std::ostream &out, const ComponentContainer<C> &);
-
 }
 
 #endif /* !ECS_COMPONENTCONTAINER_HPP */
