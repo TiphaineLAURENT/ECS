@@ -47,7 +47,7 @@ namespace ecs
   using EntityID = util::ID;
   using Interval = int64_t;
   template <typename Type>
-  using NonOwningPointer = Type*const;
+  using NonOwningPointer = Type*const; // TODO: Use std::reference_wrapper instead - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 
   template <class Type>
   void replace_pointer(NonOwningPointer<Type> &current, Type *replacer)
