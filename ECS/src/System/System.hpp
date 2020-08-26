@@ -24,7 +24,7 @@ namespace ecs
         public: // CONSTRUCTORS
                 explicit System(
                         SYSTEM_PRIORITY priority = SYSTEM_PRIORITY::NORMAL,
-                        Interval updateInterval = 10
+                        Interval updateInterval = 1
                 )
                         : ISystem(priority, updateInterval)
                 {}
