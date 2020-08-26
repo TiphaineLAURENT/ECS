@@ -45,7 +45,7 @@ namespace ecs
   }
 
   using EntityID = util::ID;
-  using Interval = int64_t;
+  using Interval = float;
   template <typename Type>
   using NonOwningPointer = Type*const; // TODO: Use std::reference_wrapper instead - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 
