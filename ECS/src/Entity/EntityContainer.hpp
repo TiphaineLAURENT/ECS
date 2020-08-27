@@ -6,100 +6,72 @@
 */
 
 #ifndef ECS_ENTITYCONTAINER_HPP
-# define ECS_ENTITYCONTAINER_HPP
+#define ECS_ENTITYCONTAINER_HPP
 
-# include <ostream>
-# include <map>
-# include <memory>
-# include <string>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <string_view>
 
-# include "IEntityContainer.hpp"
+#include "IEntityContainer.hpp"
 
 namespace ecs
 {
+        template <IsEntity E> using EntityMap = std::map<EntityID, std::unique_ptr<E>>;
 
-  template <class E>
-  using EntityMap = std::map<EntityID, std::unique_ptr<E>>;
+        template <IsEntity E> using EEntityIterator = typename EntityMap<E>::iterator;
 
-  template <class E>
-  using EEntityIterator =
-  typename EntityMap<E>::iterator;
+        template <IsEntity E> class EntityContainer : public IEntityContainer
+        {
+                // ATTRIBUTES
+            private:
+                EntityMap<E> m_entities{};
 
-  template <class E>
-  class EntityContainer : public IEntityContainer
-  {
-// ATTRIBUTES
-  private:
-          EntityMap<E> _entities{};
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit EntityContainer() = default;
+                ~EntityContainer() override = default;
+                EntityContainer(const EntityContainer &copy) = delete;
+                EntityContainer(EntityContainer &&) noexcept = delete;
 
-  public:
+            public:    // OPERATORS
+                EntityContainer &operator=(const EntityContainer &other) = delete;
+                EntityContainer &operator=(EntityContainer &&) noexcept = delete;
 
-// METHODS
-  public:// CONSTRUCTORS
-          EntityContainer() = default;
-          ~EntityContainer() override = default;
-          EntityContainer(const EntityContainer &copy) = delete;
-          EntityContainer(EntityContainer &&) noexcept = delete;
+            public:
+                [[nodiscard]] const std::string_view &get_entity_type_name() const override
+                {
+                        static const std::string_view entityTypeName{ typeid(E).name() };
 
-  public: //OPERATORS
-          EntityContainer &operator=(const EntityContainer &other) = delete;
-          EntityContainer &operator=(EntityContainer &&) noexcept = delete;
+                        return entityTypeName;
+                }
 
-  public:
-          [[nodiscard]] const std::string &get_entity_type_name() const override
-          {
-                  static const std::string entityTypeName{typeid(E).name()};
+                template <class... ARGS> E &create(ARGS &&... args)
+                {
+                        auto entity = std::make_unique<E>(std::forward<ARGS>(args)...);
+                        auto pointer = entity.get();
+                        const auto entityID = entity->get_id();
 
-                  return entityTypeName;
-          }
+                        m_entities.insert(std::make_pair(entityID, std::move(entity)));
+                        return *pointer;
+                }
+                [[nodiscard]] E &get_entity(EntityID entityID)
+                {
+                        return *m_entities[entityID].get();
+                }
+                [[nodiscard]] EntityMap<E> &get_entities() { return m_entities; }
+                [[nodiscard]] const EntityMap<E> &get_entities() const { return m_entities; }
+                void erase(EntityID entityId) override { m_entities.erase(entityId); }
 
-          template <class ...ARGS>
-          E &create(ARGS &&...args)
-          {
-                  static_assert(
-                          std::is_base_of<IEntity, E>::value,
-                          "Entity must be derived from IEntity"
-                  );
+                [[nodiscard]] EEntityIterator<E> begin() { return m_entities.begin(); }
+                [[nodiscard]] EEntityIterator<E> end() { return m_entities.end(); }
 
-                  auto entity = std::make_unique<E>(std::forward<ARGS>(args)...);
-                  auto pointer = entity.get();
-                  const auto entityID = entity->get_id();
+            private:
+        };
 
-                  _entities[entityID] = std::move(entity);
-                  return *pointer;
-          }
-          [[nodiscard]] E &get_entity(EntityID entityID)
-          {
-                  return *_entities[entityID].get();
-          }
-          [[nodiscard]] EntityMap<E> &get_entities()
-          {
-                  return _entities;
-          }
-          [[nodiscard]] const EntityMap<E> &get_entities() const
-          {
-                  return _entities;
-          }
-          void erase(EntityID entityId) override
-          {
-                  _entities.erase(entityId);
-          }
+        template <class E> std::ostream &operator<<(std::ostream &out, const EntityContainer<E> &);
 
-          [[nodiscard]] EEntityIterator<E> begin()
-          {
-                  return _entities.begin();
-          }
-          [[nodiscard]] EEntityIterator<E> end()
-          {
-                  return _entities.end();
-          }
-
-  private:
-  };
-
-  template <class E>
-  std::ostream &operator<<(std::ostream &out, const EntityContainer<E> &);
-
-}
+}    // namespace ecs
 
 #endif /* !ECS_ENTITYCONTAINER_HPP */

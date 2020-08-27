@@ -5,145 +5,118 @@
 #ifndef STARFARM_MEDIUMSYSTEMMANAGER_HPP
 #define STARFARM_MEDIUMSYSTEMMANAGER_HPP
 
-# include <ostream>
-# include <map>
-# include <algorithm>
-# include <memory>
-# include <vector>
+#include <algorithm>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <vector>
 
-# include "../util/util.hpp"
-# include "ISystem.hpp"
-
+#include "../util/util.hpp"
+#include "ISystem.hpp"
 
 namespace ecs
 {
+        class MediumSystemManager
+        {
+                // ATTRIBUTES
+            private:
+                using SystemMap = std::map<util::ID, std::unique_ptr<ISystem>>;
 
-  class MediumSystemManager
-  {
-// ATTRIBUTES
-  private:
-          using SystemMap = std::map<
-                  util::ID,
-                  std::unique_ptr<ISystem>>;
+                SystemMap m_systems{};
 
-          SystemMap _systems{};
+                std::vector<ISystem *> m_orderedSystems{};
 
-          std::vector<ISystem*> _orderedSystems{};
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit MediumSystemManager() = default;
+                ~MediumSystemManager() = default;
+                MediumSystemManager(const MediumSystemManager &copy) = delete;
+                MediumSystemManager(MediumSystemManager &&) = delete;
 
-  public:
+            public:    // OPERATORS
+                MediumSystemManager &operator=(const MediumSystemManager &other) = delete;
+                MediumSystemManager &operator=(MediumSystemManager &&) = delete;
 
-// METHODS
-  public:// CONSTRUCTORS
-          MediumSystemManager() = default;
-          ~MediumSystemManager() = default;
-          MediumSystemManager(const MediumSystemManager &copy) = delete;
-          MediumSystemManager(MediumSystemManager &&) = delete;
+                [[nodiscard]] NonOwningPointer<ISystem> operator[](size_t index) const
+                {
+                        if (index < m_orderedSystems.size())
+                        {
+                                return m_orderedSystems.at(index);
+                        }
+                        return nullptr;
+                }
 
-  public: //OPERATORS
-          MediumSystemManager &operator=(const MediumSystemManager &other) = delete;
-          MediumSystemManager &operator=(MediumSystemManager &&) = delete;
+            public:
+                template <IsSystem S, class... ARGS> S &create_system(ARGS &&... args)
+                {
+                        const auto systemTypeID = S::m_systemTypeID;
 
-          [[nodiscard]] NonOwningPointer<ISystem> operator[](size_t index) const
-          {
-                  if (index < _orderedSystems.size())
-                  {
-                          return _orderedSystems[index];
-                  }
-                  return nullptr;
-          }
+                        m_systems.emplace(systemTypeID,
+                                          std::make_unique<S>(std::forward<ARGS>(args)...));
 
-  public:
-          template <class S, class ...ARGS>
-          S &create_system(ARGS &&... args)
-          {
-                  static_assert(
-                          std::is_base_of_v<ISystem, S>,
-                          "System must be derived from ISystem"
-                          );
+                        return get_system<S>();
+                }
 
-                  const auto systemTypeID = S::_systemTypeID;
+                void update_systems_order()
+                {
+                        m_orderedSystems.clear();
+                        m_orderedSystems.reserve(m_systems.size());
+                        for (auto &[key, system] : m_systems)
+                        {
+                                if (system->is_enabled())
+                                {
+                                        m_orderedSystems.emplace_back(system.get());
+                                }
+                        }
+                        std::sort(m_orderedSystems.begin(),
+                                  m_orderedSystems.end(),
+                                  [](const auto &system1, const auto &system2) {
+                                          return system1->get_priority() > system2->get_priority();
+                                  });
+                }
 
-                  _systems.emplace(
-                          systemTypeID,
-                          std::make_unique<S>(std::forward<ARGS>(args)...)
-                  );
+                template <IsSystem S>[[nodiscard]] S &get_system()
+                {
+                        const auto systemTypeID = S::m_systemTypeID;
+                        return *static_cast<S *>(m_systems[systemTypeID].get());
+                }
 
-                  return get_system<S>();
-          }
+                template <IsSystem S> static S &enable_system()
+                {
+                        auto system = get_system<S>();
+                        system.enable();
+                        return system;
+                }
 
-          void update_systems_order()
-          {
-                  _orderedSystems.clear();
-                  _orderedSystems.reserve(_systems.size());
-                  for (auto &pair : _systems)
-                  {
-                          if (pair.second->is_enabled())
-                          {
-                                  _orderedSystems
-                                          .emplace_back(pair.second.get());
-                          }
-                  }
-                  std::sort(
-                          _orderedSystems.begin(), _orderedSystems.end(),
-                          [] (const auto &system1, const auto &system2)
-                          {
-                                  return system1->get_priority() >
-                                          system2->get_priority();
-                          }
-                  );
-          }
+                template <IsSystem S> S &disable_system()
+                {
+                        auto system = get_system<S>();
+                        system.disable();
+                        return system;
+                }
 
-          template <class S>
-          [[nodiscard]] S &get_system()
-          {
-                  static_assert(
-                          std::is_base_of_v<ISystem, S>,
-                          "System must be derived from ISystem"
-                  );
+                template <IsSystem S> S &set_system_update_interval(Interval interval)
+                {
+                        auto system = get_system<S>();
+                        system.set_update_interval(interval);
+                        return system;
+                }
 
-                  const auto systemTypeID = S::_systemTypeID;
-                  return *static_cast<S*>(_systems[systemTypeID].get());
-          }
+                template <IsSystem S> S &set_system_priority(SYSTEM_PRIORITY priority)
+                {
+                        auto system = get_system<S>();
+                        system.set_priority(priority);
+                        return system;
+                }
 
-          template <class S>
-          static S &enable_system()
-          {
-                  auto system = get_system<S>();
-                  system.enable();
-                  return system;
-          }
+                void update(Interval deltaTime);
 
-          template <class S>
-          S &disable_system()
-          {
-                  auto system = get_system<S>();
-                  system.disable();
-                  return system;
-          }
+            private:
+        };
 
-          template <class S>
-          S &set_system_update_interval(Interval interval)
-          {
-                  auto system = get_system<S>();
-                  system.set_update_interval(interval);
-                  return system;
-          }
+        std::ostream &operator<<(std::ostream &out, const MediumSystemManager &);
 
-          template <class S>
-          S &set_system_priority(SYSTEM_PRIORITY priority)
-          {
-                  auto system = get_system<S>();
-                  system.set_priority(priority);
-                  return system;
-          }
+}    // namespace ecs
 
-          void update(Interval deltaTime);
-
-  private:
-  };
-
-  std::ostream &operator<<(std::ostream &out, const MediumSystemManager &);
-
-}
-
-#endif //STARFARM_MEDIUMSYSTEMMANAGER_HPP
+#endif    // STARFARM_MEDIUMSYSTEMMANAGER_HPP

@@ -1,89 +1,107 @@
-# Fichier au format .clang généré par Visual Studio
-
-# Les options de style de ce fichier sont une tentative de réplication de
-# la configuration de mise en forme IDE actuelle via Outils > Options. Toutefois, les
-# options de style suivantes doivent être vérifiées :
-# AfterClass; AfterControlStatement; AfterEnum; AfterFunction; AfterNamespace; 
-# AfterStruct; AfterUnion
-
-
-# DO NOT USE
-# This version is not complete
-
-AccessModifierOffset: 0
+AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignConsecutiveMacros: true
 AlignEscapedNewlines: Left
-AlignOperands: false
+AlignOperands: true
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: Never
-AllowShortLambdasOnASingleLine: All
-AllowShortLoopsOnASingleLine: true
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: true
-BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Custom
+AlwaysBreakTemplateDeclarations: MultiLine
+BinPackArguments: false
+BinPackParameters: false
 BraceWrapping:
-  #AfterCaseLabel: false
+  AfterCaseLabel: true
   AfterClass: true
-  AfterControlStatement: false
+  AfterControlStatement: true
   AfterEnum: true
   AfterFunction: true
   AfterNamespace: true
+  AfterObjCDeclaration: true
   AfterStruct: true
   AfterUnion: true
   AfterExternBlock: true
-  BeforeCatch: false
-  BeforeElse: false
+  BeforeCatch: true
+  BeforeElse: true
+  IndentBraces: false
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
-ColumnLimit: 80
-CompactNamespaces: true
+BreakStringLiterals: true
+ColumnLimit: 100
+CommentPragmas: '^ Important:'
+CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 8
+ContinuationIndentWidth: 8
 Cpp11BracedListStyle: false
+DeriveLineEnding: false
+DerivePointerAlignment: false
 FixNamespaceComments: true
-IncludeBlocks: Regroup
+ForEachMacros:
+- foreach
+- Q_FOREACH
+- BOOST_FOREACH
+IncludeBlocks: Preserve
+IncludeCategories:
+- Priority: 3
+  Regex: ^(<|"(gtest|gmock|isl|json)/)
+- Priority: 2
+  Regex: ^"(llvm|llvm-c|clang|clang-c)/
+- Priority: 1
+  Regex: .*
 IndentCaseLabels: true
+IndentGotoLabels: true
 IndentPPDirectives: AfterHash
-IndentWidth: 4
+IndentWidth: 8
 IndentWrappedFunctionNames: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp
-MaxEmptyLinesToKeep: 2
+MacroBlockBegin: ""
+MacroBlockEnd: ""
+MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
 PointerAlignment: Right
 ReflowComments: true
 SortIncludes: true
-SortUsingDeclarations: false
+SortUsingDeclarations: true
 SpaceAfterCStyleCast: false
-#SpaceAfterLogicalNot: false
+SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 3
+SpacesBeforeTrailingComments: 4
 SpacesInAngles: false
 SpacesInCStyleCastParentheses: false
+SpacesInConditionalStatement: false
 SpacesInContainerLiterals: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-Standard: Auto
-StatementMacros: ['TEST_CASE', 'REQUIRE', 'SECTION']
-TabWidth: 4
-UseTab: false
+Standard: c++20
+StatementMacros: ['SIGNAL', 'SLOT', 'REQUIRE']
+TabWidth: 8
+TypenameMacros: ['COMPONENT', 'SYSTEM', 'ENTITY', 'SCENARIO', 'TEST_CASE', 'SECTION', 'GIVEN', 'WHEN', 'THEN', 'AND_GIVEN', 'AND_WHEN', 'AND_THEN', 'TEMPLATE_TEST_CASE', 'TEMPLATE_LIST_TEST_CASE', 'TEMPLATE_TEST_CASE_SIG', 'TEMPLATE_PRODUCT_TEST_CASE_SIG'] # Catch2 macros here instead of MacroBlockBegin because of the braces
+UseCRLF: false
+UseTab: Never

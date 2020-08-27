@@ -6,94 +6,80 @@
 */
 
 #ifndef ECS_ENTITYMANAGER_HPP
-# define ECS_ENTITYMANAGER_HPP
+#define ECS_ENTITYMANAGER_HPP
 
-# include <ostream>
-# include "EntityContainer.hpp"
+#include <ostream>
+
+#include "EntityContainer.hpp"
 
 namespace ecs
 {
+        using EntityContainerMap =
+                std::unordered_map<EntityTypeID, std::unique_ptr<IEntityContainer>>;
 
-  using EntityContainerMap = std::unordered_map<EntityTypeID,
-                                                std::unique_ptr<IEntityContainer>>;
+        class EntityManager
+        {
+                // ATTRIBUTES
+            private:
+                EntityContainerMap m_containers{};
 
-  class EntityManager
-  {
-// ATTRIBUTES
-  private:
-          EntityContainerMap _containers{};
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit constexpr EntityManager() = default;
+                ~EntityManager() = default;
+                EntityManager(const EntityManager &copy) = delete;
+                EntityManager(EntityManager &&) noexcept = delete;
 
-  public:
+            public:    // OPERATORS
+                EntityManager &operator=(const EntityManager &other) = delete;
+                EntityManager &operator=(EntityManager &&) = delete;
 
-// METHODS
-  public:// CONSTRUCTORS
-          constexpr EntityManager() = default;
-          ~EntityManager() = default;
-          EntityManager(const EntityManager &copy) = delete;
-          EntityManager(EntityManager &&) noexcept = delete;
+            public:
+                [[nodiscard]] static EntityManager &get_instance();
+                template <IsEntity E>
+                [[nodiscard]] constexpr static EntityContainer<E> &get_entity_container()
+                {
+                        const ComponentTypeID entityTypeID = E::m_entityTypeID;
+                        EntityManager &instance = get_instance();
 
-  public: //OPERATORS
-          EntityManager &operator=(const EntityManager &other) = delete;
-          EntityManager &operator=(EntityManager &&) = delete;
+                        if (instance.m_containers.find(entityTypeID) == instance.m_containers.end())
+                        {
+                                auto container = std::make_unique<EntityContainer<E>>();
+                                instance.m_containers[entityTypeID] = std::move(container);
+                        }
 
-  public:
-          [[nodiscard]] static EntityManager &get_instance();
-          template <class E>
-          [[nodiscard]] constexpr static EntityContainer<E> &get_entity_container()
-          {
-                  static_assert(
-                          std::is_base_of<IEntity, E>::value,
-                          "Entity must be derived from IEntity"
-                  );
+                        return *static_cast<EntityContainer<E> *>(
+                                instance.m_containers[entityTypeID].get());
+                }
 
-                  const ComponentTypeID entityTypeID = E::_entityTypeID;
-                  EntityManager &instance = get_instance();
+                template <IsEntity E, class... ARGS> static E &create(ARGS &&... args)
+                {
+                        EntityContainer<E> &container = get_entity_container<E>();
 
-                  if (instance._containers.find(entityTypeID)
-                      == instance._containers.end()) {
-                          auto container =
-                                  std::make_unique<EntityContainer<E>>();
-                          instance._containers[entityTypeID] = std::move(
-                                  container
-                          );
-                  }
+                        return container.create(std::forward<ARGS>(args)...);
+                }
+                template <IsEntity E>[[nodiscard]] static E &get_entity(EntityID entityID)
+                {
+                        EntityContainer<E> &container = get_entity_container<E>();
 
-                  return *static_cast<EntityContainer<E> *>(instance
-                          ._containers[entityTypeID].get());
-          }
+                        return container.get_entity(entityID);
+                }
+                template <IsEntity E> static void remove_entity(EntityID entityID)
+                {
+                        EntityContainer<E> &container = get_entity_container<E>();
 
-          template <class E, class ...ARGS>
-          static E &create(ARGS &&... args)
-          {
-                  EntityContainer<E> &container = get_entity_container<E>();
+                        container.erase(entityID);
+                }
 
-                  return container.create(std::forward<ARGS>(args)...);
-          }
-          template <class E>
-          [[nodiscard]] static E &get_entity(EntityID entityID)
-          {
-                  EntityContainer<E> &container = get_entity_container<E>();
+                template <IsEntity E>[[nodiscard]] static CComponentIterator<E> begin();
+                template <IsEntity E>[[nodiscard]] static CComponentIterator<E> end();
 
-                  return container.get_entity(entityID);
-          }
-          template <class E>
-          static void remove_entity(EntityID entityID)
-          {
-                  EntityContainer<E> &container = get_entity_container<E>();
+            private:
+        };
 
-                  container.erase(entityID);
-          }
+        std::ostream &operator<<(std::ostream &out, const EntityManager &);
 
-          template <class E>
-          [[nodiscard]] static CComponentIterator<E> begin();
-          template <class E>
-          [[nodiscard]] static CComponentIterator<E> end();
-
-  private:
-  };
-
-  std::ostream &operator<<(std::ostream &out, const EntityManager &);
-
-}
+}    // namespace ecs
 
 #endif /* !ECS_ENTITYMANAGER_HPP */

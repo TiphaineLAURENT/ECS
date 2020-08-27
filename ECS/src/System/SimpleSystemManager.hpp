@@ -27,7 +27,7 @@ namespace ecs
                         std::unique_ptr<ISystem>
                 >;
 
-                SystemRegistry _systems{};
+                SystemRegistry m_systems{};
 
         public:
 
@@ -45,7 +45,7 @@ namespace ecs
         public:
                 [[nodiscard]] static SimpleSystemManager &get_instance();
 
-                template <class S, class ...ARGS>
+                template <IsSystem S, class ...ARGS>
                 static S &create_system(ARGS &&... args)
                 {
                         static_assert(
@@ -54,15 +54,15 @@ namespace ecs
                                 );
 
                         SimpleSystemManager &instance = get_instance();
-                        const SystemTypeID systemTypeID = S::_systemTypeID;
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
 
                         auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
-                        instance._systems[systemTypeID] = std::move(system);
+                        instance.m_systems[systemTypeID] = std::move(system);
 
                         return instance.get_system<S>();
                 }
 
-                template <class S>
+                template <IsSystem S>
                 [[nodiscard]] static S &get_system()
                 {
                         static_assert(
@@ -71,12 +71,12 @@ namespace ecs
                                 );
 
                         SimpleSystemManager &instance = get_instance();
-                        const SystemTypeID systemTypeID = S::_systemTypeID;
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
 
-                        return *static_cast<S *>(instance._systems[systemTypeID].get());
+                        return *static_cast<S *>(instance.m_systems[systemTypeID].get());
                 }
 
-                template <class S>
+                template <IsSystem S>
                 static S &enable_system()
                 {
                         SimpleSystemManager &instance = get_instance();
@@ -86,7 +86,7 @@ namespace ecs
                         return system;
                 }
 
-                template <class S>
+                template <IsSystem S>
                 static S &disable_system()
                 {
                         SimpleSystemManager &instance = get_instance();
@@ -96,7 +96,7 @@ namespace ecs
                         return system;
                 }
 
-                template <class S>
+                template <IsSystem S>
                 static S &set_system_update_interval(Interval interval)
                 {
                         SimpleSystemManager &instance = get_instance();

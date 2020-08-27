@@ -9,11 +9,10 @@
 
 namespace ecs
 {
+        ComponentManager &ComponentManager::get_instance()
+        {
+                static ComponentManager instance;
+                return instance;
+        }
 
-  ComponentManager &ComponentManager::get_instance()
-  {
-          static ComponentManager instance;
-          return instance;
-  }
-
-}
+}    // namespace ecs

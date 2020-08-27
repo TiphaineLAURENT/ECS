@@ -6,70 +6,71 @@
 */
 
 #ifndef ECS_ICOMPONENT_HPP
-# define ECS_ICOMPONENT_HPP
+#define ECS_ICOMPONENT_HPP
 
-# include <ostream>
-# include <vector>
+#include <ostream>
+#include <vector>
 
-# include "../util/util.hpp"
+#include "../util/util.hpp"
 
 namespace ecs
 {
-  class IEntity;
+        class IEntity;
 
-  using ComponentID = util::ID;
-  using ComponentTypeID = util::ID;
+        using ComponentID = util::ID;
+        using ComponentTypeID = util::ID;
 
-  class IComponent
-  {
-// ATTRIBUTES
-  private:
-          static inline const ComponentID INVALID_COMPONENT_ID{util::INVALID_ID};
+        constexpr ComponentID INVALID_COMPONENT_ID{ util::INVALID_ID };
 
-          ComponentID _componentID{INVALID_COMPONENT_ID};
+        class IComponent
+        {
+                // ATTRIBUTES
+            private:
+                ComponentID _componentID{ INVALID_COMPONENT_ID };
 
-          static inline ::std::vector<ComponentID> _freeID{};
+                static inline ::std::vector<ComponentID> m_freeID{};
 
-          static inline size_t _componentTypeCount{0};
+                static inline size_t m_componentTypeCount{ 0 };
 
-          NonOwningPointer<IEntity> _owner{nullptr};
+                NonOwningPointer<IEntity> m_owner{ nullptr };
 
-          bool _active{true};
+                bool _active{ true };
 
-  public:
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit IComponent();
+                virtual ~IComponent();
+                IComponent(const IComponent &copy) = default;
+                IComponent(IComponent &&) noexcept = default;
 
-// METHODS
-  public:// CONSTRUCTORS
-          IComponent();
-          virtual ~IComponent();
-          IComponent(const IComponent &copy) = default;
-          IComponent(IComponent &&) noexcept = default;
+            public:    // OPERATORS
+                IComponent &operator=(const IComponent &other) = default;
+                IComponent &operator=(IComponent &&) = default;
 
-  public: //OPERATORS
-          IComponent &operator=(const IComponent &other) = default;
-          IComponent &operator=(IComponent &&) = default;
+            public:
+                virtual void setup() = 0;
 
-  public:
-          virtual void setup() = 0;
+                [[nodiscard]] static const size_t &get_component_type_count();
 
-          [[nodiscard]] static const size_t &get_component_type_count();
+                [[nodiscard]] const ComponentID &get_id() const;
+                [[nodiscard]] virtual ComponentTypeID get_component_type_id() const = 0;
 
-          [[nodiscard]] const ComponentID &get_id() const;
-          [[nodiscard]] virtual ComponentTypeID get_component_type_id() const = 0;
+                IComponent &set_owner(NonOwningPointer<IEntity> entity);
+                [[nodiscard]] NonOwningPointer<IEntity> get_owner() const;
+                [[nodiscard]] const EntityID &get_owner_id() const;
 
-          IComponent &set_owner(NonOwningPointer<IEntity> entity);
-          [[nodiscard]] NonOwningPointer<IEntity> get_owner() const;
-          [[nodiscard]] const EntityID &get_owner_id() const;
+                IComponent &enable();
+                IComponent &disable();
+                [[nodiscard]] bool is_enabled() const;
 
-          IComponent &enable();
-          IComponent &disable();
-          [[nodiscard]] bool is_enabled() const;
+            private:
+        };
 
-  private:
-  };
+        template <class C> concept IsComponent = std::is_base_of_v<IComponent, C>;
 
-  ::std::ostream &operator<<(::std::ostream &out, const NonOwningPointer<IComponent>);
+        ::std::ostream &operator<<(::std::ostream &out, const NonOwningPointer<IComponent>);
 
-}
+}    // namespace ecs
 
 #endif /* !ECS_ICOMPONENT_HPP */

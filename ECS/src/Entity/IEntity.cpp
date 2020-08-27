@@ -10,65 +10,49 @@
 
 namespace ecs
 {
+        IEntity::IEntity()
+        {
+                if (!m_freeID.empty())
+                {
+                        m_entityID = m_freeID.back();
+                        m_freeID.pop_back();
+                        m_entityCount++;
+                }
+                else
+                {
+                        m_entityID = m_entityCount++;
+                }
+        }
 
-  EntityTypeID IEntity::get_entity_type_id() const
-  {
-          return _entityTypeID;
-  }
+        const EntityID &IEntity::get_id() const { return m_entityID; }
 
-  IEntity::IEntity()
-  {
-          if (!_freeID.empty()) {
-                  _entityID = _freeID.back();
-                  _freeID.pop_back();
-                  _entityCount++;
-          } else {
-                  _entityID = _entityCount++;
-          }
-  }
+        IEntity &IEntity::enable()
+        {
+                m_active = true;
+                return *this;
+        }
 
-  const EntityID &IEntity::get_id() const
-  {
-          return _entityID;
-  }
+        IEntity &IEntity::disable()
+        {
+                m_active = false;
+                return *this;
+        }
 
-  IEntity &IEntity::enable()
-  {
-          _active = true;
-          return *this;
-  }
+        bool IEntity::is_enabled() const { return m_active; }
 
-  IEntity &IEntity::disable()
-  {
-          _active = false;
-          return *this;
-  }
+        size_t IEntity::get_entity_count() { return m_entityCount; }
 
-  bool IEntity::is_enabled() const
-  {
-          return _active;
-  }
+        IEntity::~IEntity() { m_freeID.push_back(m_entityID); }
 
-  size_t IEntity::get_entity_count()
-  {
-          return _entityCount;
-  }
+        std::ostream &operator<<(std::ostream &out, const IEntity *entity)
+        {
+                out << "{e "
+                    << "ID: " << entity->get_id() << ", "
+                    << "Entity count: " << entity->get_entity_count() << ", "
+                    << "Entity type ID: " << entity->get_entity_type_id() << ", "
+                    << "Entity type name: " << typeid(entity).name() << " }";
 
-  IEntity::~IEntity()
-  {
-          _freeID.push_back(_entityID);
-  }
+                return out;
+        }
 
-  std::ostream &operator<<(std::ostream &out, const IEntity *entity)
-  {
-          out << "{e "
-              << "ID: " << entity->get_id() << ", "
-              << "Entity count: " << entity->get_entity_count() << ", "
-              << "Entity type ID: " << entity->get_entity_type_id() << ", "
-              << "Entity type name: " << typeid(entity).name()
-              << " }";
-
-          return out;
-  }
-
-}
+}    // namespace ecs

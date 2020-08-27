@@ -3,243 +3,178 @@
 //
 
 #ifndef ECS_SYSTEMMANAGER_HPP
-# define ECS_SYSTEMMANAGER_HPP
+#define ECS_SYSTEMMANAGER_HPP
 
-# include <ostream>
-# include <vector>
-# include <memory>
-# include <map>
-# include <list>
+#include <list>
+#include <map>
+#include <memory>
+#include <ostream>
+#include <vector>
 
-# include "../util/util.hpp"
-# include "ISystem.hpp"
+#include "../util/util.hpp"
+#include "ISystem.hpp"
 
 namespace ecs
 {
+        using SystemWorkStateMaks = std::vector<bool>;
 
-  using SystemWorkStateMaks = std::vector<bool>;
+        class SystemManager
+        {
+                // ATTRIBUTES
+            private:
+                using SystemDependencyMatrix = std::vector<std::vector<bool>>;
+                using SystemRegistry = std::map<util::ID, std::unique_ptr<ISystem>>;
+                using SystemWorkOrder = std::vector<ISystem *>;
 
-  class SystemManager
-  {
-// ATTRIBUTES
-  private:
-          using SystemDependencyMatrix = std::vector<std::vector<bool>>;
-          using SystemRegistry = std::map<util::ID, std::unique_ptr<ISystem>>;
-          using SystemWorkOrder = std::vector<ISystem *>;
+                SystemRegistry m_systems{};
 
-          SystemRegistry _systems{};
+                SystemDependencyMatrix m_systemDependencyMatrix{};
 
-          SystemDependencyMatrix _systemDependencyMatrix{};
+                SystemWorkOrder m_systemWorkOrder{};
 
-          SystemWorkOrder _systemWorkOrder{};
+            public:
+                // METHODS:
+            public:    // CONSTRUCTORS
+                explicit SystemManager() = default;
+                ~SystemManager() = default;
+                SystemManager(const SystemManager &copy) = delete;
+                SystemManager(SystemManager &&other) noexcept = delete;
 
-  public:
+            public:    // OPERATORS
+                SystemManager &operator=(const SystemManager &other) = delete;
+                SystemManager &operator=(SystemManager &&other) = delete;
 
-// METHODS:
-  public: // CONSTRUCTORS
-          SystemManager() = default;
-          ~SystemManager() = default;
-          SystemManager(const SystemManager &copy) = delete;
-          SystemManager(SystemManager &&other) noexcept = delete;
+            public:
+                [[nodiscard]] static SystemManager &get_instance();
 
-  public: // OPERATORS
-          SystemManager &operator=(const SystemManager &other) = delete;
-          SystemManager &operator=(SystemManager &&other) = delete;
+                template <IsSystem S, class... ARGS> static S &create_system(ARGS &&... args)
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-  public:
-          [[nodiscard]] static SystemManager &get_instance();
+                        auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
 
-          template <class S, class ...ARGS>
-          static S &create_system(ARGS &&... args)
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                        if (systemTypeID + 1 > instance.m_systemDependencyMatrix.size())
+                        {
+                                instance.m_systemDependencyMatrix.resize(systemTypeID + 1);
+                                for (auto &row : instance.m_systemDependencyMatrix)
+                                {
+                                        row.resize(systemTypeID + 1);
+                                }
+                        }
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
+                        instance.m_systemWorkOrder.push_back(system.get());
+                        instance.m_systems[systemTypeID] = std::move(system);
+                        return *static_cast<S *>(instance.m_systems[systemTypeID].get());
+                }
 
-                  auto system = std::make_unique<S>(std::forward<ARGS>(args)...);
+                template <IsSystem S, IsSystem D>
+                static SystemManager &addSystemDependency(S target, D dependency)
+                {
+                        SystemTypeID targetTypeID = target.get_system_type_id();
+                        SystemTypeID dependencyTypeID = dependency.get_system_type_id();
 
-                  if (systemTypeID + 1
-                      > instance._systemDependencyMatrix.size()) {
-                          instance._systemDependencyMatrix
-                                  .resize(systemTypeID + 1);
-                          for (auto &row : instance._systemDependencyMatrix) {
-                                  row.resize(systemTypeID + 1);
-                          }
-                  }
+                        SystemManager &instance = get_instance();
+                        instance.m_systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
 
-                  instance._systemWorkOrder.push_back(system.get());
-                  instance._systems[systemTypeID] = std::move(system);
-                  return *static_cast<S *>(instance._systems[systemTypeID].get());
-          }
+                        return instance;
+                }
 
-          template <class S, class D>
-          static SystemManager &addSystemDependency(S target, D dependency)
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "Target must be derived from ISystem"
-                  );
-                  static_assert(
-                          std::is_base_of<ISystem, D>::value,
-                          "Dependency must be derived from ISystem"
-                  );
+                template <IsSystem S, IsSystem D, class... DS>
+                static SystemManager &
+                        addSystemDependency(S target, D dependency, DS &&... dependencies)
+                {
+                        SystemTypeID targetTypeID = target.get_system_type_id();
+                        SystemTypeID dependencyTypeID = dependency.get_system_type_id();
 
-                  SystemTypeID targetTypeID = target.get_system_type_id();
-                  SystemTypeID dependencyTypeID = dependency.get_system_type_id();
+                        SystemManager &instance = get_instance();
+                        instance.m_systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
 
-                  SystemManager &instance = get_instance();
-                  instance
-                          ._systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
+                        return instance.addSystemDependency(target,
+                                                            std::forward<DS>(dependencies)...);
+                }
 
-                  return instance;
-          }
+                template <IsSystem S>[[nodiscard]] static S &get_system()
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-          template <class S, class D, class ...DS>
-          static SystemManager &addSystemDependency(
-                  S target, D dependency,
-                  DS &&... dependencies
-          )
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "Target must be derived from ISystem"
-                  );
-                  static_assert(
-                          std::is_base_of<ISystem, D>::value,
-                          "Dependency must be derived from ISystem"
-                  );
+                        return *static_cast<S *>(instance.m_systems[systemTypeID].get());
+                }
 
-                  SystemTypeID targetTypeID = target.get_system_type_id();
-                  SystemTypeID dependencyTypeID = dependency.get_system_type_id();
+                template <IsSystem S> static S &enable_system()
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-                  SystemManager &instance = get_instance();
-                  instance
-                          ._systemDependencyMatrix[targetTypeID][dependencyTypeID] = true;
+                        auto system = instance.get_system<S>();
+                        system.enable();
+                        return system;
+                }
 
-                  return instance.addSystemDependency(
-                          target,
-                          std::forward<DS>(dependencies)...
-                  );
-          }
+                template <IsSystem S> static S &disable_system()
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-          template <class S>
-          [[nodiscard]] static S &get_system()
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                        auto system = instance.get_system<S>();
+                        system.disable();
+                        return system;
+                }
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
+                template <IsSystem S> static S &set_system_update_interval(Interval interval)
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-                  return *static_cast<S *>(instance._systems[systemTypeID].get());
-          }
+                        auto system = instance.get_system<S>();
+                        system.set_update_interval(interval);
+                        return system;
+                }
 
-          template <class S>
-          static S &enable_system()
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                template <IsSystem S> static S &set_system_priority(SYSTEM_PRIORITY priority)
+                {
+                        const SystemTypeID systemTypeID = S::m_systemTypeID;
+                        SystemManager &instance = get_instance();
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
+                        auto system = instance.get_system<S>();
+                        system.set_priority(priority);
+                        return system;
+                }
 
-                  auto system = instance.get_system<S>();
-                  system.enable();
-                  return system;
-          }
+                static SystemWorkStateMaks getSystemWorkState();
+                static void setSystemWorkState(SystemWorkStateMaks);
 
-          template <class S>
-          static S &disable_system()
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                template <class... ActiveSystems>
+                static SystemWorkStateMaks
+                        generateActiveSystemWorkState(ActiveSystems &&... activeSystems)
+                {
+                        SystemManager &instance = get_instance();
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
+                        SystemWorkStateMaks mask(instance.m_systemWorkOrder.size(), false);
+                        std::list<ISystem *> as{ activeSystems... };
+                        for (auto &system : as)
+                        {
+                                for (size_t i = 0; i < instance.m_systemWorkOrder.size(); ++i)
+                                {
+                                        if (instance.m_systemWorkOrder[i]->get_system_type_id()
+                                            == system->get_system_type_id())
+                                        {
+                                                mask[i] = true;
+                                                break;
+                                        }
+                                }
+                        }
 
-                  auto system = instance.get_system<S>();
-                  system.disable();
-                  return system;
-          }
+                        return mask;
+                }
 
-          template <class S>
-          static S &set_system_update_interval(Interval interval)
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
+                static void updateSystemWorkOrder();
+                static void update();
+        };
 
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
+        std::ostream &operator<<(std::ostream &out, const SystemManager &);
 
-                  auto system = instance.get_system<S>();
-                  system.set_update_interval(interval);
-                  return system;
-          }
+}    // namespace ecs
 
-          template <class S>
-          static S &set_system_priority(SYSTEM_PRIORITY priority)
-          {
-                  static_assert(
-                          std::is_base_of<ISystem, S>::value,
-                          "System must be derived from ISystem"
-                  );
-
-                  const SystemTypeID systemTypeID = S::_systemTypeID;
-                  SystemManager &instance = get_instance();
-
-                  auto system = instance.get_system<S>();
-                  system.set_priority(priority);
-                  return system;
-          }
-
-          static SystemWorkStateMaks getSystemWorkState();
-          static void setSystemWorkState(SystemWorkStateMaks);
-
-          template <class... ActiveSystems>
-          static SystemWorkStateMaks generateActiveSystemWorkState
-                  (ActiveSystems &&... activeSystems)
-          {
-                  SystemManager &instance = get_instance();
-
-                  SystemWorkStateMaks mask(
-                          instance._systemWorkOrder.size(),
-                          false
-                  );
-                  std::list<ISystem *> as{activeSystems...};
-                  for (auto &system : as) {
-                          for (size_t i = 0; i < instance._systemWorkOrder
-                                                         .size(); ++i) {
-                                  if (instance
-                                              ._systemWorkOrder[i]->get_system_type_id()
-                                      ==
-                                      system->get_system_type_id()) {
-                                          mask[i] = true;
-                                          break;
-                                  }
-                          }
-                  }
-
-                  return mask;
-          }
-
-          static void updateSystemWorkOrder();
-          static void update();
-  };
-
-  std::ostream &operator<<(std::ostream &out, const SystemManager &);
-
-}
-
-#endif //ECS_SYSTEMMANAGER_HPP
+#endif    // ECS_SYSTEMMANAGER_HPP

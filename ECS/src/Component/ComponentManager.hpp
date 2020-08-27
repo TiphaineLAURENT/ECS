@@ -6,143 +6,124 @@
 */
 
 #ifndef ECS_COMPONENTMANAGER_HPP
-# define ECS_COMPONENTMANAGER_HPP
+#define ECS_COMPONENTMANAGER_HPP
 
-# include <ostream>
-# include <unordered_map>
+#include <ostream>
+#include <unordered_map>
 
-# include "ComponentContainer.hpp"
-
+#include "ComponentContainer.hpp"
 
 namespace ecs
 {
+        using ComponentContainerMap =
+                std::unordered_map<ComponentTypeID, std::unique_ptr<IComponentContainer>>;
 
-  using ComponentContainerMap = std::unordered_map<ComponentTypeID,
-                                                   std::unique_ptr<IComponentContainer>>;
+        class ComponentManager
+        {
+                // ATTRIBUTES
+            private:
+                ComponentContainerMap m_containers{};
 
-  class ComponentManager
-  {
-// ATTRIBUTES
-  private:
-          ComponentContainerMap _containers{};
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit constexpr ComponentManager() = default;
+                ~ComponentManager() = default;
+                ComponentManager(const ComponentManager &copy) = delete;
+                ComponentManager(ComponentManager &&) noexcept = delete;
 
-  public:
+            public:    // OPERATORS
+                ComponentManager &operator=(const ComponentManager &other) = delete;
+                ComponentManager &operator=(ComponentManager &&) = delete;
 
-// METHODS
-  public:// CONSTRUCTORS
-          constexpr ComponentManager() = default;
-          ~ComponentManager() = default;
-          ComponentManager(const ComponentManager &copy) = delete;
-          ComponentManager(ComponentManager &&) noexcept = delete;
+            public:
+                [[nodiscard]] static ComponentManager &get_instance();
+                template <IsComponent C> static auto &get_component_container()
+                {
+                        auto &instance = get_instance();
 
-  public: //OPERATORS
-          ComponentManager &operator=(const ComponentManager &other) = delete;
-          ComponentManager &operator=(ComponentManager &&) = delete;
+                        auto container = instance.get_container<C>();
+                        if (container == nullptr)
+                        {
+                                return *instance.create_container<C>();
+                        }
+                        return *container;
+                }
 
-  public:
-          [[nodiscard]] static ComponentManager &get_instance();
-          template <class C>
-          static auto &get_component_container()
-          {
-                  static_assert(
-                          std::is_base_of_v<IComponent, C>,
-                          "Component must be derived from IComponent"
-                          );
+                template <IsComponent C, IsComponent Container = C, class... ARGS>
+                static NonOwningPointer<C> create_component(NonOwningPointer<IEntity> entity,
+                                                            ARGS &&... args)
+                {
+                        if constexpr (std::is_same_v<C, Container>)
+                        {
+                                auto &container = get_component_container<C>();
+                                return container.create(entity, std::forward<ARGS>(args)...);
+                        }
+                        else
+                        {
+                                auto &container = get_component_container<Container>();
+                                return container.template create<C>(entity,
+                                                                    std::forward<ARGS>(args)...);
+                        }
+                }
+                template <IsComponent C, IsComponent Container = C>
+                [[nodiscard]] static NonOwningPointer<C> get_component(EntityID entityID)
+                {
+                        auto &container = get_component_container<Container>();
 
-                  auto &instance = get_instance();
+                        return container.get_for_entity(entityID);
+                }
+                template <IsComponent C>
+                [[nodiscard]] static ComponentView<C> get_components(EntityID entityID)
+                {
+                        auto &container = get_component_container<C>();
 
-                  auto container = instance.get_container<C>();
-                  if (container == nullptr)
-                  {
-                          return *instance.create_container<C>();
-                  }
-                  return *container;
-          }
+                        return container.get_components(entityID);
+                }
+                template <IsComponent C> static void erase_for_entity(EntityID entityID)
+                {
+                        auto &container = get_component_container<C>();
 
-          template <class C, class Container = C, class ...ARGS>
-          static NonOwningPointer<C> create_component(NonOwningPointer<IEntity> entity, ARGS &&... args)
-          {
-                  if constexpr (std::is_same_v<C, Container>)
-                  {
-                          auto &container = get_component_container<C>();
-                          return container.create(
-                                  entity,
-                                  std::forward<ARGS>(args)...
-                          );
-                  }
-                  else
-                  {
-                          auto &container = get_component_container<Container>();
-                          return container.template create<C>(
-                                  entity,
-                                  std::forward<ARGS>(args)...
-                          );
-                  }
-          }
-          template <class C, class Container = C>
-          [[nodiscard]] static NonOwningPointer<C> get_component(EntityID entityID)
-          {
-                  auto &container = get_component_container<Container>();
+                        container.erase_for_entity(entityID);
+                }
 
-                  return container.get_for_entity(entityID);
-          }
-          template <class C>
-          [[nodiscard]] static ComponentView<C> get_components(EntityID entityID)
-          {
-                  auto &container = get_component_container<C>();
+                template <IsComponent C>[[nodiscard]] static CComponentIterator<C> begin()
+                {
+                        return get_component_container<C>().begin();
+                }
+                template <IsComponent C>[[nodiscard]] static CComponentIterator<C> end()
+                {
+                        return get_component_container<C>().end();
+                }
 
-                  return container.get_components(entityID);
-          }
-          template <class C>
-          static void erase_for_entity(EntityID entityID)
-          {
-                  auto &container = get_component_container<C>();
+                [[nodiscard]] size_t get_container_count() const { return m_containers.size(); }
 
-                  container.erase_for_entity(entityID);
-          }
+            private:
+                template <IsComponent C> NonOwningPointer<ComponentContainer<C>> create_container()
+                {
+                        const auto componentTypeID = C::m_componentTypeID;
+                        auto container = std::make_unique<ComponentContainer<C>>();
+                        auto pointer = container.get();
+                        m_containers[componentTypeID] = std::move(container);
 
-          template <class C>
-          [[nodiscard]] static CComponentIterator<C> begin()
-          {
-                  return get_component_container<C>().begin();
-          }
-          template <class C>
-          [[nodiscard]] static CComponentIterator<C> end()
-          {
-                  return get_component_container<C>().end();
-          }
+                        return pointer;
+                }
 
-          [[nodiscard]] size_t get_container_count() const
-          {
-                  return _containers.size();
-          }
+                template <IsComponent C>
+                [[nodiscard]] NonOwningPointer<ComponentContainer<C>> get_container()
+                {
+                        const auto componentTypeID = C::m_componentTypeID;
+                        auto it = m_containers.find(componentTypeID);
+                        if (it != m_containers.end())
+                        {
+                                return static_cast<ComponentContainer<C> *>(it->second.get());
+                        }
+                        return nullptr;
+                }
+        };
 
-  private:
-          template <class C>
-          NonOwningPointer<ComponentContainer<C>> create_container()
-          {
-                  const auto componentTypeID = C::_componentTypeID;
-                  auto container = std::make_unique<ComponentContainer<C>>();
-                  auto pointer = container.get();
-                  _containers[componentTypeID] = std::move(container);
+        std::ostream &operator<<(std::ostream &out, const ComponentManager &);
 
-                  return pointer;
-          }
-
-          template <class C>
-          [[nodiscard]] NonOwningPointer<ComponentContainer<C>> get_container()
-          {
-                  const auto componentTypeID = C::_componentTypeID;
-                  auto it = _containers.find(componentTypeID);
-                  if (it != _containers.end()) {
-                          return static_cast<ComponentContainer<C>*>(it->second.get());
-                  }
-                  return nullptr;
-          }
-  };
-
-  std::ostream &operator<<(std::ostream &out, const ComponentManager &);
-
-}
+}    // namespace ecs
 
 #endif /* !ECS_COMPONENTMANAGER_HPP */

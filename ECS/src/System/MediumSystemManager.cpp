@@ -4,21 +4,19 @@
 
 #include "MediumSystemManager.hpp"
 
-
 namespace ecs
 {
+        void MediumSystemManager::update(Interval deltaTime)
+        {
+                for (auto &system : m_orderedSystems)
+                {
+                        if (system->m_timeSinceLastUpdate += deltaTime;
+                            system->m_timeSinceLastUpdate >= system->m_updateInterval)
+                        {
+                                system->update(deltaTime);
+                                system->m_timeSinceLastUpdate = 0;
+                        }
+                }
+        }
 
-  void MediumSystemManager::update(Interval deltaTime)
-  {
-          for (auto &system : _orderedSystems)
-          {
-                  system->_timeSinceLastUpdate += deltaTime;
-                  if (system->_timeSinceLastUpdate >= system->_updateInterval)
-                  {
-                          system->update(deltaTime);
-                          system->_timeSinceLastUpdate = 0;
-                  }
-          }
-  }
-
-}
+}    // namespace ecs

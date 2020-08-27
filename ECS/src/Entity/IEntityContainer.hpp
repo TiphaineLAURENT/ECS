@@ -6,43 +6,41 @@
 */
 
 #ifndef ECS_IENTITYCONTAINER_HPP
-# define ECS_IENTITYCONTAINER_HPP
+#define ECS_IENTITYCONTAINER_HPP
 
-# include <ostream>
-# include <string>
+#include <ostream>
+#include <string_view>
 
-# include "IEntity.hpp"
+#include "IEntity.hpp"
 
 namespace ecs
 {
+        class IEntityContainer
+        {
+                // ATTRIBUTES
+            private:
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit IEntityContainer() = default;
+                virtual ~IEntityContainer() = default;
+                IEntityContainer(const IEntityContainer &copy) = delete;
+                IEntityContainer(IEntityContainer &&) noexcept = delete;
 
-  class IEntityContainer
-  {
-// ATTRIBUTES
-  private:
-  public:
+            public:    // OPERATORS
+                IEntityContainer &operator=(const IEntityContainer &other) = delete;
+                IEntityContainer &operator=(IEntityContainer &&) = delete;
 
-// METHODS
-  public:// CONSTRUCTORS
-          IEntityContainer() = default;
-          virtual ~IEntityContainer() = default;
-          IEntityContainer(const IEntityContainer &copy) = delete;
-          IEntityContainer(IEntityContainer &&) noexcept = delete;
+            public:
+                [[nodiscard]] virtual const std::string_view &get_entity_type_name() const = 0;
 
-  public: //OPERATORS
-          IEntityContainer &operator=(const IEntityContainer &other) = delete;
-          IEntityContainer &operator=(IEntityContainer &&) = delete;
+                virtual void erase(EntityID) = 0;
 
-  public:
-          [[nodiscard]] virtual const std::string &get_entity_type_name() const = 0;
+            private:
+        };
 
-          virtual void erase(EntityID) = 0;
+        std::ostream &operator<<(std::ostream &out, const IEntityContainer &);
 
-  private:
-  };
-
-  std::ostream &operator<<(std::ostream &out, const IEntityContainer &);
-
-}
+}    // namespace ecs
 
 #endif /* !ECS_IENTITYCONTAINER_HPP */

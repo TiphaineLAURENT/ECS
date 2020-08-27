@@ -9,7 +9,7 @@
 # define ECS_ICOMPONENTCONTAINER_HPP
 
 # include <ostream>
-# include <string>
+# include <string_view>
 
 # include "IComponent.hpp"
 
@@ -24,7 +24,7 @@ namespace ecs
 
 // METHODS
   public:// CONSTRUCTORS
-          IComponentContainer() = default;
+          explicit IComponentContainer() = default;
           virtual ~IComponentContainer() = default;
           IComponentContainer(const IComponentContainer &copy) = delete;
           IComponentContainer(IComponentContainer &&) noexcept = delete;
@@ -34,7 +34,7 @@ namespace ecs
           IComponentContainer &operator=(IComponentContainer &&) = delete;
 
   public:
-          [[nodiscard]] virtual const std::string &get_component_type_name() const = 0;
+          [[nodiscard]] virtual const std::string_view &get_component_type_name() const = 0;
 
           virtual void erase_for_entity(EntityID entityID) = 0;
           virtual void erase(ComponentID componentID) = 0;

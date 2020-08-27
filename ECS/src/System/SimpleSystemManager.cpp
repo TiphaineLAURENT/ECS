@@ -4,8 +4,8 @@
 
 #include <cassert>
 
-#include "SystemManager.hpp"
 #include "SimpleSystemManager.hpp"
+#include "SystemManager.hpp"
 
 namespace ecs
 {
@@ -15,21 +15,24 @@ namespace ecs
                 return instance;
         }
 
-  void SimpleSystemManager::update(Interval deltaTime)
-  {
-          SimpleSystemManager &instance = get_instance();
+        void SimpleSystemManager::update(Interval deltaTime)
+        {
+                SimpleSystemManager &instance = get_instance();
 
-          for (auto &system : instance._systems) {
-                  system.second->pre_update(deltaTime);
-          }
+                for (auto &system : instance.m_systems)
+                {
+                        system.second->pre_update(deltaTime);
+                }
 
-          for (auto &system : instance._systems) {
-                  system.second->update(deltaTime);
-          }
+                for (auto &system : instance.m_systems)
+                {
+                        system.second->update(deltaTime);
+                }
 
-          for (auto &system : instance._systems) {
-                  system.second->post_update(deltaTime);
-          }
-  }
+                for (auto &system : instance.m_systems)
+                {
+                        system.second->post_update(deltaTime);
+                }
+        }
 
-}
+}    // namespace ecs

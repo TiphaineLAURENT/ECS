@@ -2,57 +2,57 @@
 // Created by tiphaine on 06/04/19.
 //
 
-#include <cassert>
 #include "SystemManager.hpp"
+#include <cassert>
 
 namespace ecs
 {
-  SystemManager &SystemManager::get_instance()
-  {
-          static SystemManager instance;
-          return instance;
-  }
+        SystemManager &SystemManager::get_instance()
+        {
+                static SystemManager instance;
+                return instance;
+        }
 
-  SystemWorkStateMaks SystemManager::getSystemWorkState()
-  {
-          SystemManager &instance = get_instance();
+        SystemWorkStateMaks SystemManager::getSystemWorkState()
+        {
+                SystemManager &instance = get_instance();
 
-          SystemWorkStateMaks mask(instance._systemWorkOrder.size());
-          for (size_t i = 0; i < instance._systemWorkOrder.size(); ++i) {
-                  mask[i] = instance._systemWorkOrder[i]->is_enabled();
-          }
+                SystemWorkStateMaks mask(instance.m_systemWorkOrder.size());
+                for (size_t i = 0; i < instance.m_systemWorkOrder.size(); ++i)
+                {
+                        mask[i] = instance.m_systemWorkOrder[i]->is_enabled();
+                }
 
-          return mask;
-  }
+                return mask;
+        }
 
-  void SystemManager::setSystemWorkState(SystemWorkStateMaks mask)
-  {
-          SystemManager &instance = get_instance();
+        void SystemManager::setSystemWorkState(SystemWorkStateMaks mask)
+        {
+                SystemManager &instance = get_instance();
 
-          assert(mask.size() == instance._systemWorkOrder.size() && "Provided"
-                                                                    " mask "
-                                                                    "does not"
-                                                                    " match "
-                                                                    "current "
-                                                                    "used one");
+                assert(mask.size() == instance.m_systemWorkOrder.size()
+                       && "Provided"
+                          " mask "
+                          "does not"
+                          " match "
+                          "current "
+                          "used one");
 
-          for (size_t i = 0; i < instance._systemWorkOrder.size(); ++i) {
-                  if (mask[i]) {
-                          instance._systemWorkOrder[i]->enable();
-                  } else {
-                          instance._systemWorkOrder[i]->disable();
-                  }
-          }
-  }
+                for (size_t i = 0; i < instance.m_systemWorkOrder.size(); ++i)
+                {
+                        if (mask[i])
+                        {
+                                instance.m_systemWorkOrder[i]->enable();
+                        }
+                        else
+                        {
+                                instance.m_systemWorkOrder[i]->disable();
+                        }
+                }
+        }
 
-  void updateSystemWorkOrder()
-  {
+        void updateSystemWorkOrder() {}
 
-  }
+        void update() {}
 
-  void update()
-  {
-
-  }
-
-}
+}    // namespace ecs

@@ -6,55 +6,45 @@
 */
 
 #ifndef ECS_UTIL_HPP
-# define ECS_UTIL_HPP
+#define ECS_UTIL_HPP
 
-# include <cstddef>
-# include <limits>
-# include <iostream>
+#include <cstddef>
+#include <iostream>
+#include <limits>
 
 //# include "NonOwningPointer.hpp"
 
 namespace ecs
 {
-  namespace util
-  {
+        namespace util
+        {
+                using ID = std::size_t;
+                static constexpr ID INVALID_ID = std::numeric_limits<ID>::max();
 
-    using ID = size_t;
-    static constexpr ID INVALID_ID = std::numeric_limits<ID>::max();
+                template <class T> class FamilyTypeID
+                {
+                    public:
+                        template <class E> static const ID get_type_id()
+                        {
+                                static const ID typeID{ typeid(E).hash_code() };
+                                return typeID;
+                        }
+                };
 
-    template <class T>
-    class FamilyTypeID
-    {
-    private:
-            static inline ID _maxID{0};
+        }    // namespace util
 
-    public:
-            template <class E>
-            static const ID get_type_id()
-            {
-                    static const ID _typeID{_maxID++};
-                    return _typeID;
-            }
+        using EntityID = util::ID;
+        using Interval = float;
+        template <typename Type>
+        using NonOwningPointer = Type
+                *const;    // TODO: Use std::reference_wrapper instead -
+                           // https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
 
-            static const ID get_max_id()
-            {
-                    return _maxID;
-            }
-    };
+        template <class Type> void replace_pointer(NonOwningPointer<Type> &current, Type *replacer)
+        {
+                const_cast<Type *&>(current) = replacer;
+        }
 
-  }
+}    // namespace ecs
 
-  using EntityID = util::ID;
-  using Interval = float;
-  template <typename Type>
-  using NonOwningPointer = Type*const; // TODO: Use std::reference_wrapper instead - https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
-
-  template <class Type>
-  void replace_pointer(NonOwningPointer<Type> &current, Type *replacer)
-  {
-          const_cast<Type*&>(current) = replacer;
-  }
-
-}
-
-#endif //ECS_UTIL_HPP
+#endif    // ECS_UTIL_HPP

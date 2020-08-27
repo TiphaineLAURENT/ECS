@@ -8,6 +8,4 @@
 #include "ComponentContainer.hpp"
 
 namespace ecs
-{
-
-}
+{}

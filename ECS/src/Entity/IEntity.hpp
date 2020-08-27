@@ -6,87 +6,81 @@
 */
 
 #ifndef ECS_IENTITY_HPP
-# define ECS_IENTITY_HPP
+#define ECS_IENTITY_HPP
 
-# include <ostream>
-# include <vector>
+#include <ostream>
+#include <vector>
 
-# include "../util/util.hpp"
-# include "../Component/ComponentManager.hpp"
+#include "../Component/ComponentManager.hpp"
+#include "../util/util.hpp"
 
 namespace ecs
 {
+        using EntityID = util::ID;
+        constexpr EntityID INVALID_ENTITY_ID = util::INVALID_ID;
 
-  using EntityID = util::ID;
-  static const EntityID INVALID_ENTITY_ID = util::INVALID_ID;
+        using EntityTypeID = util::ID;
 
-  using EntityTypeID = util::ID;
+        class IEntity
+        {
+                // ATTRIBUTES
+            private:
+                EntityID m_entityID{ INVALID_ENTITY_ID };
 
-  class IEntity
-  {
-// ATTRIBUTES
-  private:
-          EntityID _entityID{util::INVALID_ID};
+                static inline std::vector<EntityID> m_freeID{};
 
-          static inline std::vector<EntityID> _freeID{};
+                static inline size_t m_entityCount{ 0 };
 
-          static inline size_t _entityCount{0};
+                bool m_active{ true };
 
-          EntityTypeID _entityTypeID{util::INVALID_ID};
+            public:
+                // METHODS
+            public:    // CONSTRUCTORS
+                explicit IEntity();
+                virtual ~IEntity();
+                IEntity(const IEntity &copy) = default;
+                IEntity(IEntity &&) noexcept = default;
 
-          bool _active{true};
+            public:    // OPERATORS
+                IEntity &operator=(const IEntity &other) = default;
+                IEntity &operator=(IEntity &&) noexcept = default;
 
-  public:
+            public:
+                [[nodiscard]] static EntityID get_entity_count();
 
-// METHODS
-  public:// CONSTRUCTORS
-          IEntity();
-          virtual ~IEntity();
-          IEntity(const IEntity &copy) = default;
-          IEntity(IEntity &&) noexcept = default;
+                [[nodiscard]] const EntityID &get_id() const;
+                [[nodiscard]] virtual EntityTypeID get_entity_type_id() const = 0;
 
-  public: //OPERATORS
-          IEntity &operator=(const IEntity &other) = default;
-          IEntity &operator=(IEntity &&) noexcept = default;
+                IEntity &enable();
+                IEntity &disable();
+                [[nodiscard]] bool is_enabled() const;
 
-  public:
-          [[nodiscard]] static EntityID get_entity_count();
+                template <IsComponent C, IsComponent Container = C, class... ARGS>
+                NonOwningPointer<C> create_component(ARGS &&... args)
+                {
+                        return ComponentManager::create_component<C, Container>(
+                                this, std::forward<ARGS>(args)...);
+                }
+                template <IsComponent C, IsComponent Container = C>
+                [[nodiscard]] NonOwningPointer<C> get_component() const
+                {
+                        return ComponentManager::get_component<C, Container>(m_entityID);
+                }
+                template <IsComponent C>[[nodiscard]] ComponentView<C> get_components() const
+                {
+                        return ComponentManager::get_components<C>(m_entityID);
+                }
+                template <IsComponent C> void erase_component()
+                {
+                        ComponentManager::erase_for_entity<C>(m_entityID);
+                }
 
-          [[nodiscard]] const EntityID &get_id() const;
-          [[nodiscard]] virtual EntityTypeID get_entity_type_id() const = 0;
+            private:
+        };
 
-          IEntity &enable();
-          IEntity &disable();
-          [[nodiscard]] bool is_enabled() const;
+        template <class E> concept IsEntity = std::is_base_of_v<IEntity, E>;
 
-          template <class C, class Container = C, class ...ARGS>
-          NonOwningPointer<C> create_component(ARGS &&... args)
-          {
-                  return ComponentManager::create_component<C, Container>(
-                          this,
-                          std::forward<ARGS>(args)...
-                  );
-          }
-          template <class C, class Container = C>
-          [[nodiscard]] NonOwningPointer<C> get_component() const
-          {
-                  return ComponentManager::get_component<C, Container>(_entityID);
-          }
-          template <class C>
-          [[nodiscard]] ComponentView<C> get_components() const
-          {
-                  return ComponentManager::get_components<C>(_entityID);
-          }
-          template <class C>
-          void erase_component()
-          {
-                  ComponentManager::erase_for_entity<C>(_entityID);
-          }
-
-  private:
-  };
-
-  std::ostream &operator<<(std::ostream &out, const NonOwningPointer<IEntity>);
-}
+        std::ostream &operator<<(std::ostream &out, const NonOwningPointer<IEntity>);
+}    // namespace ecs
 
 #endif /* !ECS_IENTITY_HPP */
